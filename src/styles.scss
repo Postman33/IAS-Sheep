@@ -1,0 +1,96 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../my-theme.scss";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Header */
+/*.navbar { justify-content: space-between}*/
+/*span { padding-right: 1rem}*/
+/*.example-form {*/
+/*  min-width: 150px;*/
+/*  max-width: 500px;*/
+/*  width: 100%;*/
+/*}*/
+
+/*.full-width {*/
+/*  width: 100%;*/
+/*}*/
+/* Header */
+
+.sidenav-container {
+  height: 100%;
+}
+.sidenav {
+  width: 450px;
+}
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+.mat-toolbar.mat-primary{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.blue {
+  color: $Blue;
+}
+.green{
+  color: $Green;
+}
+.red {
+
+}
+.orange {
+  color: $Orange;
+}
+.orange2 {
+  color: $Orange2;
+}
+.router-outlet-padding {
+  //padding: 10px;
+  padding: 25px 10px 10px 10px;
+}
+.active-button {
+  background: rgba(162, 255, 255,0.3);
+}
+
+
+//  header
+
+button.mat-button .mat-icon,
+a.mat-button .mat-icon,
+a.mat-raised-button .mat-icon,
+a.mat-flat-button .mat-icon,
+a.mat-stroked-button .mat-icon {
+  vertical-align: center;
+  font-size: 1.525em;
+}
+.example-tree-invisible {
+  display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+.example-tree-node {
+  display: block;
+}
+
+.example-tree-node {
+  padding-left: 22px;
+}
+.mat-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+.scroll {
+  max-height:400px;
+  overflow-y: scroll;
+}

@@ -1,0 +1,7 @@
+mat-card {
+  text-align: center;
+
+}
+mat-card mat-card-title {
+  font-weight: bold;
+}

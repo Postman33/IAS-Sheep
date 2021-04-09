@@ -1,0 +1,57 @@
+<div class="container d-flex flex-column justify-content-center align-items-center">
+  <mat-card class="d-flex flex-column justify-content-center align-items-center" style="width: 50%">
+    <mat-card-title class="mb-2">Вход в систему</mat-card-title>
+
+    <div *ngIf="authService.error$ | async as error;">
+      Ошибка '<strong style="color: #cb2929; background-color: rgba(201,195,195,0.1)">{{ error }}</strong>'
+    </div>
+    <div *ngIf="SuccessInfo != ''">
+      '<strong style="color: #86e024; background-color: rgba(211,219,209,0.1)">{{ SuccessInfo }}</strong>'
+    </div>
+
+    <form (ngSubmit)="OnSubmit()" *ngIf="sending===false; else loading"
+          [formGroup]="form" [style.width.%]="100"
+          class="d-flex flex-column justify-content-center align-items-center mt-3">
+      <div [style.width.%]="85">
+        <mat-form-field [style.width.%]="100" appearance="fill">
+          <mat-label>Ваш email</mat-label>
+          <input formControlName="email" matInput placeholder="test@example.com">
+
+          <mat-error *ngIf="form.get('email').errors?.required">
+            Обязательно
+          </mat-error>
+          <mat-error *ngIf="form.get('email').errors?.email">
+            Не является email!
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div [style.width.%]="85" class="mt-1">
+        <mat-form-field [style.width.%]="100" appearance="fill">
+          <mat-label>Пароль</mat-label>
+          <input formControlName="password" matInput placeholder="t1e3s3t_passw0rd">
+          <mat-error *ngIf="form.get('password').errors?.required">
+            Обязательно
+          </mat-error>
+          <mat-error *ngIf="form.get('password').errors?.minlength">
+            Нужно минимум {{form.get('password').errors?.minlength.requiredLength}} символов!
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <div class="example-container">
+        <button [disabled]="form.invalid || sending" color="accent" mat-button>Submit</button>
+      </div>
+    </form>
+
+
+    <ng-template #loading>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </ng-template>
+
+
+  </mat-card>
+
+
+</div>
