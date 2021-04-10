@@ -4,13 +4,14 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {Chaban} from '../chanban-table/chanban-table.component';
-import {Farm} from '../farm-table/farm-table.component';
+
 import {map, startWith} from 'rxjs/operators';
 import {CrudService} from '../crud.service';
 import {MatOption} from '@angular/material/core';
 
 import {UtilsService} from '../../utils.service';
+import {Farm} from '../../interfaces/farm';
+import {Chaban} from '../../interfaces/chaban';
 
 
 @Component({

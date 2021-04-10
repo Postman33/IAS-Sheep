@@ -5,15 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {filter, map} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../crud.service';
-
-export interface Farm {
-  id?: string;
-  _id? : string;
-  address: string;
-  name: string;
-  city: string;
-}
-
+import {Farm} from '../../interfaces/farm';
 
 const farmsData: Farm[] = [
   {

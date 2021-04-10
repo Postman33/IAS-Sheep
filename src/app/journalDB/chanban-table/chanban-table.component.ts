@@ -5,18 +5,11 @@ import {$e} from 'codelyzer/angular/styles/chars';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+
 import {CrudService} from '../crud.service';
-import {Farm} from '../farm-table/farm-table.component';
-export interface Chaban {
-  _id? : string;
-  id? : string;
-  FIO : string;
-  birthday : Date;
-  farm? : Farm[];
-}
+import {Chaban} from '../../interfaces/chaban';
+
+
 
 
 const Chabans : Chaban[] = [

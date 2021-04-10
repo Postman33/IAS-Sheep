@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Farm} from '../farm-table/farm-table.component';
 import {HttpClient} from '@angular/common/http';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
+import {Farm} from '../../interfaces/farm';
 
 @Component({
   selector: 'app-farm-edit',
@@ -34,11 +34,12 @@ export class FarmEditComponent implements OnInit {
           const {_id,...rest} = response;
           const obj : Farm = {...rest, id: response._id}
           this.FarmInfo = obj;
-          this.form = new FormGroup({
-            name: new FormControl(this.FarmInfo.name, [Validators.required]),
-            city: new FormControl(this.FarmInfo.city, [Validators.required]),
-            address: new FormControl(this.FarmInfo.address, [Validators.required]),
+          this.form.patchValue({
+            name: this.FarmInfo.name,
+            city: this.FarmInfo.city,
+            address: this.FarmInfo.address
           })
+
           this.pending = false;
 
         })

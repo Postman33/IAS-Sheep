@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {map} from 'rxjs/operators';
-import {Farm} from './farm-table/farm-table.component';
+
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
