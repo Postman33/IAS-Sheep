@@ -24,7 +24,12 @@ export class SheepEditComponent implements OnInit {
   }
 
   public form : FormGroup = new FormGroup({
-    test: new FormControl("",[])
+    birthday: new FormControl("",[Validators.required]),
+    breed: new FormControl("",[Validators.required]),
+    colorPrimary: new FormControl("",[Validators.required]),
+    colorSecondary: new FormControl("",[Validators.required]),
+    colorSecondaryOpt: new FormControl("",[Validators.required]),
+    dateOfEntry: new FormControl("",[Validators.required]),
   })
   ngOnInit(): void {
     console.log(this.route.snapshot.queryParams);

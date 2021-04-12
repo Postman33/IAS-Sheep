@@ -10,6 +10,8 @@ import { FarmTableComponent } from './farm-table/farm-table.component';
 import { FarmEditComponent } from './farm-edit/farm-edit.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { OtaraTableComponent } from './otara-table/otara-table.component';
+import { OtaraEditComponent } from './otara-edit/otara-edit.component';
 
 
 const routes : Routes = [
@@ -26,6 +28,12 @@ const routes : Routes = [
           {path: "",component: FarmTableComponent, pathMatch: "full"},
           {path: "edit/:id",component: FarmEditComponent}
         ]
+      },
+      {
+        path: "otars", children: [
+          {path: "",component: OtaraTableComponent, pathMatch: "full"},
+          {path: "edit/:id",component: OtaraEditComponent}
+        ]
       }
 
 
@@ -37,7 +45,7 @@ const routes : Routes = [
 
 
 @NgModule({
-  declarations: [ChanbanTableComponent, ChanbanEditComponent, FarmTableComponent, FarmEditComponent],
+  declarations: [ChanbanTableComponent, ChanbanEditComponent, FarmTableComponent, FarmEditComponent, OtaraTableComponent, OtaraEditComponent],
   imports: [
     CommonModule,
     SharedModule,

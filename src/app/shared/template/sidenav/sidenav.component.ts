@@ -43,7 +43,10 @@ const TREE_DATA: NavNode[] = [
         name: 'Фермы',
         refLink: 'journal/farms'
       },
-
+      {
+        name: 'Отары',
+        refLink: 'journal/otars'
+      },
     ]
   },
 
