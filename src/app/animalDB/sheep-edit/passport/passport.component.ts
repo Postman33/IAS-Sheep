@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Animal} from '../../../interfaces/animal';
 import {FormGroup} from '@angular/forms';
+import {CrudService} from '../../../journalDB/crud.service';
+import {Farm} from '../../../interfaces/farm';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'app-passport',
@@ -11,12 +14,14 @@ export class PassportComponent implements OnInit {
 
   @Input("animal") animal : Animal;
   @Input("parentFormGroup") ParentFormGroup : FormGroup;
-  constructor() { }
-
+  constructor(private crud : CrudService) { }
+  public farms : Observable<Farm[]> = of([]);
   ngOnInit(): void {
+    this.farms = this.crud.getCollection<Farm>("/api/farm")
   }
 
   BloodType: number;
+
 
   formatLabel(value: number) {
     return value*100 + "%";
@@ -33,8 +38,15 @@ export class PassportComponent implements OnInit {
     ]
   }
 
+  get bloodBreeds(): any{
+    return [
+      "Ставропольская"
+    ]
+  }
 
   get colorsOfWool(){
     return ["Серая", "Белая", "Черная"]
   }
+
+
 }

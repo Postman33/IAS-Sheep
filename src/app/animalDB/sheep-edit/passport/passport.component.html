@@ -66,8 +66,8 @@
       <mat-label>Порода</mat-label>
       <mat-select required>
         <mat-option>--</mat-option>
-        <mat-option *ngFor="let otara of ['Алтайская', 'ставропольская']" [value]="otara">
-          {{otara}}
+        <mat-option *ngFor="let bloodBreed of bloodBreeds" [value]="bloodBreed">
+          {{bloodBreed}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -107,12 +107,12 @@
 
   <mat-grid-tile colspan="1"
                  rowspan="2">
-    <mat-form-field appearance="fill" style="width: 60%">
+    <mat-form-field appearance="fill" style="width: 60%" [formGroup]="ParentFormGroup">
       <mat-label>Ферма</mat-label>
-      <mat-select required>
+      <mat-select required formControlName="farm">
         <mat-option>--</mat-option>
-        <mat-option *ngFor="let farm of ['Ферма 1', 'Ферма 2']" [value]="farm">
-          {{farm}}
+        <mat-option *ngFor="let farm of farms | async " [value]="farm.id">
+          {{farm.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -121,7 +121,7 @@
 
   <mat-grid-tile colspan="1"
                  rowspan="2">
-    <mat-form-field appearance="fill" style="width: 60%">
+    <mat-form-field appearance="fill" style="width: 60%" [formGroup]="ParentFormGroup">
       <mat-label>Отара</mat-label>
       <mat-select required>
         <mat-option>--</mat-option>

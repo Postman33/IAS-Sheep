@@ -1,9 +1,9 @@
 <div class="container">
-  <button class="btn btn-info" routerLink="/journal/farms/">Назад</button>
+  <button class="btn btn-info" routerLink="/journal/otars/">Назад</button>
 
   <form class="example-form" [formGroup]="form" (ngSubmit)="Submit($event)" *ngIf="pending == false; else loading">
-    <h2 class="text-center" *ngIf="route.snapshot.queryParams.create == 'false'; else creating ">Редактор фермы id:{{OtaraInfo.id}}</h2>
-    <ng-template #creating><h2 class="text-center">Добавление новой фермы</h2></ng-template>
+    <h2 class="text-center" *ngIf="route.snapshot.queryParams.create == 'false'; else creating ">Редактор отары id:{{OtaraInfo.id}}</h2>
+    <ng-template #creating><h2 class="text-center">Добавление новой отары</h2></ng-template>
     <mat-form-field class="example-full-width mt-3" appearance="fill">
       <mat-label>Название отары</mat-label>
       <input matInput placeholder="Отара" formControlName="name" value="{{OtaraInfo.name}}">
