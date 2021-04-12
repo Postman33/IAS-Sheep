@@ -5,6 +5,7 @@ export interface Animal {
   passport: {
 
     chipNo : string,
+    sex?:  string,
     breed? : string,
     horns?: string,
     birthday? : Date,

@@ -22,7 +22,9 @@ export class SheepEditComponent implements OnInit {
 
     }
   }
+
   public form : FormGroup = new FormGroup({
+    test: new FormControl("",[])
   })
   ngOnInit(): void {
     console.log(this.route.snapshot.queryParams);
@@ -51,6 +53,7 @@ export class SheepEditComponent implements OnInit {
     return  this.http.post(`http://localhost:3000/api/sheep/`,farm)
   }
   Submit($event: Event) {
+    console.log(this.form);
     //$event.preventDefault();
     this.pending=true;
     const farm : Farm = { ... this.form.value }
@@ -64,7 +67,7 @@ export class SheepEditComponent implements OnInit {
     sub.subscribe(response => {
       console.log(response);
       this.pending=false;
-      this.router.navigate(['/journal/sheep'])
+      this.router.navigate(['/animals/sheep'])
     })
   }
 }

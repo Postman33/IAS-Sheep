@@ -1,0 +1,296 @@
+
+<mat-grid-list class="mt-3" cols="10" rowHeight="18px">
+  <mat-grid-tile colspan="1" rowspan="2">
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2" rowspan="2">
+    <h2>Сведения о рождении</h2>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="4" rowspan="2">
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2" rowspan="2">
+    <h2>Масть</h2>
+  </mat-grid-tile>
+
+
+</mat-grid-list>
+
+<mat-grid-list cols="5" rowHeight="40px">
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field appearance="fill" [formGroup]="PFG">
+      <mat-label>Дата рождения</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="test">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+      <mat-error>
+        Обязательно
+      </mat-error>
+    </mat-form-field>
+  </mat-grid-tile>
+
+
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field appearance="fill" style="width: 60%">
+      <mat-label>Поколение</mat-label>
+      <mat-select  required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let breed of ['Чиcтопородная', 'Красная']" [value]="breed">
+          {{breed}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+
+
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2"
+                 rowspan="2">
+    <mat-form-field appearance="fill" style="width: 60%">
+      <mat-label>Окраска шерстяного покрова</mat-label>
+      <mat-select  required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let color of ['Серая', 'Красная']" [value]="color">
+          {{color}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field appearance="fill" [formGroup]="PFG">
+      <mat-label>Дата поступления</mat-label>
+      <input matInput [matDatepicker]="dateOfEntry" formControlName="test">
+      <mat-datepicker-toggle matSuffix [for]="dateOfEntry"></mat-datepicker-toggle>
+      <mat-datepicker #dateOfEntry></mat-datepicker>
+      <mat-error>
+        Обязательно
+      </mat-error>
+    </mat-form-field>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field appearance="fill" style="width: 60%">
+      <mat-label>Порода</mat-label>
+      <mat-select  required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let otara of ['Алтайская', 'ставропольская']" [value]="otara">
+          {{otara}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="2"
+                 rowspan="2">
+    <mat-form-field appearance="fill" style="width: 60%">
+      <mat-label>Окраска кроющего волоса</mat-label>
+      <mat-select  required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let color of ['Серая', 'Красная']" [value]="color">
+          {{color}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="2" rowspan="2">
+    <h2>Основная информация</h2>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+  </mat-grid-tile>
+
+
+
+  <mat-grid-tile colspan="2"
+                 rowspan="2">
+    <mat-form-field appearance="fill" style="width: 60%">
+      <mat-label>Дополнительная окраска кроющего волоса</mat-label>
+      <mat-select  required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let color of ['Серая', 'Красная']" [value]="color">
+          {{color}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field appearance="fill" style="width: 60%">
+      <mat-label>Ферма</mat-label>
+      <mat-select  required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let farm of ['Ферма 1', 'Ферма 2']" [value]="farm">
+          {{farm}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field appearance="fill" style="width: 60%">
+      <mat-label>Отара</mat-label>
+      <mat-select  required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let otara of ['Бараны 1. Основная', 'Ягнята 2. Основная']" [value]="otara">
+          {{otara}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2"
+                 rowspan="2">
+    <h2>Кровности</h2>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="2"
+                 rowspan="2">
+    <mat-form-field appearance="fill" style="width: 80%">
+      <mat-label>Чабан</mat-label>
+      <mat-select  required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let chaban of ['Чабан1','Чабан2']" [value]="chaban">
+          {{chaban}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2"
+                 rowspan="2">
+
+    <mat-radio-group aria-label="Группа кровности">
+      <mat-radio-button value="1">1 группа</mat-radio-button>
+      <mat-radio-button value="2">2 группа</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field appearance="fill" class="ml-2" style="width: 60%">
+      <mat-label>Порода</mat-label>
+      <mat-select  required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let chaban of ['Австралийский мясной меринос','Чабан2']" [value]="chaban">
+          {{chaban}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="3"
+                 rowspan="1">
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2"
+                 rowspan="2">
+    <mat-form-field class="example-full-width" style="width: 63%" appearance="fill">
+      <mat-label>Кровность, %</mat-label>
+      <input matInput type="number" min="0" max="1" [(ngModel)]="BloodType" (ngModelChange)="CorrectModel($event)">
+      <mat-error>
+        Обязательно
+      </mat-error>
+    </mat-form-field>
+
+  <mat-slider
+    thumbLabel
+    [displayWith]="formatLabel"
+    tickInterval="100"
+    min="0"
+    step="0.01"
+    max="1" class="ml-2" [(ngModel)]="BloodType" (ngModelChange)="CorrectModel($event)"></mat-slider>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="1" rowspan="2">
+    <h2>Выбытие</h2>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2" rowspan="2">
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="2"
+                 rowspan="2">
+
+    <mat-form-field appearance="fill" class="mr-2" style="width: 40%">
+      <mat-label>Способ происхождения</mat-label>
+      <mat-select  required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let chaban of ['Искуственное ','Чабан2']" [value]="chaban">
+          {{chaban}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" style="width: 40%" appearance="fill">
+      <mat-label>Группа крови</mat-label>
+      <input matInput type="text">
+      <mat-error>
+        Обязательно
+      </mat-error>
+    </mat-form-field>
+
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field appearance="fill" [formGroup]="PFG">
+      <mat-label>Дата выбытия</mat-label>
+      <input matInput [matDatepicker]="dateOfLeaving" formControlName="test" #dateOfLeavingInput>
+      <mat-datepicker-toggle matSuffix [for]="dateOfLeaving"></mat-datepicker-toggle>
+      <mat-datepicker #dateOfLeaving></mat-datepicker>
+      <mat-error>
+        Обязательно
+      </mat-error>
+    </mat-form-field>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field appearance="fill" [formGroup]="PFG" >
+      <mat-label>Причина выбытия</mat-label>
+      <input matInput formControlName="test" placeholder="-">
+      <mat-error>
+        Обязательно
+      </mat-error>
+    </mat-form-field>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="3"
+                 rowspan="2">
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-checkbox class="">Выставлена на продажу</mat-checkbox>
+
+  </mat-grid-tile>
+
+
+</mat-grid-list>

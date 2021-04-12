@@ -7,6 +7,14 @@ import {SharedModule} from '../shared/shared.module';
 import { SheepEditComponent } from './sheep-edit/sheep-edit.component';
 import {ChanbanTableComponent} from '../journalDB/chanban-table/chanban-table.component';
 import {ChanbanEditComponent} from '../journalDB/chanban-edit/chanban-edit.component';
+import { PassportComponent } from './sheep-edit/passport/passport.component';
+import { EvolutionComponent } from './sheep-edit/evolution/evolution.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDividerModule} from '@angular/material/divider';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSliderModule} from '@angular/material/slider';
 
 const routes : Routes = [
   {path: "", children: [
@@ -21,11 +29,17 @@ const routes : Routes = [
 
 
 @NgModule({
-  declarations: [ SheepTableComponent, SheepEditComponent],
+  declarations: [ SheepTableComponent, SheepEditComponent, PassportComponent, EvolutionComponent],
   imports: [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes),
+    MatGridListModule,
+    MatRadioModule,
+    MatSliderModule,
+    MatCheckboxModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     RouterModule
