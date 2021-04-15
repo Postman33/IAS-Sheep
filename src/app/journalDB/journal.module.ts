@@ -12,6 +12,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { OtaraTableComponent } from './otara-table/otara-table.component';
 import { OtaraEditComponent } from './otara-edit/otara-edit.component';
+import { EventTableComponent } from './events/event-table/event-table.component';
+import { MainEventsComponent } from './events/main-events/main-events.component';
+import { DialogComponent } from './events/dialog/dialog.component';
 
 
 const routes : Routes = [
@@ -33,9 +36,16 @@ const routes : Routes = [
         path: "otars", children: [
           {path: "",component: OtaraTableComponent, pathMatch: "full"},
           {path: "edit/:id",component: OtaraEditComponent}
-        ]
-      }
+        ],
 
+      },
+      {
+        path: "events", children: [
+          {path: "",component: MainEventsComponent, pathMatch: "full"},
+          {path: "edit/:id",component: MainEventsComponent}
+        ],
+
+      }
 
 
     ]}
@@ -45,7 +55,7 @@ const routes : Routes = [
 
 
 @NgModule({
-  declarations: [ChanbanTableComponent, ChanbanEditComponent, FarmTableComponent, FarmEditComponent, OtaraTableComponent, OtaraEditComponent],
+  declarations: [ChanbanTableComponent, ChanbanEditComponent, FarmTableComponent, FarmEditComponent, OtaraTableComponent, OtaraEditComponent, EventTableComponent, MainEventsComponent, DialogComponent],
   imports: [
     CommonModule,
     SharedModule,

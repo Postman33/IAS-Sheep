@@ -22,13 +22,13 @@
   <mat-grid-tile colspan="1" rowspan="2">
     <mat-form-field appearance="fill" style="width: 60%" [formGroup]="ParentFormGroup">
       <mat-label>Поколение</mat-label>
-      <mat-select required formControlName="breed">
+      <mat-select required formControlName="generation">
         <mat-option>--</mat-option>
         <mat-option *ngFor="let breed of Generation" [value]="breed">
           {{breed}}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="ParentFormGroup.get('breed').errors?.required">
+      <mat-error *ngIf="ParentFormGroup.get('generation').errors?.required">
         Обязательно
       </mat-error>
     </mat-form-field>
@@ -62,11 +62,11 @@
   </mat-grid-tile>
 
   <mat-grid-tile colspan="1" rowspan="2">
-    <mat-form-field appearance="fill" style="width: 60%">
-      <mat-label>Порода</mat-label>
-      <mat-select required>
+    <mat-form-field appearance="fill" style="width: 60%" [formGroup]="ParentFormGroup">
+      <mat-label>Тип</mat-label>
+      <mat-select required formControlName="typeAnimal">
         <mat-option>--</mat-option>
-        <mat-option *ngFor="let bloodBreed of bloodBreeds" [value]="bloodBreed">
+        <mat-option *ngFor="let bloodBreed of typeAnimal" [value]="bloodBreed">
           {{bloodBreed}}
         </mat-option>
       </mat-select>
@@ -116,6 +116,9 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+
+
   </mat-grid-tile>
 
 
@@ -123,10 +126,10 @@
                  rowspan="2">
     <mat-form-field appearance="fill" style="width: 60%" [formGroup]="ParentFormGroup">
       <mat-label>Отара</mat-label>
-      <mat-select required>
+      <mat-select required formControlName="otara">
         <mat-option>--</mat-option>
-        <mat-option *ngFor="let otara of ['Бараны 1. Основная', 'Ягнята 2. Основная']" [value]="otara">
-          {{otara}}
+        <mat-option *ngFor="let otara of otars | async" [value]="otara.id">
+          {{otara.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -142,19 +145,25 @@
   </mat-grid-tile>
 
 
-  <mat-grid-tile colspan="2"
+  <mat-grid-tile colspan="1"
                  rowspan="2">
-    <mat-form-field appearance="fill" style="width: 80%">
+    <mat-form-field appearance="fill" style="width: 60%" [formGroup]="ParentFormGroup">
       <mat-label>Чабан</mat-label>
-      <mat-select required>
+      <mat-select required formControlName="chaban">
         <mat-option>--</mat-option>
-        <mat-option *ngFor="let chaban of ['Чабан1','Чабан2']" [value]="chaban">
-          {{chaban}}
+        <mat-option *ngFor="let chaban of chabans | async" [value]="chaban.id">
+          {{chaban.FIO}}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </mat-grid-tile>
-
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field appearance="fill" style="width: 60%" [formGroup]="ParentFormGroup">
+      <mat-label>Номер метки</mat-label>
+      <input matInput type="text" formControlName="labelNo">
+    </mat-form-field>
+  </mat-grid-tile>
 
   <mat-grid-tile colspan="1"
                  rowspan="2">
@@ -168,11 +177,11 @@
       <mat-radio-button value="2">2 группа</mat-radio-button>
     </mat-radio-group>
 
-    <mat-form-field appearance="fill" class="ml-2" style="width: 60%">
+    <mat-form-field appearance="fill" class="ml-2" style="width: 60%" [formGroup]="ParentFormGroup">
       <mat-label>Порода</mat-label>
-      <mat-select required>
+      <mat-select required formControlName="bloodBreeds">
         <mat-option>--</mat-option>
-        <mat-option *ngFor="let chaban of ['Австралийский мясной меринос','Чабан2']" [value]="chaban">
+        <mat-option *ngFor="let chaban of bloodBreeds" [value]="chaban">
           {{chaban}}
         </mat-option>
       </mat-select>
@@ -200,31 +209,30 @@
       max="1" class="ml-2" [(ngModel)]="BloodType" (ngModelChange)="CorrectModel()"></mat-slider>
   </mat-grid-tile>
 
-
-  <mat-grid-tile colspan="1" rowspan="2">
+  <mat-grid-tile colspan="2" rowspan="2">
     <h2>Выбытие</h2>
   </mat-grid-tile>
 
-  <mat-grid-tile colspan="2" rowspan="2">
+  <mat-grid-tile colspan="1" rowspan="2">
   </mat-grid-tile>
 
 
   <mat-grid-tile colspan="2"
                  rowspan="2">
 
-    <mat-form-field appearance="fill" class="mr-2" style="width: 40%">
+    <mat-form-field appearance="fill" class="mr-2" style="width: 40%" [formGroup]="ParentFormGroup">
       <mat-label>Способ происхождения</mat-label>
-      <mat-select required>
+      <mat-select required formControlName="typeOfCreating">
         <mat-option>--</mat-option>
-        <mat-option *ngFor="let chaban of ['Искуственное ','Чабан2']" [value]="chaban">
-          {{chaban}}
+        <mat-option *ngFor="let type of typeOfCreating" [value]="type">
+          {{type}}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" style="width: 40%" appearance="fill">
+    <mat-form-field class="example-full-width" style="width: 40%" appearance="fill" [formGroup]="ParentFormGroup">
       <mat-label>Группа крови</mat-label>
-      <input matInput type="text">
+      <input formControlName="bloodGroup" matInput type="text">
       <mat-error>
         Обязательно
       </mat-error>
@@ -237,7 +245,7 @@
                  rowspan="2">
     <mat-form-field appearance="fill" [formGroup]="ParentFormGroup">
       <mat-label>Дата выбытия</mat-label>
-      <input matInput [matDatepicker]="dateOfLeaving" formControlName="test" #dateOfLeavingInput>
+      <input matInput [matDatepicker]="dateOfLeaving" formControlName="dateOfDisposal" #dateOfLeavingInput>
       <mat-datepicker-toggle matSuffix [for]="dateOfLeaving"></mat-datepicker-toggle>
       <mat-datepicker #dateOfLeaving></mat-datepicker>
       <mat-error>
@@ -250,7 +258,7 @@
                  rowspan="2">
     <mat-form-field appearance="fill" [formGroup]="ParentFormGroup">
       <mat-label>Причина выбытия</mat-label>
-      <input matInput formControlName="test" placeholder="-">
+      <input matInput formControlName="reasonOfDisposal" placeholder="-">
       <mat-error>
         Обязательно
       </mat-error>
@@ -262,8 +270,8 @@
   </mat-grid-tile>
 
   <mat-grid-tile colspan="1"
-                 rowspan="2">
-    <mat-checkbox class="">Выставлена на продажу</mat-checkbox>
+                 rowspan="2" [formGroup]="ParentFormGroup">
+    <mat-checkbox class="" formControlName="isSelling" >Выставлена на продажу</mat-checkbox>
 
   </mat-grid-tile>
 

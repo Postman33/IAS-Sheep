@@ -1,0 +1,66 @@
+
+<h2 class="text-center">События</h2>
+
+<mat-form-field appearance="fill">
+  <mat-label>Выбрать событие</mat-label>
+  <mat-select [(ngModel)]="frame">
+    <mat-option *ngFor="let event of eventTypes" [value]="event.type">
+      {{event.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<ng-template #appraisal>
+test<div class="example-button-row">
+  <button mat-raised-button> Basic</button>
+  <button mat-raised-button color="primary" > Primary <mat-icon [fontSet]="'material-icons-outlined'" class="">analytics</mat-icon></button>
+  <button mat-raised-button color="accent">Accent <mat-icon [fontSet]="'material-icons-outlined'" class="">analytics</mat-icon></button>
+  <button mat-raised-button color="warn">Warn</button>
+
+  <button mat-raised-button disabled>Disabled</button>
+
+
+  <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a>
+</div>
+
+</ng-template>
+
+<div [ngSwitch]="frame">
+  <ng-template [ngSwitchCase]= "'appraisal'"> <ng-container [ngTemplateOutlet]="appraisal"></ng-container></ng-template>
+  <ng-template [ngSwitchCase]= "'west'"> Go to <b>West</b> Direction </ng-template>
+  <ng-template [ngSwitchCase]= "'north'"> Go to <b>North</b> Direction </ng-template>
+  <ng-template [ngSwitchCase]= "'south'">Go to <b>South</b> Direction </ng-template>
+  <ng-template ngSwitchDefault>  </ng-template>
+</div>
+
+
+<!--<ng-container *ngTemplateOutlet="chaban"></ng-container>-->
+
+<h3 class="text-center mt-4">Животные</h3>
+<button mat-raised-button color="primary" class="ml-5" > Добавить <mat-icon [fontSet]="'material-icons-outlined'" class="">add</mat-icon></button>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-4">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="1">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="2">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="3">
+    <th mat-header-cell *matHeaderCellDef> Weight </th>
+    <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

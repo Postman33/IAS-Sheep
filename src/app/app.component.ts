@@ -9,6 +9,5 @@ export class AppComponent implements OnInit{
   title = 'IAS-Sheep';
 
   ngOnInit(): void {
-    console.log(123);
   }
 }

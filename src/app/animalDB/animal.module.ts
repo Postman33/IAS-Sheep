@@ -15,6 +15,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSliderModule} from '@angular/material/slider';
+import { GenealogyComponent } from './sheep-edit/genealogy/genealogy.component';
 
 const routes : Routes = [
   {path: "", children: [
@@ -29,7 +30,7 @@ const routes : Routes = [
 
 
 @NgModule({
-  declarations: [ SheepTableComponent, SheepEditComponent, PassportComponent, EvolutionComponent],
+  declarations: [ SheepTableComponent, SheepEditComponent, PassportComponent, EvolutionComponent, GenealogyComponent],
   imports: [
     CommonModule,
     SharedModule,

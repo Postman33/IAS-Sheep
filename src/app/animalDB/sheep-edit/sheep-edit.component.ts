@@ -19,27 +19,40 @@ export class SheepEditComponent implements OnInit {
   public pending = false;
   public AnimalInfo: Animal = {
     id: '',
+    chipNo: '123',
     passport: {
-      chipNo: '123',
+
 
     }
   };
 
   public form: FormGroup = new FormGroup({
     birthday: new FormControl('', [Validators.required]),
-    breed: new FormControl('', [Validators.required]),
+    labelNo: new FormControl('', [Validators.required]),
+    typeAnimal: new FormControl('', [Validators.required]),
+    generation: new FormControl('', [Validators.required]),
     colorPrimary: new FormControl('', [Validators.required]),
     colorSecondary: new FormControl('', [Validators.required]),
     colorSecondaryOpt: new FormControl('', [Validators.required]),
     dateOfEntry: new FormControl('', [Validators.required]),
-    farm: new FormControl('', [Validators.required])
+    farm: new FormControl('', [Validators.required]),
+    otara: new FormControl('', [Validators.required]),
+    chaban: new FormControl('', [Validators.required]),
+    dateOfDisposal: new FormControl('', [Validators.required]),
+    reasonOfDisposal: new FormControl('', [Validators.required]),
+    isSelling: new FormControl('', [Validators.required]),
+    bloodBreeds: new FormControl('', [Validators.required]),
+    typeOfCreating: new FormControl('', [Validators.required]),
+    bloodGroup: new FormControl('', [Validators.required]),
+    bloodPercent: new FormControl('', [Validators.required]),
+    father: new FormControl('', [Validators.required]),
+
+    mother: new FormControl('', [Validators.required])
   });
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.queryParams);
     //if (this.route.snapshot.params.)
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       if (params.create === 'false') {
         this.pending = true;
         this.http.get('/api/sheep/' + this.route.snapshot.params.id).subscribe((response: Animal) => {
@@ -77,7 +90,7 @@ export class SheepEditComponent implements OnInit {
       sub = this.CreateAnimal(farm);
     }
     sub.subscribe(response => {
-      console.log(response);
+
       this.pending = false;
       this.router.navigate(['/animals/sheep']);
     });

@@ -11,23 +11,29 @@ import { AboutComponent } from './about/about.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {GeneralInterceptorService} from './interceptors/general.interceptor.service';
 import { SidenavComponent } from './template/sidenav/sidenav.component';
+import { EntityAutoCompleteComponent } from './entity-auto-complete/entity-auto-complete.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import { EntitySelectComponent } from './entity-select/entity-select.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, ErrorComponent, HomeComponent, AboutComponent, SidenavComponent],
+  declarations: [HeaderComponent, FooterComponent, ErrorComponent, HomeComponent, AboutComponent, SidenavComponent, EntityAutoCompleteComponent, EntitySelectComponent],
   imports: [
     CommonModule,
     MaterialModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  exports: [
-    MaterialModule,
-    HeaderComponent,
-    MaterialModule,
-    SidenavComponent,
-  ],
+    exports: [
+        MaterialModule,
+        HeaderComponent,
+        MaterialModule,
+        SidenavComponent,
+        EntityAutoCompleteComponent,
+        EntitySelectComponent,
+    ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     multi: true,

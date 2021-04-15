@@ -2,10 +2,12 @@
 export interface Animal {
   _id? : string;
   id? : string;
+  chipNo : string,
   passport: {
 
-    chipNo : string,
+
     sex?:  string,
+    typeAnimal? : string,
     breed? : string,
     horns?: string,
     birthday? : Date,

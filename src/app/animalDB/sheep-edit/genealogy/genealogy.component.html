@@ -1,0 +1,11 @@
+<app-entity-auto-complete collectionUrl="/api/sheep"
+                          DisplayName="chipNo"
+                          label="Чип отца"
+                          [ParentFormGroup]="parentFormGroup" FormControlName="father"
+></app-entity-auto-complete>
+
+<app-entity-auto-complete collectionUrl="/api/sheep" DisplayName="chipNo"
+                          label="Чип матери"
+                          class="ml-4"
+                          [ParentFormGroup]="parentFormGroup" FormControlName="mother"
+></app-entity-auto-complete>

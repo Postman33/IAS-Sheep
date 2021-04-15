@@ -33,7 +33,7 @@ const TREE_DATA: NavNode[] = [
     icon:"menu_book",
     children: [
       {
-        name: 'Бонтировка',
+        name: 'Бонитировка',
       },
       {
         name: 'Чабаны',
@@ -46,6 +46,10 @@ const TREE_DATA: NavNode[] = [
       {
         name: 'Отары',
         refLink: 'journal/otars'
+      },
+      {
+        name: 'События',
+        refLink: 'journal/events'
       },
     ]
   },
