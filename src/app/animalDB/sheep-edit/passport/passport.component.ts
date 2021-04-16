@@ -25,9 +25,11 @@ export class PassportComponent implements OnInit {
   public chabans: Observable<Chaban[]> = of([]);
 
   ngOnInit(): void {
+
     this.farms = this.crud.getCollection<Farm>('/api/farm');
     this.otars = this.crud.getCollection<Otara>('/api/otara');
     this.chabans = this.crud.getCollection<Chaban>('/api/chaban');
+
   }
 
   BloodType: number;

@@ -14,10 +14,10 @@ export class EntityAutoCompleteComponent implements OnInit {
   @Input("collectionUrl") url;
   @Input("DisplayName") displayName='';
 
-   @Input("label") label='no "label" information';
+  @Input("label") label='no "label" information';
   @Input("ParentFormGroup") parentFormGroup;
   @Input("FormControlName") formControlName;
-
+  @Input("disabled") disabled = false;
   myControl: FormControl;
   options: any[] = [];
   filteredOptions: Observable<any[]>;

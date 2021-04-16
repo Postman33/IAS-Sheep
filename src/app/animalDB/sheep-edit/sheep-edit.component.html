@@ -1,7 +1,9 @@
-<p>sheep-edit works!</p>
-{{ AnimalInfo | json}}
-<button class="btn btn-info" routerLink="/journal/chabans/">Назад</button>
+<button class="btn btn-info" routerLink="/animals/sheep/">Назад</button>
+<div class="alert alert-danger ml-2 mt-1" role="alert" *ngIf="errorMsg; else mainForm">
+  Что-то пошло не так....
+</div>
 
+<ng-template #mainForm>
 <form class="example-form" [formGroup]="form" (ngSubmit)="Submit($event)" >
 <mat-tab-group>
   <mat-tab label="Паспорт"> <app-passport [parentFormGroup]="form" [animal]="AnimalInfo"></app-passport> </mat-tab>
@@ -10,12 +12,9 @@
   <mat-tab label="События"> Cобытия </mat-tab>
 </mat-tab-group>
 
-<ng-template #test>123</ng-template>
-
-
 <div class="text-center">
-  <button type="submit" class="btn btn-primary justify-content-center mt-2" >
-    Сохранить
-  </button>
+  <button type="submit" class="btn btn-primary justify-content-center mt-2" [disabled]="pending || form.invalid" >Сохранить</button>
 </div>
+
 </form>
+</ng-template>

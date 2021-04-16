@@ -15,6 +15,9 @@ import { OtaraEditComponent } from './otara-edit/otara-edit.component';
 import { EventTableComponent } from './events/event-table/event-table.component';
 import { MainEventsComponent } from './events/main-events/main-events.component';
 import { DialogComponent } from './events/dialog/dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSliderModule} from '@angular/material/slider';
 
 
 const routes : Routes = [
@@ -63,7 +66,10 @@ const routes : Routes = [
     MaterialModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatSliderModule
   ],
   exports: [
     RouterModule

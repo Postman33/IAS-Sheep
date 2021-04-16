@@ -1,1 +1,118 @@
-<p>dialog works!</p>
+<mat-checkbox [(ngModel)]="filter">По фильтру</mat-checkbox>
+<div *ngIf="!filter">
+  <app-entity-auto-complete [collectionUrl]="'/api/sheep'"
+                            [ParentFormGroup]="form" [FormControlName]="'animal'"
+                            label='Номер чипа животного'
+                            DisplayName="chipNo">
+  </app-entity-auto-complete>
+  <button mat-raised-button color="accent" class="ml-3"> Добавить
+    <mat-icon [fontSet]="'material-icons-outlined'" class="">add</mat-icon>
+  </button>
+
+</div>
+<div *ngIf="filter" [formGroup]="form">
+  <div>
+    <mat-checkbox #typeAnimal>По типу животного</mat-checkbox>
+
+    <mat-form-field appearance="fill" class="ml-2">
+      <mat-label>Toppings</mat-label>
+      <mat-select multiple [disabled]="!typeAnimal.checked">
+        <mat-option *ngFor="let type of typesAnimals" [value]="type">{{type}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div>
+    <mat-checkbox color="primary" #minAge>По минимальному возрасту, мес.</mat-checkbox>
+    <mat-slider #minSliderAge class="ml-2" [disabled]="!minAge.checked"
+                thumbLabel
+                min="1"
+                [max]="maxAge.checked ? maxSliderAge.value: 300"></mat-slider>
+    {{minSliderAge.value}}
+  </div>
+
+  <div>
+    <mat-checkbox color="primary" #maxAge>По максимальному возрасту, мес</mat-checkbox>
+    <mat-slider #maxSliderAge class="ml-2" [disabled]="!maxAge.checked"
+                thumbLabel
+                min="1"
+                max="300"></mat-slider>
+    {{maxSliderAge.value}}
+  </div>
+
+
+  <div>
+    <mat-checkbox color="primary" #minWeight>По минимальной живой массе</mat-checkbox>
+    <mat-slider #minSliderWeight class="ml-4" [disabled]="!minWeight.checked"
+                thumbLabel
+                min="1"
+                [max]="maxWeight.checked ? maxSliderWeight.value: 300"></mat-slider>
+    {{minSliderWeight.value}}
+  </div>
+
+  <div>
+    <mat-checkbox color="primary" #maxWeight>По максимальной живой массе</mat-checkbox>
+    <mat-slider #maxSliderWeight class="ml-4" [disabled]="!maxWeight.checked"
+                thumbLabel
+                min="1"
+                max="300"></mat-slider>
+    {{maxSliderWeight.value}}
+  </div>
+
+  <div>
+    <mat-checkbox #farmFilter (change)="!!!farmFilter.checked ? form.get('farm').disable() : form.get('farm').enable()">
+      По ферме
+    </mat-checkbox>
+    <app-entity-auto-complete [disabled]="!farmFilter.checked" class="ml-4" [collectionUrl]="'/api/farm'"
+                              [ParentFormGroup]="form" [FormControlName]="'farm'"
+                              label='Название фермы'
+                              DisplayName="name">
+    </app-entity-auto-complete>
+  </div>
+  <div>
+    <mat-checkbox #chabanFilter
+                  (change)="!!!chabanFilter.checked ? form.get('chaban').disable() : form.get('chaban').enable()">По
+      чабану
+    </mat-checkbox>
+    <app-entity-auto-complete [disabled]="!chabanFilter.checked" class="ml-4" [collectionUrl]="'/api/chaban'"
+                              [ParentFormGroup]="form" [FormControlName]="'chaban'"
+                              label='Чабан'
+                              DisplayName="FIO">
+    </app-entity-auto-complete>
+  </div>
+</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-2">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="1">
+    <th mat-header-cell *matHeaderCellDef> Животное</th>
+    <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="2">
+    <th mat-header-cell *matHeaderCellDef> Чип</th>
+    <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="3">
+    <th mat-header-cell *matHeaderCellDef> Чабан</th>
+    <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="4">
+    <th mat-header-cell *matHeaderCellDef> Действия</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button class="" [ngStyle]="{backgroundColor:'#09a9ff', color: 'white'}">Ред. данные</button>
+      <button mat-button class="ml-2" [ngStyle]="{backgroundColor:'#d0282e', color: 'white'}">Удалить</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

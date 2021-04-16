@@ -33,11 +33,11 @@ test<div class="example-button-row">
   <ng-template ngSwitchDefault>  </ng-template>
 </div>
 
+<button mat-raised-button color="primary" class="ml-5" (click)="openDialog()" > Выбрать животных <mat-icon [fontSet]="'material-icons-outlined'" class="">add</mat-icon></button>
 
 <!--<ng-container *ngTemplateOutlet="chaban"></ng-container>-->
 
 <h3 class="text-center mt-4">Животные</h3>
-<button mat-raised-button color="primary" class="ml-5" > Добавить <mat-icon [fontSet]="'material-icons-outlined'" class="">add</mat-icon></button>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-4">
 
   <!--- Note that these columns can be defined in any order.
@@ -45,20 +45,28 @@ test<div class="example-button-row">
 
   <!-- Position Column -->
   <ng-container matColumnDef="1">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <th mat-header-cell *matHeaderCellDef> Дата события </th>
     <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="2">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <th mat-header-cell *matHeaderCellDef> Событие </th>
     <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
   </ng-container>
 
   <!-- Weight Column -->
   <ng-container matColumnDef="3">
-    <th mat-header-cell *matHeaderCellDef> Weight </th>
+    <th mat-header-cell *matHeaderCellDef> Кол-во животных </th>
     <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="4">
+    <th mat-header-cell *matHeaderCellDef> Действия </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button class="" [ngStyle]="{backgroundColor:'#09a9ff', color: 'white'}" >Ред. данные</button>
+      <button mat-button class="ml-2" [ngStyle]="{backgroundColor:'#d0282e', color: 'white'}" >Удалить</button>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

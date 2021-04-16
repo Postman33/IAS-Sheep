@@ -12,15 +12,22 @@
 
   <!-- Position Column -->
   <ng-container matColumnDef="registerno">
-    <th mat-header-cell *matHeaderCellDef> Рег. номер </th>
-    <td mat-cell *matCellDef="let element"> {{element.passport.chipNo}} </td>
+    <th mat-header-cell *matHeaderCellDef> Номер чипа</th>
+    <td mat-cell *matCellDef="let element"> {{element?.chipNo || "-"}} </td>
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="chaban">
     <th mat-header-cell *matHeaderCellDef> Чабан </th>
-    <td mat-cell *matCellDef="let element"> {{element.passport.chaban}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.passport.chaban?.FIO || "-"}} </td>
   </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="otara">
+    <th mat-header-cell *matHeaderCellDef> Отара </th>
+    <td mat-cell *matCellDef="let element"> {{element.passport.otara?.name || "-"}} </td>
+  </ng-container>
+
 
   <!-- Weight Column -->
   <ng-container matColumnDef="birthday">

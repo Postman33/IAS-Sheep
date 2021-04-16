@@ -1,3 +1,6 @@
+import {Farm} from './farm';
+import {Chaban} from './chaban';
+import {Otara} from './otara';
 
 export interface Animal {
   _id? : string;
@@ -12,12 +15,19 @@ export interface Animal {
     horns?: string,
     birthday? : Date,
     dateOfEntry?: Date,
-    farm?: any, // TODO: -> Farm
-    chaban?:any,  // TODO: -> Chaban
-    colorPrimary?: String,
-    colorSecondary?: String,
-    colorSecondaryOpt?: String,
+    farm?:  Farm,
+    chaban?:  Chaban,
+    colorPrimary?: string,
+    colorSecondary?: string,
+    colorSecondaryOpt?: string,
     dateOfDisposal? : Date,
-    reasonOfDisposal? : String,
+    reasonOfDisposal? : string,
+    generation? : string,
+    isSelling? : boolean,
+    bloodBreeds?: string,
+    typeOfCreating?:string,
+    bloodGroup?: string,
+    bloodPercent? :number
+    otara? : Otara,
   }
 }

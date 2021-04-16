@@ -30,7 +30,7 @@ export class SheepTableComponent implements OnInit {
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public sheeps: Animal[] = [];
-  displayedColumns: string[] = ['registerno', 'chaban', 'birthday', 'actions'];
+  displayedColumns: string[] = ['registerno', 'chaban','otara', 'birthday', 'actions'];
   dataSource : MatTableDataSource<Animal>;
   ngOnInit(): void {
     this.crud.getCollection<Animal>("/api/sheep").subscribe( (animals: Animal[])=>{
