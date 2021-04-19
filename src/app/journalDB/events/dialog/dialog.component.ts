@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {Animal} from '../../../interfaces/animal';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-
+import {UtilsService} from '../../../utils.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
@@ -10,11 +11,16 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class DialogComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private utils :UtilsService,  @Inject(MAT_DIALOG_DATA) public data: any) { }
+  public animals: Animal[];
+  public dataSource : MatTableDataSource<Animal>;
   ngOnInit(): void {
     this.form.get('chaban').disable()
     this.form.get('farm').disable()
+
+    this.animals = this.data.animals;
+    this.dataSource = new MatTableDataSource(this.animals);
+
   }
   public filter:  boolean = false;
   public form: FormGroup = new FormGroup({
@@ -23,15 +29,28 @@ export class DialogComponent implements OnInit {
     chaban: new FormControl("",[Validators.required]),
   })
 
-  public animals: Animal[] = [];
+
   displayedColumns: string[] = ['1', '2', '3','4'];
-  dataSource = new MatTableDataSource(this.animals);
 
   applyFilter(value: any) {
     this.dataSource.filter = value.toLowerCase().trim();
   }
 
 
+  addData(value: Animal) {
+    let cont = true;
+    for(let i =0;i<this.animals.length; i++){
+      if (value.id === this.animals[i].id){
+        cont = false;
+      }
+    }
+    if (cont){    this.animals.push( value );
+      this.refreshData();}
+    else {
+      this.utils.openSnackBar("Нельзя добавить повторяющийся эелемент!","error")
+    }
+
+  }
 
   refreshData() {
     this.dataSource = new MatTableDataSource(this.animals);
@@ -41,6 +60,8 @@ export class DialogComponent implements OnInit {
   typesAnimals: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
 
+  addAnimalByChip(value: Animal) {
 
-
+    this.addData( value );
+  }
 }

@@ -1,11 +1,13 @@
 <mat-checkbox [(ngModel)]="filter">По фильтру</mat-checkbox>
 <div *ngIf="!filter">
-  <app-entity-auto-complete [collectionUrl]="'/api/sheep'"
+  <app-entity-auto-complete #chipNoAC [collectionUrl]="'/api/sheep'"
                             [ParentFormGroup]="form" [FormControlName]="'animal'"
                             label='Номер чипа животного'
                             DisplayName="chipNo">
   </app-entity-auto-complete>
-  <button mat-raised-button color="accent" class="ml-3"> Добавить
+  <button mat-raised-button color="accent" class="ml-3"
+          (click)="addAnimalByChip(chipNoAC.getValue())"
+  > Добавить
     <mat-icon [fontSet]="'material-icons-outlined'" class="">add</mat-icon>
   </button>
 
@@ -64,7 +66,7 @@
     <mat-checkbox #farmFilter (change)="!!!farmFilter.checked ? form.get('farm').disable() : form.get('farm').enable()">
       По ферме
     </mat-checkbox>
-    <app-entity-auto-complete [disabled]="!farmFilter.checked" class="ml-4" [collectionUrl]="'/api/farm'"
+    <app-entity-auto-complete  class="ml-4" [collectionUrl]="'/api/farm'"
                               [ParentFormGroup]="form" [FormControlName]="'farm'"
                               label='Название фермы'
                               DisplayName="name">
@@ -75,7 +77,7 @@
                   (change)="!!!chabanFilter.checked ? form.get('chaban').disable() : form.get('chaban').enable()">По
       чабану
     </mat-checkbox>
-    <app-entity-auto-complete [disabled]="!chabanFilter.checked" class="ml-4" [collectionUrl]="'/api/chaban'"
+    <app-entity-auto-complete class="ml-4" [collectionUrl]="'/api/chaban'"
                               [ParentFormGroup]="form" [FormControlName]="'chaban'"
                               label='Чабан'
                               DisplayName="FIO">
@@ -115,4 +117,8 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
 </table>
+
+<button mat-button [mat-dialog-close]="animals">Ok</button>

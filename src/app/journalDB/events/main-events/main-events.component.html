@@ -9,9 +9,18 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+<ng-template #weighting> <!--Взвешивание-->
+  <mat-form-field appearance="fill" style="width: 60%" >
+  <mat-label>Номер метки</mat-label>
+  <input required matInput type="text" >
+</mat-form-field>
 
-<ng-template #appraisal>
+</ng-template>
+
+<ng-template #appraisal> <!--Бонитировка-->
 test<div class="example-button-row">
+
+
   <button mat-raised-button> Basic</button>
   <button mat-raised-button color="primary" > Primary <mat-icon [fontSet]="'material-icons-outlined'" class="">analytics</mat-icon></button>
   <button mat-raised-button color="accent">Accent <mat-icon [fontSet]="'material-icons-outlined'" class="">analytics</mat-icon></button>
@@ -27,14 +36,14 @@ test<div class="example-button-row">
 
 <div [ngSwitch]="frame">
   <ng-template [ngSwitchCase]= "'appraisal'"> <ng-container [ngTemplateOutlet]="appraisal"></ng-container></ng-template>
-  <ng-template [ngSwitchCase]= "'west'"> Go to <b>West</b> Direction </ng-template>
-  <ng-template [ngSwitchCase]= "'north'"> Go to <b>North</b> Direction </ng-template>
-  <ng-template [ngSwitchCase]= "'south'">Go to <b>South</b> Direction </ng-template>
+  <ng-template [ngSwitchCase]= "'weighting'"> <ng-container [ngTemplateOutlet]="weighting"></ng-container></ng-template>
+  <ng-template [ngSwitchCase]= "'north'"> <ng-container [ngTemplateOutlet]="appraisal"></ng-container> </ng-template>
+  <ng-template [ngSwitchCase]= "'south'"><ng-container [ngTemplateOutlet]="appraisal"></ng-container></ng-template>
   <ng-template ngSwitchDefault>  </ng-template>
 </div>
 
 <button mat-raised-button color="primary" class="ml-5" (click)="openDialog()" > Выбрать животных <mat-icon [fontSet]="'material-icons-outlined'" class="">add</mat-icon></button>
-
+{{animals.length }} животных выбрано
 <!--<ng-container *ngTemplateOutlet="chaban"></ng-container>-->
 
 <h3 class="text-center mt-4">Животные</h3>
@@ -72,3 +81,10 @@ test<div class="example-button-row">
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<mat-paginator [length]="pages"
+               [pageSize]="10"
+               [pageSizeOptions]="[5, 10, 15, 25]"
+               (page)="updatePageData($event)"
+>
+  <button mat-button>Click</button>
+</mat-paginator>

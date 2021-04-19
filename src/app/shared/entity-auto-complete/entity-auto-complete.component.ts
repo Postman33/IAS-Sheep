@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
@@ -17,7 +17,6 @@ export class EntityAutoCompleteComponent implements OnInit {
   @Input("label") label='no "label" information';
   @Input("ParentFormGroup") parentFormGroup;
   @Input("FormControlName") formControlName;
-  @Input("disabled") disabled = false;
   myControl: FormControl;
   options: any[] = [];
   filteredOptions: Observable<any[]>;
@@ -45,7 +44,10 @@ export class EntityAutoCompleteComponent implements OnInit {
     }.bind(this);
   }
 
+  public getValue(){
 
+    return this.parentFormGroup.get(this.formControlName).value
+  }
 
   private _filter(name: string): any[] {
     const filterValue = name.toLowerCase();
