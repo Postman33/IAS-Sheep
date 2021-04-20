@@ -12,7 +12,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { OtaraTableComponent } from './otara-table/otara-table.component';
 import { OtaraEditComponent } from './otara-edit/otara-edit.component';
-import { EventTableComponent } from './events/event-table/event-table.component';
 import { MainEventsComponent } from './events/main-events/main-events.component';
 import { DialogComponent } from './events/dialog/dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -58,7 +57,7 @@ const routes : Routes = [
 
 
 @NgModule({
-  declarations: [ChanbanTableComponent, ChanbanEditComponent, FarmTableComponent, FarmEditComponent, OtaraTableComponent, OtaraEditComponent, EventTableComponent, MainEventsComponent, DialogComponent],
+  declarations: [ChanbanTableComponent, ChanbanEditComponent, FarmTableComponent, FarmEditComponent, OtaraTableComponent, OtaraEditComponent, MainEventsComponent, DialogComponent],
   imports: [
     CommonModule,
     SharedModule,
