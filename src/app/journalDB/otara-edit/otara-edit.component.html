@@ -6,7 +6,7 @@
     <ng-template #creating><h2 class="text-center">Добавление новой отары</h2></ng-template>
     <mat-form-field class="example-full-width mt-3" appearance="fill">
       <mat-label>Название отары</mat-label>
-      <input matInput placeholder="Отара" formControlName="name" value="{{OtaraInfo.name}}">
+      <input matInput placeholder="Отара" formControlName="name">
       <mat-error *ngIf="form.get('name').errors?.required">
         Обязательно
       </mat-error>

@@ -4,6 +4,7 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {Animal} from '../../../interfaces/animal';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogComponent} from '../dialog/dialog.component';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-main-events',
@@ -17,7 +18,7 @@ export class MainEventsComponent implements OnInit,AfterViewInit {
   ];
   public frame = ''
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  public form: FormGroup;
 
   public animals : Animal[]= [];
   public events : any[]= [];
@@ -27,6 +28,19 @@ export class MainEventsComponent implements OnInit,AfterViewInit {
 
   ngOnInit(): void {
     this.refreshData();
+    this.form = new FormGroup({
+      appraisal: new FormGroup({
+
+      }),
+
+      weighting: new FormGroup({
+        date: new FormControl(new Date(Date.now()),[Validators.required]),
+        weight: new FormControl(0,[Validators.required,Validators.pattern("^[0-9]+$")]),
+        text: new FormControl("")
+      })
+
+    })
+    console.log(this.form.get("weighting"));
   }
 
   displayedColumns: string[] = ['1', '2', '3','4'];
@@ -62,5 +76,9 @@ export class MainEventsComponent implements OnInit,AfterViewInit {
 
   updatePageData($event: PageEvent) {
 
+  }
+
+  SubmitData() {
+    console.log(this.form);
   }
 }

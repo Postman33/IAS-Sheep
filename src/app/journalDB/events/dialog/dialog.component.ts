@@ -38,6 +38,10 @@ export class DialogComponent implements OnInit {
 
 
   addData(value: Animal) {
+   if (!value.id) {
+     this.utils.openSnackBar("Элемент не выбран или не существует!","Ошибка")
+     return;
+   }
     let cont = true;
     for(let i =0;i<this.animals.length; i++){
       if (value.id === this.animals[i].id){
@@ -47,7 +51,7 @@ export class DialogComponent implements OnInit {
     if (cont){    this.animals.push( value );
       this.refreshData();}
     else {
-      this.utils.openSnackBar("Нельзя добавить повторяющийся эелемент!","error")
+      this.utils.openSnackBar("Нельзя добавить повторяющийся эелемент!","Ошибка")
     }
 
   }

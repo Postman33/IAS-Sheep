@@ -4,3 +4,8 @@ table {
   max-height: 400px;
   overflow-y:scroll;
 }
+.center {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}

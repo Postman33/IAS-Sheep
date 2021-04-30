@@ -6,7 +6,7 @@
     <ng-template #creating><h2 class="text-center">Добавление новой фермы</h2></ng-template>
     <mat-form-field class="example-full-width mt-3" appearance="fill">
       <mat-label>Название фермы</mat-label>
-      <input matInput placeholder="Ваша ферма" formControlName="name" value="{{FarmInfo.name}}">
+      <input matInput placeholder="Ваша ферма" formControlName="name" >
       <mat-error *ngIf="form.get('name').errors?.required">
         Обязательно
       </mat-error>
@@ -14,7 +14,7 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Город</mat-label>
-      <input matInput placeholder="Ваш город" formControlName="city" value="{{FarmInfo.city}}">
+      <input matInput placeholder="Ваш город" formControlName="city" >
       <mat-error *ngIf="form.get('city').errors?.required">
         Обязательно
       </mat-error>

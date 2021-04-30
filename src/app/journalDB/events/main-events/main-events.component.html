@@ -1,80 +1,113 @@
+<h2 class="text-center">Страница событий</h2>
 
-<h2 class="text-center">События</h2>
-
-<mat-form-field appearance="fill">
-  <mat-label>Выбрать событие</mat-label>
+<mat-form-field appearance="fill" class=" not-block" style="margin-top: 10px">
+  <mat-label [ngStyle]="{ color: 'blue'}">Выбрать событие</mat-label>
   <mat-select [(ngModel)]="frame">
     <mat-option *ngFor="let event of eventTypes" [value]="event.type">
       {{event.name}}
     </mat-option>
   </mat-select>
 </mat-form-field>
+
+<button mat-raised-button color="primary" class="ml-5" (click)="openDialog()"> Выбрать животных
+  <mat-icon [fontSet]="'material-icons-outlined'" class="">add</mat-icon>
+</button>
+{{animals.length }} животных выбрано
+
 <ng-template #weighting> <!--Взвешивание-->
-  <mat-form-field appearance="fill" style="width: 60%" >
-  <mat-label>Номер метки</mat-label>
-  <input required matInput type="text" >
-</mat-form-field>
+  <form [formGroup]="form" (ngSubmit)="SubmitData()">
+    <div formGroupName="weighting">
+      <mat-form-field appearance="fill" class="text-center center">
+        <mat-label>Дата поступления</mat-label>
+        <input matInput required [matDatepicker]="dateOfEntry" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="dateOfEntry"></mat-datepicker-toggle>
+        <mat-datepicker #dateOfEntry></mat-datepicker>
+        <mat-hint style="color: red;" *ngIf="form.get('weighting').hasError('required')">
+          Обязательно
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="text-center center">
+        <mat-label>Живая масса</mat-label>
+        <span matPrefix>кг</span>
+        <input required matInput placeholder="0" formControlName="weight">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="text-center center">
+        <mat-label>Комментарий</mat-label>
+      <input  matInput placeholder="-" formControlName="text">
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="accent" class="center mt-3" [disabled]="form.get('weighting').invalid">Сохранить</button>
+    </div>
+  </form>
 
 </ng-template>
 
 <ng-template #appraisal> <!--Бонитировка-->
-test<div class="example-button-row">
-
-
-  <button mat-raised-button> Basic</button>
-  <button mat-raised-button color="primary" > Primary <mat-icon [fontSet]="'material-icons-outlined'" class="">analytics</mat-icon></button>
-  <button mat-raised-button color="accent">Accent <mat-icon [fontSet]="'material-icons-outlined'" class="">analytics</mat-icon></button>
-  <button mat-raised-button color="warn">Warn</button>
-
-  <button mat-raised-button disabled>Disabled</button>
-
-
-  <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a>
-</div>
-
+  <div class="example-button-row ml-2">
+    <button mat-raised-button> Basic</button>
+    <button mat-raised-button color="primary"> Primary
+      <mat-icon [fontSet]="'material-icons-outlined'" class="">analytics</mat-icon>
+    </button>
+    <button mat-raised-button color="accent">Accent
+      <mat-icon [fontSet]="'material-icons-outlined'" class="">analytics</mat-icon>
+    </button>
+    <button mat-raised-button color="warn">Warn</button>
+    <button mat-raised-button disabled>Disabled</button>
+    <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a>
+  </div>
 </ng-template>
 
-<div [ngSwitch]="frame">
-  <ng-template [ngSwitchCase]= "'appraisal'"> <ng-container [ngTemplateOutlet]="appraisal"></ng-container></ng-template>
-  <ng-template [ngSwitchCase]= "'weighting'"> <ng-container [ngTemplateOutlet]="weighting"></ng-container></ng-template>
-  <ng-template [ngSwitchCase]= "'north'"> <ng-container [ngTemplateOutlet]="appraisal"></ng-container> </ng-template>
-  <ng-template [ngSwitchCase]= "'south'"><ng-container [ngTemplateOutlet]="appraisal"></ng-container></ng-template>
-  <ng-template ngSwitchDefault>  </ng-template>
-</div>
+<mat-card *ngIf="frame != ''">
+  <mat-card-title>Данные события</mat-card-title>
+  <mat-card-content>
+    <div [ngSwitch]="frame">
+      <ng-template [ngSwitchCase]="'appraisal'">
+        <ng-container [ngTemplateOutlet]="appraisal"></ng-container>
+      </ng-template>
+      <ng-template [ngSwitchCase]="'weighting'">
+        <ng-container [ngTemplateOutlet]="weighting"></ng-container>
+      </ng-template>
+      <ng-template [ngSwitchCase]="'north'">
+        <ng-container [ngTemplateOutlet]="appraisal"></ng-container>
+      </ng-template>
+      <ng-template [ngSwitchCase]="'south'">
+        <ng-container [ngTemplateOutlet]="appraisal"></ng-container>
+      </ng-template>
+      <ng-template ngSwitchDefault></ng-template>
+    </div>
+  </mat-card-content>
+</mat-card>
 
-<button mat-raised-button color="primary" class="ml-5" (click)="openDialog()" > Выбрать животных <mat-icon [fontSet]="'material-icons-outlined'" class="">add</mat-icon></button>
-{{animals.length }} животных выбрано
+
+
 <!--<ng-container *ngTemplateOutlet="chaban"></ng-container>-->
 
-<h3 class="text-center mt-4">Животные</h3>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-4">
+<h3 class="text-center mt-5 font-weight-bold"> Животные</h3>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-2">
 
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
 
-  <!-- Position Column -->
   <ng-container matColumnDef="1">
-    <th mat-header-cell *matHeaderCellDef> Дата события </th>
+    <th mat-header-cell *matHeaderCellDef> Дата события</th>
     <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="2">
-    <th mat-header-cell *matHeaderCellDef> Событие </th>
+    <th mat-header-cell *matHeaderCellDef> Событие</th>
     <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
   </ng-container>
 
-  <!-- Weight Column -->
   <ng-container matColumnDef="3">
-    <th mat-header-cell *matHeaderCellDef> Кол-во животных </th>
+    <th mat-header-cell *matHeaderCellDef> Кол-во животных</th>
     <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
   </ng-container>
 
   <ng-container matColumnDef="4">
-    <th mat-header-cell *matHeaderCellDef> Действия </th>
+    <th mat-header-cell *matHeaderCellDef> Действия</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-button class="" [ngStyle]="{backgroundColor:'#09a9ff', color: 'white'}" >Ред. данные</button>
-      <button mat-button class="ml-2" [ngStyle]="{backgroundColor:'#d0282e', color: 'white'}" >Удалить</button>
+      <button mat-button class="" [ngStyle]="{backgroundColor:'#09a9ff', color: 'white'}">Ред. данные</button>
+      <button mat-button class="ml-2" [ngStyle]="{backgroundColor:'#d0282e', color: 'white'}">Удалить</button>
     </td>
   </ng-container>
 
@@ -84,7 +117,6 @@ test<div class="example-button-row">
 <mat-paginator [length]="pages"
                [pageSize]="10"
                [pageSizeOptions]="[5, 10, 15, 25]"
-               (page)="updatePageData($event)"
->
+               (page)="updatePageData($event)">
   <button mat-button>Click</button>
 </mat-paginator>
