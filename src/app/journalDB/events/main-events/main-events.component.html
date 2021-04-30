@@ -20,13 +20,13 @@
 
 <ng-template #weighting> <!--Взвешивание-->
   <form [formGroup]="form" (ngSubmit)="SubmitData()">
-    <div formGroupName="weighting">
+    <div formGroupName="взвешивание">
       <mat-form-field appearance="fill" class="text-center center">
         <mat-label>Дата взвешивания</mat-label>
         <input matInput required [matDatepicker]="dateOfWeighting" formControlName="date">
         <mat-datepicker-toggle matSuffix [for]="dateOfWeighting"></mat-datepicker-toggle>
         <mat-datepicker #dateOfWeighting></mat-datepicker>
-        <mat-hint style="color: red;" *ngIf="form.get('weighting').hasError('required')">
+        <mat-hint style="color: red;" *ngIf="form.get('взвешивание').hasError('required')">
           Обязательно
         </mat-hint>
       </mat-form-field>
@@ -43,7 +43,7 @@
       </mat-form-field>
 
       <button mat-raised-button type="submit" color="accent" class="center mt-3" *ngIf="!pendingSave; else loading"
-              [disabled]="form.get('weighting').invalid">Сохранить
+              [disabled]="form.get('взвешивание').invalid">Сохранить
       </button>
     </div>
   </form>
@@ -80,12 +80,12 @@
       <mat-icon [fontSet]="'material-icons-outlined'" class="">add</mat-icon>
     </button>
 
-    {{animals.length }} животных выбрано
+    {{animals.length || 0}} животных выбрано
     <div [ngSwitch]="frame">
-      <ng-template [ngSwitchCase]="'appraisal'">
+      <ng-template [ngSwitchCase]="'бонитировка'">
         <ng-container [ngTemplateOutlet]="appraisal"></ng-container>
       </ng-template>
-      <ng-template [ngSwitchCase]="'weighting'">
+      <ng-template [ngSwitchCase]="'взвешивание'">
         <ng-container [ngTemplateOutlet]="weighting"></ng-container>
       </ng-template>
       <ng-template [ngSwitchCase]="'north'">

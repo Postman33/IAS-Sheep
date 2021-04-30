@@ -10,6 +10,7 @@ import {UtilsService} from '../../../utils.service';
 import {EventInfo} from '../../../interfaces/event';
 import {CrudService} from '../../crud.service';
 import {Chaban} from '../../../interfaces/chaban';
+import {Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-main-events',
@@ -18,8 +19,8 @@ import {Chaban} from '../../../interfaces/chaban';
 })
 export class MainEventsComponent implements OnInit, AfterViewInit {
   eventTypes = [
-    {name: 'Бонитировка', type: 'appraisal', icon: 'login'},
-    {name: 'Взвешивание', type: 'weighting'}
+    {name: 'Бонитировка', type: 'бонитировка', icon: 'login'},
+    {name: 'Взвешивание', type: 'взвешивание'}
   ];
   public frame: string = '';
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,14 +31,14 @@ export class MainEventsComponent implements OnInit, AfterViewInit {
   public pages: number = -1;
   public pendingSave = false;
   public pendingLoadingId = false;
-
+  public eventObservable : Observable<EventInfo>;
   constructor(public dialog: MatDialog, private http: HttpClient, private utils: UtilsService, private crud: CrudService) {
   }
 
   createForm() {
     this.form = new FormGroup({
-      appraisal: new FormGroup({}),
-      weighting: new FormGroup({
+      бонитировка: new FormGroup({}),
+      взвешивание: new FormGroup({
         date: new FormControl(new Date(Date.now()), [Validators.required]),
         weight: new FormControl(0, [Validators.required, Validators.pattern('^[0-9]+$')]),
         text: new FormControl('')
@@ -55,16 +56,17 @@ export class MainEventsComponent implements OnInit, AfterViewInit {
 
     }
   }
-  ngOnInit(): void {
-    this.refreshData();
-    this.createForm();
+  loadAllEventData(){
     this.crud.getCollection<EventInfo>('/api/event').subscribe(result => {
-      console.log('RESULT', result);
       this.events = result;
       this.refreshData();
     });
+  }
+  ngOnInit(): void {
+    this.refreshData();
+    this.createForm();
+    this.loadAllEventData()
 
-    console.log(this.form.get('weighting'));
   }
 
   displayedColumns: string[] = ['1', '2', '3', '4'];
@@ -92,7 +94,7 @@ export class MainEventsComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.animals = result;
-      console.log('The dialog was closed');
+
     });
 
   }
@@ -117,21 +119,17 @@ export class MainEventsComponent implements OnInit, AfterViewInit {
       eventName: this.frame,
       eventData: this.form.get(this.frame).value,
     };
+
     if (this.id === '') {
-      this.http.post('/api/event', sendObject).subscribe(result => {
-        console.log(result);
-        this.pendingSave = false;
-        this.utils.openSnackBar('Сохранено!', 'Успех');
-      });
+     this.eventObservable =  this.http.post<EventInfo>('/api/event', sendObject)
     } else {
-      this.http.patch(`/api/event/${this.id}`, sendObject).subscribe(result => {
-        console.log(result);
-        this.pendingSave = false;
-        this.utils.openSnackBar('Сохранено!', 'Успех');
-      });
+      this.eventObservable =  this.http.patch<EventInfo>(`/api/event/${this.id}`, sendObject)
     }
-
-
+    this.eventObservable.subscribe(result => {
+      this.pendingSave = false;
+      this.utils.openSnackBar('Сохранено!', 'Успех');
+      this.loadAllEventData();
+    });
   }
 
   loadEventData(id) {
@@ -145,7 +143,6 @@ export class MainEventsComponent implements OnInit, AfterViewInit {
           ...result.eventData
         });
         this.pendingLoadingId = false;
-
       }
     );
 
