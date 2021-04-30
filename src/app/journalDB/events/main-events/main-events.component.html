@@ -128,7 +128,7 @@
       <button mat-button class="" [ngStyle]="{backgroundColor:'#09a9ff', color: 'white'}"
               (click)="loadEventData(element.id)">Ред. данные
       </button>
-      <button mat-button class="ml-2" [ngStyle]="{backgroundColor:'#d0282e', color: 'white'}">Удалить</button>
+      <button mat-button class="ml-2" [ngStyle]="{backgroundColor:'#d0282e', color: 'white'}" (click)="removeEvent(element.id)">Удалить</button>
     </td>
   </ng-container>
 

@@ -9,6 +9,7 @@ import {HttpClient} from '@angular/common/http';
 import {UtilsService} from '../../../utils.service';
 import {EventInfo} from '../../../interfaces/event';
 import {CrudService} from '../../crud.service';
+import {Chaban} from '../../../interfaces/chaban';
 
 @Component({
   selector: 'app-main-events',
@@ -43,7 +44,17 @@ export class MainEventsComponent implements OnInit, AfterViewInit {
       })
     });
   }
+  removeEvent(id: string) {
+    if (confirm('Удалить?')) {
+      this.http.delete('/api/event/' + id).subscribe(response => {
+        this.events = this.events.filter((event: EventInfo) => {
+          return event.id != id;
+        });
+        this.refreshData();
+      });
 
+    }
+  }
   ngOnInit(): void {
     this.refreshData();
     this.createForm();
