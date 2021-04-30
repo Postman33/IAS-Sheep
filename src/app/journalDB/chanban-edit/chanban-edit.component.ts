@@ -21,13 +21,13 @@ import {Chaban} from '../../interfaces/chaban';
 })
 export class ChanbanEditComponent implements OnInit {
 
-  constructor(private http: HttpClient, public route: ActivatedRoute, private router: Router, private crud: CrudService, public utilsService : UtilsService) {
+  constructor(private http: HttpClient, public route: ActivatedRoute, private router: Router, private crud: CrudService, public utilsService: UtilsService) {
   }
 
   public autoCompleteControl = new FormControl();
   public options: Farm[] = [];
   public filteredOptions: Observable<Farm[]>;
-  public SelectedFarm : Farm = null;
+  public SelectedFarm: Farm = null;
 
   public pending = false;
   public ChabanInfo: Chaban = {
@@ -36,7 +36,7 @@ export class ChanbanEditComponent implements OnInit {
   public form: FormGroup = new FormGroup({
     FIO: new FormControl(this.ChabanInfo.FIO, [Validators.required]),
     birthday: new FormControl(this.ChabanInfo.birthday, [Validators.required]),
-    farm:  new FormArray([], [])
+    farm: new FormArray([], [])
   });
 
   ngOnInit(): void {
@@ -48,9 +48,9 @@ export class ChanbanEditComponent implements OnInit {
         map(name => name ? this._filter(name) : this.options.slice())
       );
 
-    this.crud.getCollection<Farm>("/api/farm").subscribe((response:Farm[])=>{
+    this.crud.getCollection<Farm>('/api/farm').subscribe((response: Farm[]) => {
       this.options = response;
-    })
+    });
 
     this.route.queryParams.subscribe(params => {
       console.log(params);
@@ -60,21 +60,17 @@ export class ChanbanEditComponent implements OnInit {
           const {_id, ...rest} = response;
           const obj: Chaban = {...rest, id: response._id};
           this.ChabanInfo = obj;
-          const formcontrols : FormControl[] = [];
-          for (let farm of obj.farm){
-            formcontrols.push( new FormControl(farm._id))
+          const formcontrols: FormControl[] = [];
+          for (let farm of obj.farm) {
+            formcontrols.push(new FormControl(farm._id));
           }
-          // this.form = new FormGroup({
-          //   FIO: new FormControl(this.ChabanInfo.FIO, [Validators.required]),
-          //   birthday: new FormControl(this.ChabanInfo.birthday, [Validators.required]),
-          //   farm:  new FormArray(formcontrols, [])
-          // });
-          this.form.patchValue({
-            FIO: this.ChabanInfo.FIO,
-            birthday: this.ChabanInfo.birthday,
-            farm: formcontrols
-          })
-          console.log("Patched");
+          this.form = new FormGroup({
+            FIO: new FormControl(this.ChabanInfo.FIO, [Validators.required]),
+            birthday: new FormControl(this.ChabanInfo.birthday, [Validators.required]),
+            farm: new FormArray(formcontrols, [])
+          });
+
+          console.log(this.form.value);
 
           this.pending = false;
         });
@@ -88,31 +84,35 @@ export class ChanbanEditComponent implements OnInit {
     console.log(option.value);
     this.SelectedFarm = option.value;
   }
+
   AddFarm() {
 
-    for (let i = 0; i < (<FormArray>this.form.get("farm")).controls.length; i++ ){
-      if (this.SelectedFarm.id == (<FormArray>this.form.get("farm")).controls[i].value){
-        this.utilsService.openSnackBar("Нельзя повторно добавить элемент!","Ошибка");
+    for (let i = 0; i < (<FormArray> this.form.get("farm")).controls.length; i++) {
+      if (this.SelectedFarm.id == (<FormArray> this.form.get('farm')).controls[i].value) {
+        this.utilsService.openSnackBar('Нельзя повторно добавить элемент!', 'Ошибка');
         return;
       }
     }
 
+
     const control: FormControl = new FormControl(this.SelectedFarm.id, []);
     (this.form.get('farm') as FormArray).push(control);
     console.log(this.form.value);
-    this.ChabanInfo.farm.push( this.SelectedFarm )
-    this.autoCompleteControl.setValue("")
+    this.ChabanInfo.farm.push(this.SelectedFarm);
+    this.autoCompleteControl.setValue('');
     console.log(this.autoCompleteControl);
   }
 
   RemoveControl(id: string) {
-    console.log(this.form.get("farm"));
-    for (let i = 0; i < (<FormArray>this.form.get("farm")).controls.length; i++ ){
-      if (id == (<FormArray>this.form.get("farm")).controls[i].value){
-        (<FormArray>this.form.get("farm")).removeAt(i)
+    console.log(this.form.get('farm'));
+    for (let i = 0; i < (<FormArray> this.form.get("farm")).controls.length; i++) {
+      if (id == (<FormArray> this.form.get('farm')).controls[i].value) {
+        (<FormArray> this.form.get('farm')).removeAt(i);
       }
     }
-    this.ChabanInfo.farm =  this.ChabanInfo.farm.filter(item=>{ return item._id !== id });
+    this.ChabanInfo.farm = this.ChabanInfo.farm.filter(item => {
+      return item._id !== id;
+    });
   }
 
   UpdateChaban(chaban: Chaban) {
@@ -150,7 +150,6 @@ export class ChanbanEditComponent implements OnInit {
     const filterValue = name.toLowerCase();
     return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
   }
-
 
 
 }

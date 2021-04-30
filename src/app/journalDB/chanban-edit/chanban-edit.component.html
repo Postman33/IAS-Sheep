@@ -7,7 +7,7 @@
     <ng-template #creating><h2 class="text-center">Добавление нового чабана</h2></ng-template>
     <mat-form-field class="example-full-width mt-3" appearance="fill">
       <mat-label>ФИО чабана</mat-label>
-      <input matInput placeholder="ФИО" formControlName="FIO" value="{{ChabanInfo.FIO}}">
+      <input matInput placeholder="ФИО" formControlName="FIO" >
       <mat-error *ngIf="form.get('FIO').errors?.required">
         Обязательно
       </mat-error>

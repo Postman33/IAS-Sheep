@@ -68,4 +68,13 @@ export class DialogComponent implements OnInit {
 
     this.addData( value );
   }
+
+  RemoveSheep(id) {
+
+    this.animals = this.animals.filter( item => {
+      return item.id != id;
+    });
+    this.refreshData();
+    console.log(this.animals);
+  }
 }
