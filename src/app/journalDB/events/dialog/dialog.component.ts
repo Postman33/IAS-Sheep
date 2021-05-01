@@ -44,7 +44,7 @@ export class DialogComponent implements OnInit {
    }
     let cont = true;
     for(let i =0;i<this.animals.length; i++){
-      if (value.id === this.animals[i].id){
+      if (value.id === this.animals[i].id || value.id === this.animals[i]._id ){
         cont = false;
       }
     }

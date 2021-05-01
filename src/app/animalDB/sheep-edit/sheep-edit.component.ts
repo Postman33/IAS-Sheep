@@ -49,7 +49,7 @@ export class SheepEditComponent implements OnInit {
 
   ngOnInit(): void {
     //if (this.route.snapshot.params.)
-    this.pending = true;
+
     this.route.queryParams.subscribe(params => {
       if (params.create === 'false') {
         this.pending = true;
@@ -84,7 +84,7 @@ export class SheepEditComponent implements OnInit {
 
             mother: new FormControl('', [])
           });
-
+            this.pending=false
         },
           err => {
           this.errorMsg = err

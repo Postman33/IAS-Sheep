@@ -7,7 +7,7 @@
 <form class="example-form" [formGroup]="form" (ngSubmit)="Submit($event)" >
 <mat-tab-group>
   <mat-tab label="Паспорт"> <app-passport [parentFormGroup]="form" [animal]="AnimalInfo"></app-passport> </mat-tab>
-  <mat-tab label="Развитие"> <app-evolution [animal]="AnimalInfo"></app-evolution></mat-tab>
+  <mat-tab label="Развитие"> <app-evolution></app-evolution></mat-tab>
   <mat-tab label="Генеалогия"> <app-genealogy [parentFormGroup]="form"></app-genealogy>  </mat-tab>
   <mat-tab label="События"> Cобытия </mat-tab>
 </mat-tab-group>

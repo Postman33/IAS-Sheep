@@ -80,7 +80,7 @@
       <mat-icon [fontSet]="'material-icons-outlined'" class="">add</mat-icon>
     </button>
 
-    {{animals.length || 0}} животных выбрано
+    {{animals?.length || 0}} животных выбрано
     <div [ngSwitch]="frame">
       <ng-template [ngSwitchCase]="'бонитировка'">
         <ng-container [ngTemplateOutlet]="appraisal"></ng-container>
@@ -103,13 +103,13 @@
 
 <!--<ng-container *ngTemplateOutlet="chaban"></ng-container>-->
 
-<h3 class="text-center mt-5 font-weight-bold"> Животные</h3>
+<h3 class="text-center mt-5 font-weight-bold"> События</h3>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-2">
 
 
   <ng-container matColumnDef="1">
     <th mat-header-cell *matHeaderCellDef> Дата события</th>
-    <td mat-cell *matCellDef="let element"> {{element.eventName}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.eventData.date | date:'short' || "-"}} </td>
   </ng-container>
 
   <ng-container matColumnDef="2">
@@ -119,7 +119,7 @@
 
   <ng-container matColumnDef="3">
     <th mat-header-cell *matHeaderCellDef> Кол-во животных</th>
-    <td mat-cell *matCellDef="let element"> {{element.chipNo}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.animals.length}} </td>
   </ng-container>
 
   <ng-container matColumnDef="4">
