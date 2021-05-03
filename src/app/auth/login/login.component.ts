@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   OnSubmit() {
     this.sending = true;
     this.authService.Login({email: this.form.value.email, password: this.form.value.password}).subscribe((response) => {
+      console.log(response);
       this.SuccessInfo = response.message;
       this.sending = false;
       this.router.navigate(["/"])

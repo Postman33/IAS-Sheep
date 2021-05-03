@@ -1,0 +1,7 @@
+.legend-items {
+  overflow: visible !important;
+}
+ngx-charts-legend {
+  overflow: visible !important;
+  background-color: red !important;
+}

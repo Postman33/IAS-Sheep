@@ -34,7 +34,7 @@
       <mat-form-field appearance="fill" class="text-center center">
         <mat-label>Живая масса</mat-label>
         <span matPrefix>кг</span>
-        <input required matInput placeholder="0" formControlName="weight">
+        <input type="number"  required matInput placeholder="0" formControlName="weight">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="text-center center">
@@ -49,6 +49,55 @@
   </form>
 
 </ng-template>
+
+
+
+<ng-template #shearing> <!--Стрижка-->
+  <form [formGroup]="form" (ngSubmit)="SubmitData()">
+    <div formGroupName="стрижка">
+      <mat-form-field appearance="fill" class="text-center center">
+        <mat-label>Дата стрижки</mat-label>
+        <input matInput required [matDatepicker]="dateOfWeighting" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="dateOfWeighting"></mat-datepicker-toggle>
+        <mat-datepicker #dateOfWeighting></mat-datepicker>
+        <mat-hint style="color: red;" *ngIf="form.get('стрижка').hasError('required')">
+          Обязательно
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="text-center center">
+        <mat-label>Масса немытой шерсти</mat-label>
+        <span matPrefix>кг</span>
+        <input type="number" required matInput placeholder="0" formControlName="weightDirt">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="text-center center">
+        <mat-label>Масса мытой шерсти</mat-label>
+        <span matPrefix>кг</span>
+        <input type="number" required matInput placeholder="0" formControlName="weightClean">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="text-center center">
+        <mat-label>Тонина шерсти</mat-label>
+        <span matPrefix>мк</span>
+        <input type="number"  required matInput placeholder="0" formControlName="woolWidth">
+      </mat-form-field>
+
+
+      <mat-form-field appearance="fill" class="text-center center">
+        <mat-label>Комментарий</mat-label>
+        <input matInput  placeholder="-" formControlName="text">
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="accent" class="center mt-3" *ngIf="!pendingSave; else loading"
+              [disabled]="form.get('стрижка').invalid">Сохранить
+      </button>
+    </div>
+  </form>
+
+</ng-template>
+
+
 
 
 <ng-template #appraisal> <!--Бонитировка-->
@@ -88,8 +137,8 @@
       <ng-template [ngSwitchCase]="'взвешивание'">
         <ng-container [ngTemplateOutlet]="weighting"></ng-container>
       </ng-template>
-      <ng-template [ngSwitchCase]="'north'">
-        <ng-container [ngTemplateOutlet]="appraisal"></ng-container>
+      <ng-template [ngSwitchCase]="'стрижка'">
+        <ng-container [ngTemplateOutlet]="shearing"></ng-container>
       </ng-template>
       <ng-template [ngSwitchCase]="'south'">
         <ng-container [ngTemplateOutlet]="appraisal"></ng-container>

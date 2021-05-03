@@ -19,6 +19,7 @@ import {Observable, Subscription} from 'rxjs';
 })
 export class MainEventsComponent implements OnInit, AfterViewInit {
   eventTypes = [
+    {name: 'Стрижка', type: 'стрижка' },
     {name: 'Бонитировка', type: 'бонитировка', icon: 'login'},
     {name: 'Взвешивание', type: 'взвешивание'}
   ];
@@ -40,7 +41,14 @@ export class MainEventsComponent implements OnInit, AfterViewInit {
       бонитировка: new FormGroup({}),
       взвешивание: new FormGroup({
         date: new FormControl(new Date(Date.now()), [Validators.required]),
-        weight: new FormControl(0, [Validators.required, Validators.pattern('^[0-9]+$')]),
+        weight: new FormControl(0, [Validators.required, Validators.pattern('^[0-9.]+$')]),
+        text: new FormControl('')
+      }),
+      стрижка: new FormGroup({
+        date: new FormControl(new Date(Date.now()), [Validators.required]),
+        weightDirt: new FormControl(0, [Validators.required, Validators.pattern('^[0-9.]+$')]),
+        weightClean: new FormControl(0, [Validators.required, Validators.pattern('^[0-9.]+$')]),
+        woolWidth: new FormControl(0, [Validators.required, Validators.pattern('^[0-9.]+$')]),
         text: new FormControl('')
       })
     });
@@ -119,7 +127,7 @@ export class MainEventsComponent implements OnInit, AfterViewInit {
       eventName: this.frame,
       eventData: this.form.get(this.frame).value,
     };
-
+    console.log(this.form.get(this.frame).value);
     if (this.id === '') {
      this.eventObservable =  this.http.post<EventInfo>('/api/event', sendObject)
     } else {

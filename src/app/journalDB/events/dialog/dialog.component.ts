@@ -12,7 +12,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 export class DialogComponent implements OnInit {
 
   constructor(private utils :UtilsService,  @Inject(MAT_DIALOG_DATA) public data: any) { }
-  public animals: Animal[];
+  public animals: Animal[]=[];
   public dataSource : MatTableDataSource<Animal>;
   ngOnInit(): void {
     this.form.get('chaban').disable()
@@ -43,7 +43,7 @@ export class DialogComponent implements OnInit {
      return;
    }
     let cont = true;
-    for(let i =0;i<this.animals.length; i++){
+    for(let i =0;i<this.animals.length||0; i++){
       if (value.id === this.animals[i].id || value.id === this.animals[i]._id ){
         cont = false;
       }

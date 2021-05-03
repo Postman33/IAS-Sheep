@@ -1,0 +1,18 @@
+.advanced-pie-legend .legend-items-container .legend-items {
+  overflow: initial !important;
+}
+.advanced-pie-legend {
+  width: 15rem !important;
+}
+.advanced-pie-legend .legend-items-container .legend-items .legend-item .item-label {
+  font-size: 14px;
+  margin-left: 11px;
+   margin-top: 0px !important;
+  opacity: .7;
+}
+
+.advanced-pie-legend .total-label {
+  margin-top: 6px !important;
+  font-size: 24px;
+  margin-bottom: 19px;
+}

@@ -11,6 +11,8 @@ const routes : Routes = [
   {path: "auth", loadChildren: ()=>import("./auth/auth.module").then( m => m.AuthModule)},
   {path: "animals", loadChildren: ()=>import("./animalDB/animal.module").then( m => m.AnimalModule)},
   {path: "journal", loadChildren: ()=>import("./journalDB/journal.module").then( m => m.JournalModule)},
+  {path: "report", loadChildren: ()=>import("./reports/report.module").then( m => m.ReportModule)},
+
   {path:"not-found", component: ErrorComponent},
   // {path:"**", redirectTo: "not-found"},
 ]

@@ -58,7 +58,9 @@ const TREE_DATA: NavNode[] = [
     name: "Отчеты",
     icon: "reports",
     children: [
-      {name:"Test"}
+      {name:"Статистика",refLink: "report/stats"},
+      {name:"Структура поголовья",refLink: "report/structure"},
+      {name:"Статистика",refLink: "report/stats"}
 
     ]
   }
