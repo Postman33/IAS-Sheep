@@ -9,6 +9,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { StructureSheepComponent } from './structure-sheep/structure-sheep.component';
 import { StatsComponent } from './stats/stats.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 

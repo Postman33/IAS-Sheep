@@ -21,6 +21,7 @@ import {MatNativeDateModule, MatOptionModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const Materials = [
   MatToolbarModule,
@@ -40,6 +41,7 @@ const Materials = [
   MatTableModule,
   MatSortModule,
   MatPaginatorModule,
+  MatProgressSpinnerModule,
   MatDatepickerModule,
   MatNativeDateModule,
   MatSelectModule,

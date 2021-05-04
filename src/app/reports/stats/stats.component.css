@@ -5,3 +5,20 @@ ngx-charts-legend {
   overflow: visible !important;
   background-color: red !important;
 }
+table{
+  border: 1px solid #eee;
+  table-layout: fixed;
+  width: 90%;
+  margin-bottom: 20px;
+}
+table th {
+  font-weight: bold;
+  padding: 5px;
+  background: #cfcfcf;
+  border: 1px solid #dddddd;
+}
+table td{
+  padding: 5px 10px;
+  border: 1px solid #eee;
+  text-align: left;
+}

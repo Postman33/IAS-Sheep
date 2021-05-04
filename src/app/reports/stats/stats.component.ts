@@ -11,18 +11,24 @@ import {FormControl, FormGroup} from '@angular/forms';
 export class StatsComponent implements OnInit {
 
   constructor(private loader:  LoaderService,private http : HttpClient) { }
-  public data;
-  range = new FormGroup({
+  public data : Object
+   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
   });
+  public loading : boolean = false;
 
   ngOnInit(): void {
 
   }
 
   private async preload(url : string, body){
-    this.data = await this.loader.preload(url, body );
+    let data =await this.loader.preload(url, body );
+    for (let resKey in data ){
+        if (data.hasOwnProperty(resKey)){
+          this.data[resKey] = data[resKey];
+        }
+    }
   }
 
   view: any[] = [700, 300];
@@ -35,7 +41,6 @@ export class StatsComponent implements OnInit {
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
-
 
 
   onSelect(data): void {
@@ -51,8 +56,11 @@ export class StatsComponent implements OnInit {
   }
 
 
-  SubmitReport() {
-
-    this.preload('stats', this.range.value);
+  async SubmitReport() {
+    this.data = {}
+    this.loading=true;
+    await this.preload('stats', this.range.value);
+    console.log(this.data);
+    this.loading=false;
   }
 }
