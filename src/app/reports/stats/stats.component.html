@@ -57,30 +57,29 @@
       <td>Всего немытой шерсти, кг</td>
       <td>-</td>
       <td>-</td>
-      <td> {{data['eventTableStats']['sumDirtWeight']}} </td>
+      <td> {{data['eventTableStats']?.sumDirtWeight || 0}} </td>
     </tr>
 
     <tr>
       <td>Всего мытой шерсти, кг</td>
       <td>-</td>
       <td>-</td>
-      <td> {{data['eventTableStats']['sumCleanWeight']}} </td>
+      <td> {{data['eventTableStats']?.sumCleanWeight || 0}} </td>
     </tr>
 
     <tr>
       <td>В среднем немытой шерсти с 1 овцы, кг</td>
       <td>-</td>
       <td>-</td>
-      <td> {{data['eventTableStats']['avgWeight']}} </td>
+      <td> {{data['eventTableStats']?.avgWeight || 0}} </td>
     </tr>
 
     <tr>
       <td>В среднем тонина шерсти с 1 овцы, мк</td>
       <td>-</td>
       <td>-</td>
-      <td> {{data['eventTableStats']['avgWoolWidth'] | number:'1.0-0'}} </td>
+      <td> {{(data['eventTableStats']?.avgWoolWidth||0) | number:'1.0-0'}} </td>
     </tr>
-
 
   </table>
   {{data['eventTableStats'] | json}}

@@ -9,7 +9,10 @@
   </mat-select>
 </mat-form-field>
 
-<button mat-raised-button color="accent" class="ml-1" (click)="resetAll()"> Новое событие
+<button mat-raised-button color="accent" class="ml-1" (click)="resetAll()"
+        style="top: -7px !important; left: 20px; position: relative !important;"
+  [disabled]="id === ''"
+> Новое событие
   <mat-icon [fontSet]="'material-icons-outlined'" class="">add</mat-icon>
 </button>
 
@@ -26,7 +29,7 @@
         <input matInput required [matDatepicker]="dateOfWeighting" formControlName="date">
         <mat-datepicker-toggle matSuffix [for]="dateOfWeighting"></mat-datepicker-toggle>
         <mat-datepicker #dateOfWeighting></mat-datepicker>
-        <mat-hint style="color: red;" *ngIf="form.get('взвешивание').hasError('required')">
+        <mat-hint red-hint *ngIf="form.get('взвешивание').hasError('required')">
           Обязательно
         </mat-hint>
       </mat-form-field>
@@ -35,6 +38,9 @@
         <mat-label>Живая масса</mat-label>
         <span matPrefix>кг</span>
         <input type="number"  required matInput placeholder="0" formControlName="weight">
+        <mat-hint red-hint *ngIf="form.get('взвешивание').hasError('required')">
+          Обязательно
+        </mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="text-center center">
@@ -60,7 +66,7 @@
         <input matInput required [matDatepicker]="dateOfWeighting" formControlName="date">
         <mat-datepicker-toggle matSuffix [for]="dateOfWeighting"></mat-datepicker-toggle>
         <mat-datepicker #dateOfWeighting></mat-datepicker>
-        <mat-hint style="color: red;" *ngIf="form.get('стрижка').hasError('required')">
+        <mat-hint red-hint *ngIf="form.get('стрижка').hasError('required')">
           Обязательно
         </mat-hint>
       </mat-form-field>
@@ -81,8 +87,10 @@
         <mat-label>Тонина шерсти</mat-label>
         <span matPrefix>мк</span>
         <input type="number"  required matInput placeholder="0" formControlName="woolWidth">
+        <mat-hint red-hint *ngIf="form.value['стрижка'].woolWidth > 99">
+          Кажется, значение тонины шерсти неверное
+        </mat-hint>
       </mat-form-field>
-
 
       <mat-form-field appearance="fill" class="text-center center">
         <mat-label>Комментарий</mat-label>

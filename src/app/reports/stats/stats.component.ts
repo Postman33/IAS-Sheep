@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LoaderService} from '../loader.service';
 import {HttpClient} from '@angular/common/http';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-stats',
@@ -13,8 +13,8 @@ export class StatsComponent implements OnInit {
   constructor(private loader:  LoaderService,private http : HttpClient) { }
   public data : Object
    range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl()
+    start: new FormControl('',[Validators.required]),
+    end: new FormControl('',[Validators.required])
   });
   public loading : boolean = false;
 

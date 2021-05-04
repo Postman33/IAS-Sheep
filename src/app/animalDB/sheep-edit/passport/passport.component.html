@@ -28,7 +28,7 @@
           {{breed}}
         </mat-option>
       </mat-select>
-      <mat-hint style="color: red;" *ngIf="ParentFormGroup.get('generation').errors?.required">
+      <mat-hint red-hint *ngIf="ParentFormGroup.get('generation').errors?.required">
         Обязательно
       </mat-hint>
     </mat-form-field>
@@ -56,7 +56,7 @@
       <input matInput required [matDatepicker]="dateOfEntry" formControlName="dateOfEntry" >
       <mat-datepicker-toggle matSuffix [for]="dateOfEntry"></mat-datepicker-toggle>
       <mat-datepicker #dateOfEntry></mat-datepicker>
-      <mat-hint style="color: red;" *ngIf="ParentFormGroup.get('dateOfEntry').hasError('required')">
+      <mat-hint red-hint *ngIf="ParentFormGroup.get('dateOfEntry').hasError('required')">
         Обязательно
       </mat-hint>
     </mat-form-field>

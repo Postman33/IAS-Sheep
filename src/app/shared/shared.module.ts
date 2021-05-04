@@ -13,11 +13,14 @@ import {GeneralInterceptorService} from './interceptors/general.interceptor.serv
 import { SidenavComponent } from './template/sidenav/sidenav.component';
 import { EntityAutoCompleteComponent } from './entity-auto-complete/entity-auto-complete.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {BlueHintDirective, ErrorHintDirective, RedHintDirective} from './directives/error-hint.directive';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, ErrorComponent, HomeComponent, AboutComponent, SidenavComponent, EntityAutoCompleteComponent],
+  declarations: [HeaderComponent, FooterComponent, ErrorComponent, HomeComponent, AboutComponent, SidenavComponent, EntityAutoCompleteComponent,
+    RedHintDirective,
+  BlueHintDirective],
   imports: [
     CommonModule,
     MaterialModule,
@@ -25,13 +28,15 @@ import {ReactiveFormsModule} from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule
   ],
-    exports: [
-        MaterialModule,
-        HeaderComponent,
-        MaterialModule,
-        SidenavComponent,
-        EntityAutoCompleteComponent,
-    ],
+  exports: [
+    MaterialModule,
+    HeaderComponent,
+    MaterialModule,
+    SidenavComponent,
+    EntityAutoCompleteComponent,
+    BlueHintDirective,
+    RedHintDirective,
+  ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     multi: true,
