@@ -23,6 +23,7 @@
   <mat-progress-bar style="width: 50%" class="center" mode="indeterminate"></mat-progress-bar>
 </div>
 
+
 <div *ngIf="data && !loading">
   <h2 class="ml-3">Изменения за период</h2>
   <ngx-charts-advanced-pie-chart
@@ -37,7 +38,7 @@
   >
   </ngx-charts-advanced-pie-chart>
 
-  <h2 class="ml-3">На момент {{range.value.end | date:"short"}}</h2>
+  <h2 class="ml-3">За промежуток {{range.value.start | date:"mediumDate"}}  -  {{range.value.end | date:"mediumDate"}}</h2>
   <table border="1" class="ml-5">
     <caption>Сводная таблица по животным</caption>
     <tr>
@@ -80,7 +81,6 @@
       <td>-</td>
       <td> {{(data['eventTableStats']?.avgWoolWidth||0) | number:'1.0-0'}} </td>
     </tr>
-
   </table>
-  {{data['eventTableStats'] | json}}
+
 </div>

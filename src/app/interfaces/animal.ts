@@ -29,5 +29,9 @@ export interface Animal {
     bloodGroup?: string,
     bloodPercent? :number
     otara? : Otara,
+  },
+  genealogy?: {
+    father : string | Animal,
+    mother: string | Animal
   }
 }

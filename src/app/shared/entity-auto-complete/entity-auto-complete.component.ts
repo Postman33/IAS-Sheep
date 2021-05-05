@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
-import {map, startWith} from 'rxjs/operators';
+import {map, startWith, tap} from 'rxjs/operators';
 import {CrudService} from '../../journalDB/crud.service';
 
 
@@ -30,6 +30,7 @@ export class EntityAutoCompleteComponent implements OnInit {
      this.crud.getCollection<any>(this.url).subscribe( options => {
       this.options = options;
     })
+
 
     this.filteredOptions = this.myControl.valueChanges
       .pipe(

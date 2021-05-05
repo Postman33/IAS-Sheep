@@ -1,11 +1,21 @@
-<app-entity-auto-complete collectionUrl="/api/sheep"
-                          DisplayName="chipNo"
-                          label="Чип отца"
-                          [ParentFormGroup]="parentFormGroup" FormControlName="father"
-></app-entity-auto-complete>
+<div class="example-form" >
+  <mat-form-field class="example-full-width">
+    <mat-label>Чип отца овцы</mat-label>
+    <input type="text" matInput [formControl]="formControlFather" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="OnSelectedOption()">
+      <mat-option *ngFor="let option of filteredFatherOptions | async" [value]="option">
+        {{option.chipNo}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 
-<app-entity-auto-complete collectionUrl="/api/sheep" DisplayName="chipNo"
-                          label="Чип матери"
-                          class="ml-4"
-                          [ParentFormGroup]="parentFormGroup" FormControlName="mother"
-></app-entity-auto-complete>
+  <mat-form-field class="example-full-width ml-3">
+    <mat-label>Чип матери овцы</mat-label>
+    <input type="text" matInput [formControl]="formControlMother" [matAutocomplete]="auto2" >
+    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn" (optionSelected)="OnSelectedOption()">
+      <mat-option  *ngFor="let option of filteredMotherOptions | async" [value]="option">
+        {{option.chipNo}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

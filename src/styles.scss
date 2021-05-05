@@ -22,7 +22,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   height: 100%;
 }
 .sidenav {
-  width: 450px;
+  width: 480px;
 }
 .sidenav .mat-toolbar {
   background: inherit;
@@ -83,6 +83,8 @@ a.mat-stroked-button .mat-icon {
 
 .example-tree-node {
   padding-left: 22px;
+
+
 }
 .mat-toolbar {
   position: sticky;

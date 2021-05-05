@@ -81,7 +81,6 @@ export class SheepEditComponent implements OnInit {
             bloodGroup: new FormControl(obj.passport.bloodGroup || "", []),
             bloodPercent: new FormControl(obj.passport.bloodPercent || "", []),
             father: new FormControl("", []),
-
             mother: new FormControl('', [])
           });
             this.pending=false
@@ -127,7 +126,10 @@ export class SheepEditComponent implements OnInit {
         bloodGroup: this.form.value.bloodGroup,
         bloodPercent: this.form.value.bloodPercent,
 
-
+      },
+      genealogy: {
+        father: this.form.value.father || "",
+        mother: this.form.value.mother || "",
       }
     };
     for( let key in animal.passport) {
@@ -135,6 +137,12 @@ export class SheepEditComponent implements OnInit {
         delete animal.passport[key];
       }
     }
+    for( let key in animal.genealogy) {
+      if (animal.genealogy.hasOwnProperty(key) && animal.genealogy[key] === ""){
+        delete animal.genealogy[key];
+      }
+    }
+
     let sub: Observable<any>;
     if (this.route.snapshot.queryParams.create == 'false') {
       animal.id = this.route.snapshot.params.id;
@@ -147,4 +155,5 @@ export class SheepEditComponent implements OnInit {
       this.router.navigate(['/animals/sheep']);
     });
   }
+
 }

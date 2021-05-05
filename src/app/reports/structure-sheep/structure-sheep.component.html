@@ -1,1 +1,26 @@
-<p>structure-sheep works!</p>
+<h2 class="text-center">Структура поголовья</h2>
+<mat-form-field appearance="fill" [formGroup]="form">
+  <mat-label>Выберете дату</mat-label>
+  <input matInput [matDatepicker]="picker" formControlName="date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<button mat-raised-button color="accent"
+        [disabled]="form.invalid"
+        style="top: -7px !important; left: 20px; position: relative !important;"
+        (click)="SubmitReport()"
+>Загрузить отчет</button>
+<!--<ngx-charts-bar-vertical-->
+<!--  [view]="view"-->
+<!--  [scheme]="colorScheme"-->
+<!--  [results]="data"-->
+<!--  [gradient]="gradient"-->
+<!--  [xAxis]="showXAxis"-->
+<!--  [yAxis]="showYAxis"-->
+<!--  [legend]="showLegend"-->
+<!--  [showXAxisLabel]="showXAxisLabel"-->
+<!--  [showYAxisLabel]="showYAxisLabel"-->
+<!--  [xAxisLabel]="xAxisLabel"-->
+<!--  [yAxisLabel]="yAxisLabel"-->
+<!--  (select)="onSelect($event)">-->
+<!--</ngx-charts-bar-vertical>-->

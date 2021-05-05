@@ -22,9 +22,9 @@ const TREE_DATA: NavNode[] = [
     name: 'Животные',
     icon: "pets",
     children: [
-      {name: 'Учет овец', icon: 'receipt', iconClass: 'green', refLink:"/animals/sheep"},
-      {name: 'Учет баранов', icon: 'receipt', iconClass: 'orange'},
-      {name: 'Учет ягнят', icon: 'receipt', iconClass: 'blue'},
+      {name: 'Учет животных', icon: 'receipt', iconClass: 'green', refLink:"/animals/sheep"},
+      // {name: 'Учет баранов', icon: 'receipt', iconClass: 'orange'},
+      // {name: 'Учет ягнят', icon: 'receipt', iconClass: 'blue'},
     ]
   },
 
@@ -56,11 +56,11 @@ const TREE_DATA: NavNode[] = [
 
   {
     name: "Отчеты",
-    icon: "reports",
+    icon: "analytics",
     children: [
-      {name:"Статистика",refLink: "report/stats"},
-      {name:"Структура поголовья",refLink: "report/structure"},
-      {name:"Статистика",refLink: "report/stats"}
+      {name:"За период",refLink: "report/stats", icon: "pie_chart"},
+      {name:"Структура поголовья",refLink: "report/structure", icon: "pie_chart"},
+      {name:"Настраиваемый отчет",refLink: "report/custom",icon: "dashboard"}
 
     ]
   }

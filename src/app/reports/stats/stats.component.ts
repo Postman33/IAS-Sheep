@@ -24,11 +24,7 @@ export class StatsComponent implements OnInit {
 
   private async preload(url : string, body){
     let data =await this.loader.preload(url, body );
-    for (let resKey in data ){
-        if (data.hasOwnProperty(resKey)){
-          this.data[resKey] = data[resKey];
-        }
-    }
+    this.data = data;
   }
 
   view: any[] = [700, 300];
