@@ -1,5 +1,16 @@
+<p>report-custom works!</p>
 <h2 class="text-center">Структура поголовья</h2>
-<mat-form-field appearance="fill" [formGroup]="form">
+
+<mat-form-field appearance="fill" >
+  <mat-label>Тип отчета</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let reportOption of reportsOptions" [value]="reportOption">
+      {{reportOption.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill" [formGroup]="form" class="ml-2">
   <mat-label>Выберете дату</mat-label>
   <input matInput [matDatepicker]="picker" formControlName="date">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -7,28 +18,8 @@
 </mat-form-field>
 
 
-
 <button mat-raised-button color="accent"
         [disabled]="form.invalid"
         style="top: -7px !important; left: 20px; position: relative !important;"
         (click)="SubmitReport()"
 >Загрузить отчет</button>
-
-<div *ngIf="loading" >
-  Загружаем
-  <mat-progress-bar style="width: 50%" class="center" mode="indeterminate"></mat-progress-bar>
-</div>
-
-
-<div *ngIf="data && !loading">
-
-<ngx-charts-advanced-pie-chart *ngIf="data"
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="data['stats']"
-  [gradient]="gradient"
-  label="животных всего"
-  (select)="onSelect($event)"
->
-</ngx-charts-advanced-pie-chart>
-</div>

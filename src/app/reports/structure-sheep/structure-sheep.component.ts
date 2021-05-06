@@ -9,7 +9,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class StructureSheepComponent implements OnInit {
 
-
+  public data;
   public form : FormGroup = new FormGroup(
     {
       date: new FormControl('',[Validators.required])
@@ -35,10 +35,9 @@ export class StructureSheepComponent implements OnInit {
     this.data = data;
   }
 
-  data ;
   multi: any[];
 
-  view: any[] = [700, 400];
+  view: any[] = [700, 200];
 
   // options
   showXAxis = true;
@@ -54,6 +53,7 @@ export class StructureSheepComponent implements OnInit {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#69d4b6',
       '#9037e0','#c45656']
   };
+
 
 
 
