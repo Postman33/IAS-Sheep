@@ -11,12 +11,13 @@ import { StatsComponent } from './stats/stats.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ReportCustomComponent } from './report-custom/report-custom.component';
+import {AdminGuard} from '../shared/admin.guard';
 
 
 
 const routes : Routes = [
   {path: "", children: [
-      {path: "structure",component:StructureSheepComponent},
+      {path: "structure",component:StructureSheepComponent, canActivate: [AdminGuard]},
       {path: "stats",component:StatsComponent},
       {path: "custom",component:ReportCustomComponent},
 
