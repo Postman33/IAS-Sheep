@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {ErrorComponent} from './shared/error/error.component';
 import {HomeComponent} from './shared/home/home.component';
 import {AboutComponent} from './shared/about/about.component';
+import {AdminGuard} from './shared/admin.guard';
 
 const routes : Routes = [
 
@@ -12,7 +13,7 @@ const routes : Routes = [
   {path: "animals", loadChildren: ()=>import("./animalDB/animal.module").then( m => m.AnimalModule)},
   {path: "journal", loadChildren: ()=>import("./journalDB/journal.module").then( m => m.JournalModule)},
   {path: "report", loadChildren: ()=>import("./reports/report.module").then( m => m.ReportModule)},
-
+  {path: "notification", loadChildren: ()=>import("./notification/notification.module").then( m => m.NotificationModule),canLoad: [AdminGuard]},
   {path:"not-found", component: ErrorComponent},
   // {path:"**", redirectTo: "not-found"},
 ]

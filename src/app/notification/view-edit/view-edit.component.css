@@ -1,0 +1,13 @@
+tr.paint-row:nth-child(n) {background-color: #8ea7e0 !important;}
+tr.paint-row:nth-child(2n) {background-color: #adc7ef !important;}
+
+.button-add-notification {
+}
+.right-align {
+  bottom: -35px; /* Положение от нижнего края */
+  right: 15px;
+}
+input[type="datetime-local"] {
+  border: #3c3737 solid 1px;
+  padding: 3px;
+}
