@@ -1,6 +1,6 @@
 <p>report-custom works!</p>
 <h2 class="text-center">Структура поголовья</h2>
-
+<form [formGroup]="form">
 <mat-form-field appearance="fill" >
   <mat-label>Тип отчета</mat-label>
   <mat-select>
@@ -10,11 +10,17 @@
   </mat-select>
 </mat-form-field>
 
-<mat-form-field appearance="fill" [formGroup]="form" class="ml-2">
-  <mat-label>Выберете дату</mat-label>
-  <input matInput [matDatepicker]="picker" formControlName="date">
+<mat-form-field appearance="fill" style="width: 290px; margin-left: 30px;">
+  <mat-label>Выберете промежуток статистики</mat-label>
+  <mat-date-range-input  [rangePicker]="picker">
+    <input matStartDate formControlName="start" placeholder="Start date">
+    <input matEndDate formControlName="end" placeholder="End date">
+  </mat-date-range-input>
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+
+  <mat-error *ngIf="form.controls.start.hasError('matStartDateInvalid')">Неправильная стартовая дата</mat-error>
+  <mat-error *ngIf="form.controls.end.hasError('matEndDateInvalid')">Неправильная конечная дата</mat-error>
 </mat-form-field>
 
 
@@ -23,3 +29,4 @@
         style="top: -7px !important; left: 20px; position: relative !important;"
         (click)="SubmitReport()"
 >Загрузить отчет</button>
+</form>

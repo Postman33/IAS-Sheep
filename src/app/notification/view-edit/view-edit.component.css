@@ -4,10 +4,16 @@ tr.paint-row:nth-child(2n) {background-color: #adc7ef !important;}
 .button-add-notification {
 }
 .right-align {
-  bottom: -35px; /* Положение от нижнего края */
+  bottom: -40px; /* Положение от нижнего края */
   right: 15px;
 }
 input[type="datetime-local"] {
   border: #3c3737 solid 1px;
   padding: 3px;
+}
+input.ng-invalid {
+ border: #e22d2d solid 2px !important;
+}
+textarea.ng-invalid {
+  border: #e22d2d solid 2px !important;
 }

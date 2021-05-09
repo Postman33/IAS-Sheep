@@ -13,7 +13,8 @@ export class ReportCustomComponent implements OnInit {
 
   public form : FormGroup = new FormGroup(
     {
-      date: new FormControl('',[Validators.required])
+      start: new FormControl('',[Validators.required]),
+      end: new FormControl('',[Validators.required])
     }
   );
   public loading :boolean = false;

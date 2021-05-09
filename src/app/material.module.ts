@@ -22,6 +22,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 const Materials = [
   MatToolbarModule,
@@ -47,6 +48,7 @@ const Materials = [
   MatSelectModule,
   MatAutocompleteModule,
   MatSnackBarModule,
+  MatTooltipModule,
 ]
 
 @NgModule({

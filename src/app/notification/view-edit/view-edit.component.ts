@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 
 function timestampToDatetimeInputString(timestamp) {
@@ -48,15 +48,19 @@ export class ViewEditComponent implements OnInit {
   addNotify() {
     (<FormArray>this.form.get("records")).push( new FormGroup({
       id: new FormControl(null),
-      name: new FormControl(""),
-      time: new FormControl(timestampToDatetimeInputString(Date.now())),
-      header: new FormControl(""),
-      text:new FormControl("1")
+      name: new FormControl("",[Validators.required]),
+      time: new FormControl(timestampToDatetimeInputString(Date.now()),[Validators.required]),
+      header: new FormControl("",[Validators.required]),
+      text:new FormControl("",[Validators.required])
     }))
 
   }
 
   removeControl(number: number) {
+    if (this.form.get("records")["controls"][number].value.id == null) {
+      (<FormArray>this.form.get("records")).removeAt(number);
+      return;
+    }
    this.form.get("records")["controls"][number].patchValue({
      name:"--REMOVE"
    });

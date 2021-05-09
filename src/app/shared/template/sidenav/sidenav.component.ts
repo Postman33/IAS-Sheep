@@ -53,7 +53,13 @@ const TREE_DATA: NavNode[] = [
       },
     ]
   },
+  {name:"Уведомления",
+    icon:"admin_panel_settings",
+    // iconClass: "orange",
+    children: [
+      {name: "Список уведомлений",refLink: "notification/edit", icon: "notifications"}
 
+    ]},
   {
     name: "Отчеты",
     icon: "analytics",
