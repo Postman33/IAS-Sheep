@@ -12,7 +12,8 @@ export class EvolutionComponent implements OnInit {
 
 
   constructor(private http: HttpClient, private route : ActivatedRoute) { }
-
+  public Father : Animal;
+  public Mother : Animal;
   ngOnInit(): void {
     this.http.get("api/sheep/"+this.route.snapshot.params.id+"/stats").subscribe(res=>{
       console.log(res);

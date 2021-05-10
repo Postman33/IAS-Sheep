@@ -14,13 +14,15 @@ import { SidenavComponent } from './template/sidenav/sidenav.component';
 import { EntityAutoCompleteComponent } from './entity-auto-complete/entity-auto-complete.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BlueHintDirective, ErrorHintDirective, RedHintDirective} from './directives/error-hint.directive';
+import { SheepDetailPreviewComponent } from './sheep-detail-preview/sheep-detail-preview.component';
 
 
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, ErrorComponent, HomeComponent, AboutComponent, SidenavComponent, EntityAutoCompleteComponent,
     RedHintDirective,
-  BlueHintDirective],
+  BlueHintDirective,
+  SheepDetailPreviewComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -28,15 +30,16 @@ import {BlueHintDirective, ErrorHintDirective, RedHintDirective} from './directi
     HttpClientModule,
     ReactiveFormsModule
   ],
-  exports: [
-    MaterialModule,
-    HeaderComponent,
-    MaterialModule,
-    SidenavComponent,
-    EntityAutoCompleteComponent,
-    BlueHintDirective,
-    RedHintDirective,
-  ],
+    exports: [
+        MaterialModule,
+        HeaderComponent,
+        MaterialModule,
+        SidenavComponent,
+        EntityAutoCompleteComponent,
+        BlueHintDirective,
+        RedHintDirective,
+        SheepDetailPreviewComponent,
+    ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     multi: true,

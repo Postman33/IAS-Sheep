@@ -61,6 +61,7 @@ export class SheepEditComponent implements OnInit {
 
 
 
+
           this.form = new FormGroup({
             birthday: new FormControl(obj.passport.birthday, [Validators.required]),
             chipNo: new FormControl(obj.chipNo, [Validators.required]),

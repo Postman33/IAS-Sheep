@@ -32,9 +32,9 @@ const TREE_DATA: NavNode[] = [
     name: 'Журнал',
     icon:"menu_book",
     children: [
-      {
-        name: 'Бонитировка',
-      },
+      // {
+      //   name: 'Бонитировка',
+      // },
       {
         name: 'Чабаны',
         refLink: 'journal/chabans'
@@ -57,16 +57,16 @@ const TREE_DATA: NavNode[] = [
     icon:"admin_panel_settings",
     // iconClass: "orange",
     children: [
-      {name: "Список уведомлений",refLink: "notification/edit", icon: "notifications"}
+      {name: "Список уведомлений",refLink: "notification/edit", icon: "notifications", iconClass: 'green'}
 
     ]},
   {
     name: "Отчеты",
     icon: "analytics",
     children: [
-      {name:"За период",refLink: "report/stats", icon: "pie_chart"},
-      {name:"Структура поголовья",refLink: "report/structure", icon: "pie_chart"},
-      {name:"Настраиваемый отчет",refLink: "report/custom",icon: "dashboard"}
+      {name:"За период",refLink: "report/stats", icon: "pie_chart", iconClass: 'orange'},
+      {name:"Структура поголовья",refLink: "report/structure", icon: "pie_chart", iconClass: 'orange'},
+      {name:"Настраиваемый отчет",refLink: "report/custom",icon: "dashboard", iconClass: 'orange'}
 
     ]
   }

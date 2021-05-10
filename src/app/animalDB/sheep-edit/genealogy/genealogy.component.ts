@@ -26,6 +26,9 @@ export class GenealogyComponent implements OnInit {
   public animalsMother: Animal[] = [];
   public animalsFather: Animal[] = [];
 
+  public father : Animal;
+  public mother: Animal;
+
   filteredMotherOptions: Observable<Animal[]> = of([]);
   filteredFatherOptions: Observable<Animal[]> = of([]);
 
@@ -43,7 +46,11 @@ export class GenealogyComponent implements OnInit {
       this.animalsFather = response.filter(a => {
         return (a.id != this.route.snapshot.params.id) && a.passport.typeAnimal === 'Баран';
       });
+
+      if (this.animal.genealogy?.father)
       this.formControlFather.setValue(this.animal.genealogy.father);
+
+      if (this.animal.genealogy?.mother)
       this.formControlMother.setValue(this.animal.genealogy.mother);
     });
 
@@ -78,7 +85,11 @@ export class GenealogyComponent implements OnInit {
   }
 
   OnSelectedOption() {
-    this.updatedFatherValue.emit(this.formControlFather.value.id);
-    this.updatedMotherValue.emit(this.formControlMother.value.id);
+    console.log("Updated");
+    console.log(this.formControlFather.value);
+    if (this.formControlFather.value != undefined) this.updatedFatherValue.emit(this.formControlFather.value.id);
+    if (this.formControlMother.value != undefined) this.updatedMotherValue.emit(this.formControlMother.value.id);
+    this.father = this.formControlFather.value;
+    this.mother = this.formControlMother.value;
   }
 }
