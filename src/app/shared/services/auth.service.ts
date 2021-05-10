@@ -18,7 +18,6 @@ interface AuthResponse {
 export class AuthService {
 
   constructor(private http: HttpClient, private router :Router) { }
-
    error$: Subject<any> = new Subject<any>();
 
   private catch(er : HttpErrorResponse){

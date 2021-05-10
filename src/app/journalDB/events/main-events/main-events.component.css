@@ -9,3 +9,8 @@ mat-form-field:not(.not-block) {
   width: 40%;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}

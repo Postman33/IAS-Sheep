@@ -1,5 +1,13 @@
-<mat-grid-list cols="4" rowHeight="100px">
-  <mat-grid-tile>
+<h2 class="text-center">Продуктивность животного</h2>
+<mat-card *ngFor="let bar of response">
+  <mat-card-title>Показатель {{bar.key}}</mat-card-title>
+  <mat-card-content>
+    Значение у животного: <strong>{{bar.valueOrigin}}</strong> <br>
+    <mat-progress-bar style="width: 100px;" mode="determinate" [value]="bar.valueOrigin"></mat-progress-bar>
 
-  </mat-grid-tile>
-</mat-grid-list>
+    Значение на ферме: <strong>{{bar.valueRelative}}</strong> <br>
+    <mat-progress-bar style="width: 100px;" mode="determinate" [value]="bar.valueRelative"></mat-progress-bar>
+
+    Степень влияния показателей по сравнению с показателями фермы: <strong [class]="bar.class" >{{bar.name}}</strong> <br>
+  </mat-card-content>
+</mat-card>

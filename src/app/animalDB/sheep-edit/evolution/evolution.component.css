@@ -1,0 +1,16 @@
+.average {
+  color: #2fb3b3;
+}
+.highAverage {
+   color: #1eb365;
+ }
+.lowAverage {
+  color: #325a5d;
+}
+
+.high {
+  color: #6eff00;
+}
+.low {
+  color: #ff003b;
+}
