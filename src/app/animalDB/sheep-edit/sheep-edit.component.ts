@@ -145,12 +145,15 @@ export class SheepEditComponent implements OnInit {
     }
 
     let sub: Observable<any>;
+
     if (this.route.snapshot.queryParams.create == 'false') {
       animal.id = this.route.snapshot.params.id;
       sub = this.UpdateAnimal(animal);
     } else {
       sub = this.CreateAnimal(animal);
     }
+
+
     sub.subscribe(response => {
       this.pending = false;
       this.router.navigate(['/animals/sheep']);

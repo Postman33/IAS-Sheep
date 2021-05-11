@@ -1,13 +1,19 @@
-<h2 class="text-center">Продуктивность животного</h2>
-<mat-card *ngFor="let bar of response">
+<h2 class="text-center">Продуктивность животного за все время</h2>
+<div class="alert alert-danger ml-2 mt-1" role="alert" *ngIf="response.length == 0;">
+  Пока данных по животному нет.
+</div>
+
+<mat-card *ngFor="let bar of response" class="mt-4 center" style="max-width: 60%">
   <mat-card-title>Показатель {{bar.key}}</mat-card-title>
   <mat-card-content>
-    Значение у животного: <strong>{{bar.valueOrigin}}</strong> <br>
-    <mat-progress-bar style="width: 100px;" mode="determinate" [value]="bar.valueOrigin"></mat-progress-bar>
+    <strong *ngIf="bar.mode1 == 'sum'">Суммарное</strong>
+    <strong *ngIf="bar.mode1 == 'avg'">Среднее</strong> значение у животного: <strong>{{bar.valueOrigin}}</strong> <br>
+    <mat-progress-bar style="width: 100px;" mode="determinate" [value]="bar.progressBarEffect"></mat-progress-bar>
 
-    Значение на ферме: <strong>{{bar.valueRelative}}</strong> <br>
-    <mat-progress-bar style="width: 100px;" mode="determinate" [value]="bar.valueRelative"></mat-progress-bar>
-
-    Степень влияния показателей по сравнению с показателями фермы: <strong [class]="bar.class" >{{bar.name}}</strong> <br>
+    <strong *ngIf="bar.mode2 == 'sum'">Суммарное</strong>
+    <strong *ngIf="bar.mode2 == 'avg'">Среднее</strong> значение на ферме: <strong>{{bar.valueRelative}}</strong> <br>
+    <mat-progress-bar style="width: 100px;" mode="determinate" [value]="bar.reverseProgressBarEffect"></mat-progress-bar>
+    Качество продуктивности, по сравнению с показателями фермы: <strong [class]="bar.class">{{bar.name}}</strong>
+    <br>
   </mat-card-content>
 </mat-card>

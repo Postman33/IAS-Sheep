@@ -19,8 +19,10 @@ export class EvolutionComponent implements OnInit {
       for( let k in res){
         this.response.push({key: k, ...res[k]})
       }
-      console.log(this.response);
+      console.log(this.response,"t");
      // this.response = res;
+    },()=>{
+      console.log("err");
     })
     console.log("test");
   }
