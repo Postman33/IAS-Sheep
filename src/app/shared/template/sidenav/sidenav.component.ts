@@ -37,19 +37,23 @@ const TREE_DATA: NavNode[] = [
       // },
       {
         name: 'Чабаны',
-        refLink: 'journal/chabans'
+        refLink: 'journal/chabans',
+        icon: 'category', iconClass: 'green',
       },
       {
         name: 'Фермы',
-        refLink: 'journal/farms'
+        refLink: 'journal/farms',
+        icon: 'category', iconClass: 'green',
       },
       {
         name: 'Отары',
-        refLink: 'journal/otars'
+        refLink: 'journal/otars',
+        icon: 'category', iconClass: 'green',
       },
       {
         name: 'События',
-        refLink: 'journal/events'
+        refLink: 'journal/events',
+        icon: 'event', iconClass: 'orange',
       },
     ]
   },
