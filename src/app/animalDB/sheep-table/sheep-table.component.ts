@@ -32,6 +32,7 @@ export class SheepTableComponent implements OnInit {
   public sheeps: Animal[] = [];
   displayedColumns: string[] = ['registerno', 'chaban','otara', 'birthday', 'actions'];
   dataSource : MatTableDataSource<Animal>;
+
   ngOnInit(): void {
     this.crud.getCollection<Animal>("/api/sheep").subscribe( (animals: Animal[])=>{
       this.sheeps = animals;
@@ -39,18 +40,6 @@ export class SheepTableComponent implements OnInit {
     })
 
   }
-
-
-
-
-  applyFilter(value: any) {
-    this.dataSource.filter = value.toLowerCase().trim();
-  }
-  refreshData() {
-    this.dataSource = new MatTableDataSource(this.sheeps);
-    this.dataSource.paginator = this.paginator;
-  }
-
   updateSheep(id) {
     this.router.navigate(['edit',id],{
       queryParams:{"create":false},
@@ -76,5 +65,15 @@ export class SheepTableComponent implements OnInit {
       relativeTo: this.route
     })
   }
+  refreshData() {
+    this.dataSource = new MatTableDataSource(this.sheeps);
+    this.dataSource.paginator = this.paginator;
+  }
+  applyFilter(value: any) {
+    this.dataSource.filter = value.toLowerCase().trim();
+  }
+
+
+
 
 }

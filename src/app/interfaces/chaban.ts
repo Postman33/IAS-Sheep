@@ -7,3 +7,4 @@ export interface Chaban {
   birthday : Date;
   farm? : Farm[];
 }
+
