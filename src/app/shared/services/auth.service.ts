@@ -37,7 +37,7 @@ export class AuthService {
     return this.http.get<boolean>("/api/auth/isAdmin").pipe(tap(
       (isAdmin: boolean) => {
         localStorage.setItem("isAdmin", String(isAdmin));
-        localStorage.setItem("isAdminExp", String(new Date(new Date().getTime() + 1000 * 60 * 2)))
+        localStorage.setItem("isAdminExp", String(new Date(new Date().getTime() + 1000 * 60 * 60)))
       }
     ))
   }

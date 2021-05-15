@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
+import {UtilsService} from "../../utils.service";
 
 function timestampToDatetimeInputString(timestamp) {
   const date = new Date((timestamp + _getTimeZoneOffsetInMs()));
@@ -18,8 +19,8 @@ function _getTimeZoneOffsetInMs() {
 })
 export class ViewEditComponent implements OnInit {
 
-  constructor(private http : HttpClient) { }
-
+  constructor(private http : HttpClient, private utils : UtilsService) { }
+  public pending = false;
   public form : FormGroup = new FormGroup({
     records: new FormArray([]),
   })
@@ -28,8 +29,10 @@ export class ViewEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pending = true;
     this.http.get("api/notify/").subscribe(data=>{
-      console.log(data);
+      //console.log(data);
+      this.pending = false;
       for( let key in data){
         if (data.hasOwnProperty(key)){
           (<FormArray>this.form.get("records")).push( new FormGroup({
@@ -37,7 +40,8 @@ export class ViewEditComponent implements OnInit {
             name: new FormControl(data[key]["name"]),
             time: new FormControl(data[key]["time"].slice(0,-5)),
             header: new FormControl(data[key]["header"]),
-            text:new FormControl(data[key]["text"])
+            text:new FormControl(data[key]["text"]),
+            completed: new FormControl(data[key]["completed"] || false) ,
           }))
         }
       }
@@ -70,6 +74,7 @@ export class ViewEditComponent implements OnInit {
     console.log(this.form.value);
     this.http.post("api/notify/", this.form.value).subscribe( result => {
       console.log( result );
+      this.utils.openSnackBar("Сохранено!","Сообщение")
     })
   }
 }
