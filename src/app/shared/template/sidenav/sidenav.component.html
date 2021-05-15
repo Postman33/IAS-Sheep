@@ -4,7 +4,8 @@
 
       <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
 
-        <button [disabled]="!authService.isAuth()" mat-button [routerLink]="node?.refLink || '#'">
+        <button [disabled]="!authService.isAuth() || (!authService.isAdminSimple && node.adminRequired==true) "
+                mat-button [routerLink]="node?.refLink || '#'">
           <small *ngIf="!authService.isAuth()">
             <mat-icon [fontSet]="'material-icons-outlined'">lock</mat-icon>
           </small>
@@ -16,7 +17,8 @@
       </cdk-nested-tree-node>
       <!-- This is the tree node template for expandable nodes -->
       <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild" class="example-tree-node">
-        <button [attr.aria-label]="'Toggle ' + node.name" cdkTreeNodeToggle mat-button>
+        <button [disabled]="!authService.isAuth() || (!authService.isAdminSimple && node.adminRequired==true) "
+                [attr.aria-label]="'Toggle ' + node.name" cdkTreeNodeToggle mat-button>
           <mat-icon [class.blue]="treeControl.isExpanded(node)" [class.green]="!treeControl.isExpanded(node)"
                     class="mat-icon-rtl-mirror">
             {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
@@ -25,6 +27,12 @@
             {{node.icon}}
           </mat-icon>
           {{node.name}}
+
+          <mat-placeholder hint [color]="'rgba(213,37,43,0.5)'"
+                           *ngIf="(!authService.isAdminSimple && node.adminRequired==true)">
+            admin
+          </mat-placeholder>
+
         </button>
 
         <div [class.example-tree-invisible]="!treeControl.isExpanded(node)">
@@ -39,3 +47,4 @@
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
+

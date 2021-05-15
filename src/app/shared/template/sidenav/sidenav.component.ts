@@ -15,6 +15,7 @@ interface NavNode {
   icon?: string;
   iconClass?: string,
   children?: NavNode[];
+  adminRequired?: boolean;
 }
 
 const TREE_DATA: NavNode[] = [
@@ -60,8 +61,10 @@ const TREE_DATA: NavNode[] = [
   {name:"Уведомления",
     icon:"admin_panel_settings",
     // iconClass: "orange",
+    adminRequired: true,
     children: [
-      {name: "Список уведомлений",refLink: "notification/edit", icon: "notifications", iconClass: 'green'}
+      {name: "Список уведомлений",refLink: "notification/edit", icon: "notifications", iconClass: 'green',    adminRequired: true,
+      }
 
     ]},
   {

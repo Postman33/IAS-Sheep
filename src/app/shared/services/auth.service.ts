@@ -26,15 +26,13 @@ export class AuthService {
   }
 
   error$: Subject<any> = new Subject<any>();
-
-
   private observableIsAdmin(): Observable<boolean> {
     if ((new Date()) > new Date(localStorage.getItem("isAdminExp"))) {
       localStorage.removeItem("isAdmin");
       localStorage.removeItem("isAdminExp")
     }
     if (localStorage.getItem("isAdmin")) {
-      return of(Boolean(localStorage.getItem("isAdmin")))
+      return of(Boolean(localStorage.getItem("isAdmin")=='true'))
     }
     return this.http.get<boolean>("/api/auth/isAdmin").pipe(tap(
       (isAdmin: boolean) => {
@@ -51,7 +49,9 @@ export class AuthService {
       }
     }))
   }
-
+public get isAdminSimple(){
+    return localStorage.getItem("isAdmin")=="true";
+}
   private catch(er: HttpErrorResponse) {
     console.log(er);
     this.error$.next(er.error.error)

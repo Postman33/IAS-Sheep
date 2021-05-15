@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, OnInit, Renderer2} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
 
 @Directive({
   selector: '[red-hint]'
@@ -25,13 +25,13 @@ export class BlueHintDirective implements OnInit{
 }
 
 @Directive({
-  selector: '[red-hint]'
+  selector: '[hint]'
 })
 export class ErrorHintDirective implements OnInit{
   constructor(private renderer: Renderer2, private el: ElementRef) {}
-
+  @Input("color") rgbCol;
   ngOnInit(): void {
-    this.renderer.setStyle(this.el.nativeElement,'color','red')
+    this.renderer.setStyle(this.el.nativeElement,'color',this.rgbCol || 'red')
   }
 
 }
