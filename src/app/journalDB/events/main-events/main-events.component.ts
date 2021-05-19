@@ -101,7 +101,7 @@ export class MainEventsComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.animals = result;
+      this.animals = result || [];
 
     });
 

@@ -72,6 +72,7 @@ export class ViewEditComponent implements OnInit {
 
   SubmitForm() {
     console.log(this.form.value);
+
     this.http.post("api/notify/", this.form.value).subscribe( result => {
       console.log( result );
       this.utils.openSnackBar("Сохранено!","Сообщение")

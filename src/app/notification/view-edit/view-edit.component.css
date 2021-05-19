@@ -1,6 +1,3 @@
-tr.paint-row:nth-child(n) {background-color: #8ea7e0 !important;}
-tr.paint-row:nth-child(2n) {background-color: #adc7ef !important;}
-
 .button-add-notification {
 }
 .right-align {
@@ -16,4 +13,10 @@ input.ng-invalid {
 }
 textarea.ng-invalid {
   border: #e22d2d solid 2px !important;
+}
+thead {
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 0;
+
 }

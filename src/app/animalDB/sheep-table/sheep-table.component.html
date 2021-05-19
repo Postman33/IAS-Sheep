@@ -6,36 +6,33 @@
 </mat-form-field>
 
 <button mat-button color="accent" class="mb-2" (click)="createSheep()">Добавить овцу <mat-icon class="green">add_circle_outline</mat-icon></button>
-
-
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <!-- Position Column -->
+  <!-- Номер чипа-->
   <ng-container matColumnDef="registerno">
     <th mat-header-cell *matHeaderCellDef> Номер чипа</th>
     <td mat-cell *matCellDef="let element"> {{element?.chipNo || "-"}} </td>
   </ng-container>
 
-  <!-- Name Column -->
+  <!-- Чабаны -->
   <ng-container matColumnDef="chaban">
     <th mat-header-cell *matHeaderCellDef> Чабан </th>
     <td mat-cell *matCellDef="let element"> {{element.passport.chaban?.FIO || "-"}} </td>
   </ng-container>
 
-  <!-- Name Column -->
+  <!-- Отары -->
   <ng-container matColumnDef="otara">
     <th mat-header-cell *matHeaderCellDef> Отара </th>
     <td mat-cell *matCellDef="let element"> {{element.passport.otara?.name || "-"}} </td>
   </ng-container>
 
-
-  <!-- Weight Column -->
+  <!-- День рождения -->
   <ng-container matColumnDef="birthday">
     <th mat-header-cell *matHeaderCellDef> Дата рождения </th>
     <td mat-cell *matCellDef="let element"> {{element.passport.birthday | date}} </td>
   </ng-container>
 
-  <!-- Symbol Column -->
+  <!-- Кнопки -->
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Действия </th>
     <td mat-cell *matCellDef="let element">
@@ -47,9 +44,9 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-  <!-- Row shown when there is no matching data. -->
+  <!-- Нет данных по фильтру -->
   <tr class="mat-row" *matNoDataRow>
-    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    <td class="mat-cell" colspan="4">Нет данных по фильтру "{{input.value}}"</td>
   </tr>
 </table>
 <mat-paginator [length]="pages"

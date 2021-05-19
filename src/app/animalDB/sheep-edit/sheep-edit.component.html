@@ -2,7 +2,6 @@
 <div class="alert alert-danger ml-2 mt-1" role="alert" *ngIf="errorMsg; else mainForm">
   Что-то пошло не так....
 </div>
-
 <ng-template #mainForm><h2 class="text-center">Редактор животного</h2>
 <form class="example-form" [formGroup]="form" (ngSubmit)="Submit($event)" >
 <mat-tab-group>

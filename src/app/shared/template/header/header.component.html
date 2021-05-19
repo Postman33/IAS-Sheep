@@ -8,21 +8,21 @@
   <div class="spacer"></div>
   <button class="" mat-button routerLink="/auth/login" routerLinkActive="active-button" *ngIf="!authService.isAuth()">
     <mat-icon fontSet="material-icons">login</mat-icon>
-    Login
+    Войти
   </button>
   <button class="" mat-button routerLink="/auth/register" routerLinkActive="active-button" *ngIf="!authService.isAuth()">
     <mat-icon fontSet="material-icons">login</mat-icon>
-    Register
+    Регистрация
   </button>
 
   <button class="" mat-button *ngIf="authService.isAuth()" (click)="authService.Logout()">
     <mat-icon fontSet="material-icons">logout</mat-icon>
-    Logout
+    Выйти
   </button>
 
   <button class="" mat-button routerLink="/about" routerLinkActive="active-button">
     <mat-icon fontSet="material-icons-outlined">help</mat-icon>
-    Help
+    Помощь
   </button>
 </mat-toolbar>
 

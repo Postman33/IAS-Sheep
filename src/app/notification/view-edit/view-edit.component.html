@@ -20,7 +20,7 @@
       </tr>
       </thead>
       <tbody formArrayName="records">
-      <tr class="elements" *ngFor="let control of formControls; let idx = index" [formGroupName]="idx">
+      <tr *ngFor="let control of formControls; let idx = index" [formGroupName]="idx">
         <td *ngIf="form.get('records')['controls'][idx].value.name !== '--REMOVE'" ><input type="text" formControlName="name"></td>
         <td *ngIf="form.get('records')['controls'][idx].value.name !== '--REMOVE'"  class="text-center">
           <p hint [color]="'rgb(198,34,88)'" [style.fontSize]="'18px'" *ngIf="control.value.completed; else method">Отправен</p>

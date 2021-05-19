@@ -1,20 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {Chaban} from '../../interfaces/chaban';
 import {Animal} from '../../interfaces/animal';
 import {MatPaginator} from '@angular/material/paginator';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../journalDB/crud.service';
 import {UtilsService} from '../../utils.service';
+import {Observable} from "rxjs";
 
-
-export interface AnimalElement {
-  RegisterNo?: Number;
-  chaban?: Chaban; // Чабан
-  Birthday?: Date | string;
-  Purpose?: string; // Назначение
-}
 
 
 
@@ -34,20 +27,23 @@ export class SheepTableComponent implements OnInit {
   dataSource : MatTableDataSource<Animal>;
 
   ngOnInit(): void {
-    this.crud.getCollection<Animal>("/api/sheep").subscribe( (animals: Animal[])=>{
-      this.sheeps = animals;
+    this.getAnimals().subscribe( (animals: Animal[])=>{
+      this.sheeps = animals; // Сохраняем информацию о всех овцах
       this.refreshData();
     })
 
   }
-  updateSheep(id) {
+  public getAnimals() : Observable<Animal[]>{
+    return this.crud.getCollection<Animal>("/api/sheep");
+  }
+  updateSheep(id) { // Вызывается кнопкой "Редактировать"
     this.router.navigate(['edit',id],{
       queryParams:{"create":false},
       relativeTo: this.route
     })
   }
 
-  removeSheep(id) {
+  removeSheep(id) { // Вызывается кнопкой "Удалить"
     if (confirm('Удалить?')) {
       this.http.delete('/api/sheep/' + id).subscribe(response => {
         this.sheeps = this.sheeps.filter((sheep: Animal) => {
@@ -59,7 +55,7 @@ export class SheepTableComponent implements OnInit {
     }
   }
 
-  createSheep() {
+  createSheep() { // Вызывается кнопкой "Добавить овцу"
     this.router.navigate(['edit',"new"],{
       queryParams:{"create":true},
       relativeTo: this.route

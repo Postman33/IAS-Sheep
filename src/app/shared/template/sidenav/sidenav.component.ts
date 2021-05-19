@@ -10,12 +10,12 @@ import {CrossVarService} from '../../services/cross-var.service';
 
 
 interface NavNode {
-  name: string;
-  refLink?: string;
-  icon?: string;
-  iconClass?: string,
-  children?: NavNode[];
-  adminRequired?: boolean;
+  name: string; // Имя узла
+  refLink?: string; // Ссылка на страницу
+  icon?: string; // Иконка узла
+  iconClass?: string, // Цвет иконки узла
+  children?: NavNode[]; // Вложенные узлы
+  adminRequired?: boolean; // Нужны ли админ-права для активации узла
 }
 
 const TREE_DATA: NavNode[] = [
@@ -23,15 +23,13 @@ const TREE_DATA: NavNode[] = [
     name: 'Животные',
     icon: "pets",
     children: [
-      {name: 'Учет животных', icon: 'receipt', iconClass: 'green', refLink:"/animals/sheep"},
-      // {name: 'Учет баранов', icon: 'receipt', iconClass: 'orange'},
-      // {name: 'Учет ягнят', icon: 'receipt', iconClass: 'blue'},
+      {name: 'Учет животных', icon: 'receipt', iconClass: 'green', refLink: "/animals/sheep"},
     ]
   },
 
   {
     name: 'Журнал',
-    icon:"menu_book",
+    icon: "menu_book",
     children: [
       // {
       //   name: 'Бонитировка',
@@ -39,17 +37,17 @@ const TREE_DATA: NavNode[] = [
       {
         name: 'Чабаны',
         refLink: 'journal/chabans',
-        icon: 'category', iconClass: 'green',
+        icon: 'people', iconClass: 'green',
       },
       {
         name: 'Фермы',
         refLink: 'journal/farms',
-        icon: 'category', iconClass: 'green',
+        icon: 'agriculture', iconClass: 'green',
       },
       {
         name: 'Отары',
         refLink: 'journal/otars',
-        icon: 'category', iconClass: 'green',
+        icon: 'groups', iconClass: 'green',
       },
       {
         name: 'События',
@@ -58,22 +56,29 @@ const TREE_DATA: NavNode[] = [
       },
     ]
   },
-  {name:"Уведомления",
-    icon:"admin_panel_settings",
+  {
+    name: "Уведомления",
+    icon: "admin_panel_settings",
     // iconClass: "orange",
     adminRequired: true,
     children: [
-      {name: "Список уведомлений",refLink: "notification/edit", icon: "notifications", iconClass: 'green',    adminRequired: true,
+      {
+        name: "Список уведомлений",
+        refLink: "notification/edit",
+        icon: "notifications",
+        iconClass: 'green',
+        adminRequired: true,
       }
 
-    ]},
+    ]
+  },
   {
     name: "Отчеты",
     icon: "analytics",
     children: [
-      {name:"За период",refLink: "report/stats", icon: "pie_chart", iconClass: 'orange'},
-      {name:"Структура поголовья",refLink: "report/structure", icon: "pie_chart", iconClass: 'orange'},
-      {name:"Настраиваемый отчет",refLink: "report/custom",icon: "dashboard", iconClass: 'orange'}
+      {name: "За период", refLink: "report/stats", icon: "pie_chart", iconClass: 'orange'},
+      {name: "Структура поголовья", refLink: "report/structure", icon: "pie_chart", iconClass: 'orange'},
+      {name: "Настраиваемый отчет", refLink: "report/custom", icon: "dashboard", iconClass: 'orange'}
 
     ]
   }
@@ -86,24 +91,28 @@ const TREE_DATA: NavNode[] = [
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit, OnDestroy {
-
-
   treeControl = new NestedTreeControl<NavNode>(node => node.children);
   dataSource = new ArrayDataSource(TREE_DATA);
-  constructor(private router : Router, public authService : AuthService, private crossVarService :CrossVarService) {
-  }
-  CrossSub : Subscription
 
-  Opened = true;
-
+  constructor(private router: Router, public authService: AuthService, private crossVarService: CrossVarService) {}
 
   hasChild = (_: number, node: NavNode) => !!node.children && node.children.length > 0;
 
+
+
+
+
+  CrossSub: Subscription
+  Opened = true;
+
+
+
   ngOnInit(): void {
-    this.CrossSub = this.crossVarService.triggerState$.subscribe((res:boolean)=>{
-      this.Opened= res;
+    this.CrossSub = this.crossVarService.triggerState$.subscribe((res: boolean) => {
+      this.Opened = res;
     })
   }
+
   ngOnDestroy(): void {
     this.CrossSub.unsubscribe();
   }
