@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 import {Observable, of, Subject, throwError} from 'rxjs';
@@ -20,19 +20,17 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router, private utils: UtilsService) {
 
-    console.log("Init")
-
-
   }
 
   error$: Subject<any> = new Subject<any>();
+
   private observableIsAdmin(): Observable<boolean> {
     if ((new Date()) > new Date(localStorage.getItem("isAdminExp"))) {
       localStorage.removeItem("isAdmin");
       localStorage.removeItem("isAdminExp")
     }
     if (localStorage.getItem("isAdmin")) {
-      return of(Boolean(localStorage.getItem("isAdmin")=='true'))
+      return of(Boolean(localStorage.getItem("isAdmin") == 'true'))
     }
     return this.http.get<boolean>("/api/auth/isAdmin").pipe(tap(
       (isAdmin: boolean) => {
@@ -49,18 +47,19 @@ export class AuthService {
       }
     }))
   }
-public get isAdminSimple(){
-    return localStorage.getItem("isAdmin")=="true";
-}
+
+  public get isAdminSimple() {
+    return localStorage.getItem("isAdmin") == "true";
+  }
+
   private catch(er: HttpErrorResponse) {
-    console.log(er);
     this.error$.next(er.error.error)
     return throwError(er);
   }
 
   public Register(user: User) {
-    this.error$.next("")
-    return this.http.post<AuthResponse>("/api/auth/register", user).pipe(
+    //this.error$.next("")
+    return this.registerFn(user).pipe(
       catchError(this.catch.bind(this))
     )
 
@@ -74,13 +73,19 @@ public get isAdminSimple(){
   }
 
   Login(user: User) {
-    this.error$.next("Test")
-    return this.http.post<AuthResponse>(`/api/auth/login`, user).pipe(
+    //this.error$.next("Test")
+    return this.loginFn(user).pipe(
       catchError(this.catch.bind(this))
     )
 
   }
 
+  loginFn(user: User) {
+    return this.http.post<AuthResponse>(`/api/auth/login`, user)
+  }
+  registerFn(user: User) {
+    return this.http.post<AuthResponse>("/api/auth/register", user)
+  }
   public get Token() {
     if (new Date() > new Date(localStorage.getItem("token_exp") + new Date().getTime())) {
       this.Logout();

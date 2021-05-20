@@ -2,8 +2,10 @@
   <mat-card class="d-flex flex-column justify-content-center align-items-center" style="width: 50%">
     <mat-card-title class="mb-2">Регистрация пользователя</mat-card-title>
 
-    <div *ngIf="authService.error$ | async as error;">
-      Ошибка '<strong style="color: #cb2929; background-color: rgba(201,195,195,0.1)">{{ error }}</strong>'
+<!--    <div *ngIf="authService.error$ | async as error;">-->
+    <div class="error" *ngIf="errorMsg">
+
+    Ошибка '<strong style="color: #cb2929; background-color: rgba(201,195,195,0.1)">{{ errorMsg }}</strong>'
     </div>
     <div *ngIf="SuccessInfo != ''">
       '<strong style="color: #86e024; background-color: rgba(211,219,209,0.1)">{{ SuccessInfo }}</strong>'

@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -15,8 +15,7 @@ export class LoaderService{
   }
 
   public async preload(url: string , body){
-    let a = await this.preloadData( url,body );
-    return a;
+    return await this.preloadData(url, body);
   }
 
 }

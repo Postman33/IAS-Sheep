@@ -15,34 +15,34 @@ export class SheepEditComponent implements OnInit {
 
   constructor(private http: HttpClient, public route: ActivatedRoute, private router: Router) {
   }
-  public errorMsg : string;
+
+  public errorMsg: string;
   public pending = false;
   public AnimalInfo: Animal = {
     id: '',
     chipNo: '123',
-    passport: {
-    }
+    passport: {}
   };
 
   public form: FormGroup = new FormGroup({
     birthday: new FormControl("", [Validators.required]),
     chipNo: new FormControl("", [Validators.required]),
-    typeAnimal: new FormControl( "", [Validators.required]),
+    typeAnimal: new FormControl("", [Validators.required]),
     generation: new FormControl("", [Validators.required]),
-    colorPrimary: new FormControl( "", []),
-    colorSecondary: new FormControl( "", []),
-    colorSecondaryOpt: new FormControl( "", []),
-    dateOfEntry: new FormControl( "", [Validators.required]),
+    colorPrimary: new FormControl("", []),
+    colorSecondary: new FormControl("", []),
+    colorSecondaryOpt: new FormControl("", []),
+    dateOfEntry: new FormControl("", [Validators.required]),
     farm: new FormControl("", []),
     otara: new FormControl("", []),
-    chaban: new FormControl( "", []),
-    dateOfDisposal: new FormControl( "", []),
-    reasonOfDisposal: new FormControl( "", []),
+    chaban: new FormControl("", []),
+    dateOfDisposal: new FormControl("", []),
+    reasonOfDisposal: new FormControl("", []),
     isSelling: new FormControl("", []),
-    bloodBreeds: new FormControl( "", []),
-    typeOfCreating: new FormControl( "", []),
+    bloodBreeds: new FormControl("", []),
+    typeOfCreating: new FormControl("", []),
     bloodGroup: new FormControl("", []),
-    bloodPercent: new FormControl( "", []),
+    bloodPercent: new FormControl("", []),
     father: new FormControl("", []),
     mother: new FormControl('', [])
   });
@@ -55,40 +55,40 @@ export class SheepEditComponent implements OnInit {
         this.pending = true;
         this.http.get('/api/sheep/' + this.route.snapshot.params.id).subscribe((response: Animal) => {
 
-          const {_id, ...rest} = response;
-          const obj: Animal = {...rest, id: response._id};
-          this.AnimalInfo = obj;
+            const {_id, ...rest} = response;
+            const obj: Animal = {...rest, id: response._id};
+            this.AnimalInfo = obj;
 
 
-
-
-          this.form = new FormGroup({
-            birthday: new FormControl(obj.passport.birthday, [Validators.required]),
-            chipNo: new FormControl(obj.chipNo, [Validators.required]),
-            typeAnimal: new FormControl(obj.passport.typeAnimal || "", [Validators.required]),
-            generation: new FormControl(obj.passport.generation || "", [Validators.required]),
-            colorPrimary: new FormControl(obj.passport.colorPrimary || "", []),
-            colorSecondary: new FormControl(obj.passport.colorSecondary || "", []),
-            colorSecondaryOpt: new FormControl(obj.passport.colorSecondaryOpt || "", []),
-            dateOfEntry: new FormControl(obj.passport.dateOfEntry || "", [Validators.required]),
-            farm: new FormControl(obj.passport.farm?._id || "", []),
-            otara: new FormControl(obj.passport.otara?._id || "", []),
-            chaban: new FormControl(obj.passport.chaban?._id || "", []),
-            dateOfDisposal: new FormControl(obj.passport.dateOfDisposal || "", []),
-            reasonOfDisposal: new FormControl(obj.passport.reasonOfDisposal || "", []),
-            isSelling: new FormControl(obj.passport.isSelling || "", []),
-            bloodBreeds: new FormControl(obj.passport.bloodBreeds || "", []),
-            typeOfCreating: new FormControl(obj.passport.typeOfCreating || "", []),
-            bloodGroup: new FormControl(obj.passport.bloodGroup || "", []),
-            bloodPercent: new FormControl(obj.passport.bloodPercent || "", []),
-            father: new FormControl("", []),
-            mother: new FormControl('', [])
+            this.form = new FormGroup({
+              birthday: new FormControl(obj.passport.birthday, [Validators.required]),
+              chipNo: new FormControl(obj.chipNo, [Validators.required]),
+              typeAnimal: new FormControl(obj.passport.typeAnimal || "", [Validators.required]),
+              generation: new FormControl(obj.passport.generation || "", [Validators.required]),
+              colorPrimary: new FormControl(obj.passport.colorPrimary || "", []),
+              colorSecondary: new FormControl(obj.passport.colorSecondary || "", []),
+              colorSecondaryOpt: new FormControl(obj.passport.colorSecondaryOpt || "", []),
+              dateOfEntry: new FormControl(obj.passport.dateOfEntry || "", [Validators.required]),
+              farm: new FormControl(obj.passport.farm?._id || "", []),
+              otara: new FormControl(obj.passport.otara?._id || "", []),
+              chaban: new FormControl(obj.passport.chaban?._id || "", []),
+              dateOfDisposal: new FormControl(obj.passport.dateOfDisposal || "", []),
+              reasonOfDisposal: new FormControl(obj.passport.reasonOfDisposal || "", []),
+              isSelling: new FormControl(obj.passport.isSelling || "", []),
+              bloodBreeds: new FormControl(obj.passport.bloodBreeds || "", []),
+              typeOfCreating: new FormControl(obj.passport.typeOfCreating || "", []),
+              bloodGroup: new FormControl(obj.passport.bloodGroup || "", []),
+              bloodPercent: new FormControl(obj.passport.bloodPercent || "", []),
+              father: new FormControl("", []),
+              mother: new FormControl('', [])
+            });
+            this.pending = false
+          },
+          (err) => {
+            this.errorMsg = err
+          }, () => {
+            this.pending = false
           });
-            this.pending=false
-        },
-          err => {
-          this.errorMsg = err
-          }, ()=>{this.pending=false});
       }
 
     });
@@ -133,13 +133,13 @@ export class SheepEditComponent implements OnInit {
         mother: this.form.value.mother || "",
       }
     };
-    for( let key in animal.passport) {
-      if (animal.passport.hasOwnProperty(key) && animal.passport[key] === ""){
+    for (let key in animal.passport) {
+      if (animal.passport.hasOwnProperty(key) && animal.passport[key] === "") {
         delete animal.passport[key];
       }
     }
-    for( let key in animal.genealogy) {
-      if (animal.genealogy.hasOwnProperty(key) && animal.genealogy[key] === ""){
+    for (let key in animal.genealogy) {
+      if (animal.genealogy.hasOwnProperty(key) && animal.genealogy[key] === "") {
         delete animal.genealogy[key];
       }
     }

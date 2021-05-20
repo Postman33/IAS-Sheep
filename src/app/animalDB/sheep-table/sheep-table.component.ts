@@ -23,19 +23,22 @@ export class SheepTableComponent implements OnInit {
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public sheeps: Animal[] = [];
+  public errorMsg : string;
   displayedColumns: string[] = ['registerno', 'chaban','otara', 'birthday', 'actions'];
   dataSource : MatTableDataSource<Animal>;
 
   ngOnInit(): void {
-    this.getAnimals().subscribe( (animals: Animal[])=>{
+    this.crud.getCollection<Animal>("/api/sheep").subscribe( (animals: Animal[])=>{
       this.sheeps = animals; // Сохраняем информацию о всех овцах
       this.refreshData();
+    }, (err)=>{
+      this.errorMsg  = err || "Ошибка"
     })
 
   }
-  public getAnimals() : Observable<Animal[]>{
-    return this.crud.getCollection<Animal>("/api/sheep");
-  }
+  // public getAnimals() : Observable<Animal[]>{
+  //   return this.crud.getCollection<Animal>("/api/sheep");
+  // }
   updateSheep(id) { // Вызывается кнопкой "Редактировать"
     this.router.navigate(['edit',id],{
       queryParams:{"create":false},

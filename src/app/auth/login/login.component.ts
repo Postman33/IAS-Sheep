@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
 
@@ -14,7 +13,7 @@ export class LoginComponent implements OnInit {
   public form: FormGroup;
   public sending: boolean = false;
   public SuccessInfo : string = ''
-
+  public errorMsg : string;
   constructor(private router: Router, public authService: AuthService) {
   }
 
@@ -38,7 +37,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("token_exp",new Date(+(response.expiresIn) * 1000 + new Date().getTime()).toString());
     }, (response) => {
       this.sending = false;
-
+      this.errorMsg= response;
     });
 
 

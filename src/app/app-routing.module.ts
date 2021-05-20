@@ -15,7 +15,7 @@ const routes : Routes = [
   {path: "report", loadChildren: ()=>import("./reports/report.module").then( m => m.ReportModule)},
   {path: "notification", loadChildren: ()=>import("./notification/notification.module").then( m => m.NotificationModule),canLoad: [AdminGuard]},
   {path:"not-found", component: ErrorComponent},
-  // {path:"**", redirectTo: "not-found"},
+  {path:"**", redirectTo: "not-found"},
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes,{preloadingStrategy:PreloadAllModules})], // Конфигурируем роуты, а также

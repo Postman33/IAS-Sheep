@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
   public form: FormGroup;
   public sending: boolean = false;
     public SuccessInfo : string = ''
-
+  public errorMsg : string;
   constructor(private http: HttpClient, public authService: AuthService) {
   }
 
@@ -31,7 +31,9 @@ export class RegisterComponent implements OnInit {
       this.sending = false;
     }, (response) => {
       this.sending = false;
-
+      console.log("RESPONSE")
+      console.log(response)
+      this.errorMsg=response
     });
 
 

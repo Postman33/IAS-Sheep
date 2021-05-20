@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {UtilsService} from "../../utils.service";
 
@@ -31,7 +31,6 @@ export class ViewEditComponent implements OnInit {
   ngOnInit(): void {
     this.pending = true;
     this.http.get("api/notify/").subscribe(data=>{
-      //console.log(data);
       this.pending = false;
       for( let key in data){
         if (data.hasOwnProperty(key)){
@@ -71,8 +70,6 @@ export class ViewEditComponent implements OnInit {
   }
 
   SubmitForm() {
-    console.log(this.form.value);
-
     this.http.post("api/notify/", this.form.value).subscribe( result => {
       console.log( result );
       this.utils.openSnackBar("Сохранено!","Сообщение")

@@ -8,8 +8,9 @@ import {SharedModule} from "../../shared/shared.module";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {LoaderService} from "../../reports/loader.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {of} from "rxjs";
+import {EMPTY, of, throwError} from "rxjs";
 import {Animal} from "../../interfaces/animal";
+import {By} from "@angular/platform-browser";
 
 describe('SheepTableComponent', () => {
   let component: SheepTableComponent;
@@ -40,11 +41,37 @@ describe('SheepTableComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("Должн",  (done:DoneFn)=>{ // TODO: Impliment this
-   // const spy = spyOn(service,"getCollection").and.callThrough();
+  it("Должен вызываться метод getCollection в ngOnInit",  ()=>{ // TODO: Impliment this
+    const spy = spyOn(service,"getCollection").and.returnValue(of([
+      {chipNo:"",
+      passport:{}}
+    ]));
+    component.ngOnInit();
+    expect(spy).toHaveBeenCalled()
+  })
+  it("При загрузке информация должна записываться в переменную sheeps",  ()=>{ // TODO: Impliment this
+    const spy = spyOn(service,"getCollection").and.returnValue(of([
+      {chipNo:"",
+        passport:{}}
+    ]));
 
+    component.ngOnInit();
+    fixture.detectChanges();
 
-
+    expect(component.sheeps.length).toBe(1)
   })
 
+
+  it("При ошибке получения данных должна показаться ошибка",  ()=>{
+    const err = "Error"
+    const spy = spyOn(service,"getCollection").and.returnValue(throwError(err));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const de = fixture.debugElement.query(By.css(".alert"));
+    const el : HTMLElement = de.nativeElement;
+
+    expect(component.errorMsg).not.toBe(undefined)
+    expect(el.textContent).toContain(err)
+  })
 });

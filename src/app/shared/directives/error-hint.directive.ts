@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
 
 @Directive({
   selector: '[red-hint]'
