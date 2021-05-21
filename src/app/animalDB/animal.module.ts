@@ -16,6 +16,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSliderModule} from '@angular/material/slider';
 import { GenealogyComponent } from './sheep-edit/genealogy/genealogy.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 const routes : Routes = [
   {path: "", children: [
@@ -40,10 +41,12 @@ const routes : Routes = [
     MatSliderModule,
     MatCheckboxModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
   ],
   exports: [
     RouterModule
-  ]
+  ],
+  providers:[]
 })
 export class AnimalModule { }

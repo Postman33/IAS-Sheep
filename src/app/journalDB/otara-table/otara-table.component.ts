@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../crud.service';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatDialog} from "@angular/material/dialog";
+import {SheepEditComponent} from "../../animalDB/sheep-edit/sheep-edit.component";
 
 @Component({
   selector: 'app-otara-table',
@@ -16,7 +18,7 @@ export class OtaraTableComponent implements OnInit,AfterViewInit {
   public pages: Number = -1;
   public farms: Farm[] = [];
 
-  constructor(private http: HttpClient, private router : Router, private route : ActivatedRoute, private crud : CrudService) {
+  constructor(public dialog: MatDialog,private http: HttpClient, private router : Router, private route : ActivatedRoute, private crud : CrudService) {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -32,7 +34,20 @@ export class OtaraTableComponent implements OnInit,AfterViewInit {
       }
     );
   }
+  openDialog(id : string, create : string = 'false'): void {
+    const dialogRef = this.dialog.open(SheepEditComponent, {
+      height: '100%',
+      width: '100%',
+      data: {
+        id: id,
+        create: create
+      }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
   displayedColumns: string[] = ['regNo', 'name', 'actions'];
   dataSource = new MatTableDataSource(this.farms);
 
@@ -50,16 +65,18 @@ export class OtaraTableComponent implements OnInit,AfterViewInit {
   }
 
   createFarm(){
-    this.router.navigate(['edit',"new"],{
-      queryParams:{"create":true},
-      relativeTo: this.route
-    })
+    // this.router.navigate(['edit',"new"],{
+    //   queryParams:{"create":true},
+    //   relativeTo: this.route
+    // })
+    this.openDialog(null,"true")
   }
   updateFarm(id : string){
-    this.router.navigate(['edit',id],{
-      queryParams:{"create":false},
-      relativeTo: this.route
-    })
+    // this.router.navigate(['edit',id],{
+    //   queryParams:{"create":false},
+    //   relativeTo: this.route
+    // })
+    this.openDialog(id,"false")
   }
   removeFarm(id: string) {
     if (confirm('Удалить?')) {

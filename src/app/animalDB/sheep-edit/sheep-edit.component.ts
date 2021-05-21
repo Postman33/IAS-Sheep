@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Farm} from '../../interfaces/farm';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Animal} from '../../interfaces/animal';
-
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 @Component({
   selector: 'app-sheep-edit',
   templateUrl: './sheep-edit.component.html',
@@ -13,7 +13,8 @@ import {Animal} from '../../interfaces/animal';
 })
 export class SheepEditComponent implements OnInit {
 
-  constructor(private http: HttpClient, public route: ActivatedRoute, private router: Router) {
+  constructor(private http: HttpClient, public route: ActivatedRoute, private router: Router,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   public errorMsg: string;
@@ -48,12 +49,11 @@ export class SheepEditComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    //if (this.route.snapshot.params.)
 
-    this.route.queryParams.subscribe(params => {
-      if (params.create === 'false') {
+    //this.route.queryParams.subscribe(params => {
+      if (this.data.create === 'false') {
         this.pending = true;
-        this.http.get('/api/sheep/' + this.route.snapshot.params.id).subscribe((response: Animal) => {
+        this.http.get('/api/sheep/' + this.data.id).subscribe((response: Animal) => {
 
             const {_id, ...rest} = response;
             const obj: Animal = {...rest, id: response._id};
@@ -91,7 +91,7 @@ export class SheepEditComponent implements OnInit {
           });
       }
 
-    });
+    //});
   }
 
   UpdateAnimal(animal: Animal) {
@@ -146,8 +146,8 @@ export class SheepEditComponent implements OnInit {
 
     let sub: Observable<any>;
 
-    if (this.route.snapshot.queryParams.create == 'false') {
-      animal.id = this.route.snapshot.params.id;
+    if (this.data.create === 'false') {
+      animal.id = this.data.id;
       sub = this.UpdateAnimal(animal);
     } else {
       sub = this.CreateAnimal(animal);

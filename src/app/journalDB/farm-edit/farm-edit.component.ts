@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {Farm} from '../../interfaces/farm';
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-farm-edit',
@@ -12,7 +13,8 @@ import {Farm} from '../../interfaces/farm';
 })
 export class FarmEditComponent implements OnInit {
 
-  constructor(private http: HttpClient,public route : ActivatedRoute, private router : Router) { }
+  constructor(private http: HttpClient,public route : ActivatedRoute, private router : Router,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
   public pending = false;
   public FarmInfo : Farm = {
     address: 'Address', id: 'Id', name: 'Name', city: "City"
@@ -25,11 +27,11 @@ export class FarmEditComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.route.snapshot.queryParams);
     //if (this.route.snapshot.params.)
-    this.route.queryParams.subscribe( params => {
-      console.log(params);
-      if (params.create === "false") {
+
+
+    if (this.data.create === 'false') {
         this.pending = true
-        this.http.get("/api/farm/"+this.route.snapshot.params.id).subscribe( (response:Farm) => {
+        this.http.get("/api/farm/"+this.data.id).subscribe( (response:Farm) => {
 
           const {_id,...rest} = response;
           const obj : Farm = {...rest, id: response._id}
@@ -45,21 +47,20 @@ export class FarmEditComponent implements OnInit {
         })
       }
 
-    })
+
   }
   UpdateFarm(farm :Farm ){
-    return this.http.patch(`http://localhost:3000/api/farm/${farm.id}`,farm)
+    return this.http.patch(`/api/farm/${farm.id}`,farm)
   }
   CreateFarm(farm :Farm ){
-  return  this.http.post(`http://localhost:3000/api/farm/`,farm)
+  return  this.http.post(`/api/farm/`,farm)
   }
   Submit($event: Event) {
-  //$event.preventDefault();
     this.pending=true;
     const farm : Farm = { ... this.form.value }
     let sub : Observable<any>;
-    if (this.route.snapshot.queryParams.create == "false") {
-      farm.id = this.route.snapshot.params.id;
+    if (this.data.create === 'false') {
+      farm.id = this.data.id;
       sub= this.UpdateFarm(farm);
     } else {
       sub=this.CreateFarm(farm);
@@ -67,7 +68,7 @@ export class FarmEditComponent implements OnInit {
     sub.subscribe(response => {
       console.log(response);
       this.pending=false;
-      this.router.navigate(['/journal/farms'])
+
     })
   }
 }

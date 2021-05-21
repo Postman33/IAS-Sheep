@@ -2,14 +2,11 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from "@angular/router/testing";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 
-import {CrudService} from "../../journalDB/crud.service";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+
 import {SharedModule} from "../../shared/shared.module";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
-import {LoaderService} from "../../reports/loader.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {EMPTY, of, throwError} from "rxjs";
-import {Animal} from "../../interfaces/animal";
+import {throwError} from "rxjs";
 import {By} from "@angular/platform-browser";
 import {RegisterComponent} from "./register.component";
 import {AuthService} from "../../shared/services/auth.service";
@@ -53,9 +50,7 @@ describe('RegisterComponent', () => {
     fixture.detectChanges();
     const de = fixture.debugElement.queryAll(By.css("div"))[1];
     const el: HTMLElement = de.nativeElement;
-
     expect(el.textContent).toContain(err);
-
   })
 
 });

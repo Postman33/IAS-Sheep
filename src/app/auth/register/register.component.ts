@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EmailValidator, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../shared/services/auth.service';
 

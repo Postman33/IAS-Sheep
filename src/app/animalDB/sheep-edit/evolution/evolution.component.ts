@@ -10,21 +10,22 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class EvolutionComponent implements OnInit {
 
-
+  @Input("id") id;
   constructor(private http: HttpClient, private route : ActivatedRoute) { }
   public response = [];
   ngOnInit(): void {
-    this.http.get("api/sheep/"+this.route.snapshot.params.id+"/stats").subscribe(res=>{
+    if (this.id == null) { return;}
+    this.http.get("api/sheep/"+this.id+"/stats").subscribe(res=>{
       if (res == "000") { return; }
       for( let k in res){
         this.response.push({key: k, ...res[k]})
       }
-      console.log(this.response,"t");
+      //console.log(this.response,"t");
      // this.response = res;
     },()=>{
-      console.log("err");
+     // console.log("err");
     })
-    console.log("test");
+    //console.log("test");
   }
 
 }

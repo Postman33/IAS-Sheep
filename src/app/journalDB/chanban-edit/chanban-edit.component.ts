@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -12,6 +12,7 @@ import {MatOption} from '@angular/material/core';
 import {UtilsService} from '../../utils.service';
 import {Farm} from '../../interfaces/farm';
 import {Chaban} from '../../interfaces/chaban';
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 
 @Component({
@@ -21,7 +22,9 @@ import {Chaban} from '../../interfaces/chaban';
 })
 export class ChanbanEditComponent implements OnInit {
 
-  constructor(private http: HttpClient, public route: ActivatedRoute, private router: Router, private crud: CrudService, public utilsService: UtilsService) {
+  constructor(private http: HttpClient, public route: ActivatedRoute,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private router: Router, private crud: CrudService, public utilsService: UtilsService) {
   }
 
   public autoCompleteControl = new FormControl();
@@ -52,11 +55,11 @@ export class ChanbanEditComponent implements OnInit {
       this.options = response;
     });
 
-    this.route.queryParams.subscribe(params => {
-      console.log(params);
-      if (params.create === 'false') {
+
+
+      if (this.data.create === 'false') {
         this.pending = true;
-        this.http.get('/api/chaban/' + this.route.snapshot.params.id).subscribe((response: Chaban) => {
+        this.http.get('/api/chaban/' + this.data.id).subscribe((response: Chaban) => {
           const {_id, ...rest} = response;
           const obj: Chaban = {...rest, id: response._id};
           this.ChabanInfo = obj;
@@ -75,7 +78,7 @@ export class ChanbanEditComponent implements OnInit {
           this.pending = false;
         });
       }
-    });
+
 
 
   }
@@ -124,13 +127,11 @@ export class ChanbanEditComponent implements OnInit {
   }
 
   Submit($event: Event) {
-    console.log(this.form.value);
-    //$event.preventDefault();
     this.pending = true;
     const chaban: Chaban = {...this.form.value};
     let sub: Observable<any>;
-    if (this.route.snapshot.queryParams.create == 'false') {
-      chaban.id = this.route.snapshot.params.id;
+    if (this.data.create === 'false') {
+      chaban.id = this.data.id;
       sub = this.UpdateChaban(chaban);
     } else {
       sub = this.CreateChaban(chaban);
@@ -138,7 +139,7 @@ export class ChanbanEditComponent implements OnInit {
     sub.subscribe(response => {
       console.log(response);
       this.pending = false;
-      this.router.navigate(['/journal/chabans']);
+      //this.router.navigate(['/journal/chabans']);
     });
   }
 

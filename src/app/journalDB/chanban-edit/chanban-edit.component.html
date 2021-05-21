@@ -51,8 +51,9 @@
 
 
     <div class="text-center">
-      <button type="submit" class="btn btn-primary justify-content-center mt-2" [disabled]="pending || form.invalid">
-        Save
+      <button type="submit" class="btn btn-primary justify-content-center mt-2" [disabled]="pending || form.invalid"
+              mat-dialog-close="true">
+        Сохранить
       </button>
     </div>
   </form>

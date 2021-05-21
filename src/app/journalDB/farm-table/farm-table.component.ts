@@ -6,6 +6,10 @@ import {filter, map} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../crud.service';
 import {Farm} from '../../interfaces/farm';
+import {MatDialog} from "@angular/material/dialog";
+import {SheepEditComponent} from "../../animalDB/sheep-edit/sheep-edit.component";
+import {FarmEditComponent} from "../farm-edit/farm-edit.component";
+import {Chaban} from "../../interfaces/chaban";
 
 const farmsData: Farm[] = [
   {
@@ -27,7 +31,7 @@ export class FarmTableComponent implements OnInit, AfterViewInit {
   public pages: Number = -1;
   public farms: Farm[] = [];
 
-  constructor(private http: HttpClient, private router : Router, private route : ActivatedRoute, private crud : CrudService) {
+  constructor(public dialog: MatDialog,private http: HttpClient, private router : Router, private route : ActivatedRoute, private crud : CrudService) {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -43,7 +47,25 @@ export class FarmTableComponent implements OnInit, AfterViewInit {
       }
     );
   }
+  openDialog(id : string, create : string = 'false'): void {
+    const dialogRef = this.dialog.open(FarmEditComponent, {
+      height: '100%',
+      width: '100%',
+      data: {
+        id: id,
+        create: create
+      }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result){return}
+      this.crud.getCollection<Farm>("/api/farm").subscribe((farms) => {
+          this.farms = farms;
+          this.refreshData();
+        }
+      );
+    });
+  }
   displayedColumns: string[] = ['regNo', 'farmName', 'address', 'actions'];
   dataSource = new MatTableDataSource(this.farms);
 
@@ -61,16 +83,19 @@ export class FarmTableComponent implements OnInit, AfterViewInit {
   }
 
   createFarm(){
-    this.router.navigate(['edit',"new"],{
-      queryParams:{"create":true},
-      relativeTo: this.route
-    })
+    // this.router.navigate(['edit',"new"],{
+    //   queryParams:{"create":true},
+    //   relativeTo: this.route
+    // })
+this.openDialog(null,"true");
   }
   updateFarm(id : string){
-    this.router.navigate(['edit',id],{
-      queryParams:{"create":false},
-      relativeTo: this.route
-    })
+    this.openDialog(id,"false");
+
+    // this.router.navigate(['edit',id],{
+    //   queryParams:{"create":false},
+    //   relativeTo: this.route
+    // })
   }
   removeFarm(id: string) {
     if (confirm('Удалить?')) {

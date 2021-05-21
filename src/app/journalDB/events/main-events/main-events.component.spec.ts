@@ -77,4 +77,6 @@ describe('MainEventsComponent', () => {
     component.removeEvent("1");
     expect(spy).toHaveBeenCalled()
   })
+
+
 });

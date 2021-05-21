@@ -32,13 +32,16 @@
           <ng-container cdkTreeNodeOutlet></ng-container>
         </div>
       </cdk-nested-tree-node>
+
     </cdk-tree>
+
   </mat-drawer>
   <mat-drawer-content>
     <div class="router-outlet-padding">
       <router-outlet></router-outlet>
+      <app-footer></app-footer>
     </div>
-    <app-footer></app-footer>
+
   </mat-drawer-content>
 </mat-drawer-container>
 

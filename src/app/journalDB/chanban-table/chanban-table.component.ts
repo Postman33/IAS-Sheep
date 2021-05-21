@@ -8,6 +8,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {CrudService} from '../crud.service';
 import {Chaban} from '../../interfaces/chaban';
+import {MatDialog} from "@angular/material/dialog";
+import {SheepEditComponent} from "../../animalDB/sheep-edit/sheep-edit.component";
+import {ChanbanEditComponent} from "../chanban-edit/chanban-edit.component";
 
 
 
@@ -31,7 +34,7 @@ export class ChanbanTableComponent implements OnInit,AfterViewInit {
   public pages: Number = -1;
   public chabans: Chaban[] = [];
 
-  constructor(private http: HttpClient, private router : Router, private route : ActivatedRoute, private crud : CrudService) {
+  constructor(public dialog: MatDialog,private http: HttpClient, private router : Router, private route : ActivatedRoute, private crud : CrudService) {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -47,7 +50,25 @@ export class ChanbanTableComponent implements OnInit,AfterViewInit {
       }
     );
   }
+  openDialog(id : string, create : string = 'false'): void {
+    const dialogRef = this.dialog.open(ChanbanEditComponent, {
+      height: '100%',
+      width: '100%',
+      data: {
+        id: id,
+        create: create
+      }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result){return}
+      this.crud.getCollection<Chaban>('/api/chaban').subscribe((chabans) => {
+          this.chabans = chabans;
+          this.refreshData();
+        }
+      );
+    });
+  }
   displayedColumns: string[] = ['regNo', 'fio', 'birthday', 'actions'];
   dataSource = new MatTableDataSource(this.chabans);
 
@@ -65,16 +86,18 @@ export class ChanbanTableComponent implements OnInit,AfterViewInit {
   }
 
   createChaban(){
-    this.router.navigate(['edit',"new"],{
-      queryParams:{"create":true},
-      relativeTo: this.route
-    })
+    this.openDialog(null,"true")
+    // this.router.navigate(['edit',"new"],{
+    //   queryParams:{"create":true},
+    //   relativeTo: this.route
+    // })
   }
   updateChaban(id : string){
-    this.router.navigate(['edit',id],{
-      queryParams:{"create":false},
-      relativeTo: this.route
-    })
+    this.openDialog(id,"false")
+    // this.router.navigate(['edit',id],{
+    //   queryParams:{"create":false},
+    //   relativeTo: this.route
+    // })
   }
   removeChaban(id: string) {
     if (confirm('Удалить?')) {
