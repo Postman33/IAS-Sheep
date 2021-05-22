@@ -51,7 +51,8 @@ export class SheepTableComponent implements OnInit {
       data: {
         id: id,
         create: create
-      }
+      },
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

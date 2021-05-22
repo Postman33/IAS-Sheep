@@ -1,13 +1,16 @@
-<div class="container">
-  <button class="btn btn-info" routerLink="/journal/chabans/">Назад</button>
+<mat-dialog-actions>
+  <button mat-dialog-close class="btn btn-info">Отмена</button>
+</mat-dialog-actions>
 
+<div class="container center">
   <form class="example-form" [formGroup]="form" (ngSubmit)="Submit($event)" *ngIf="pending == false; else loading">
-    <h2 class="text-center" *ngIf="route.snapshot.queryParams.create == 'false'; else creating ">Редактор чабана
-      id:{{ChabanInfo.id}}</h2>
+    <h2 class="text-center" *ngIf="data.create == 'false'; else creating ">Редактор чабана
+      id:{{ChabanInfo.id}}
+    </h2>
     <ng-template #creating><h2 class="text-center">Добавление нового чабана</h2></ng-template>
-    <mat-form-field class="example-full-width mt-3" appearance="fill">
+    <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>ФИО чабана</mat-label>
-      <input matInput placeholder="ФИО" formControlName="FIO" >
+      <input matInput placeholder="ФИО" formControlName="FIO">
       <mat-error *ngIf="form.get('FIO').errors?.required">
         Обязательно
       </mat-error>
@@ -23,10 +26,10 @@
       </mat-error>
     </mat-form-field>
 
-    <h2 class="text-center mt-2">Фермы</h2>
 
-    <mat-form-field style="width: 80%" class="mt-3">
-      <mat-label>Assignee</mat-label>
+    <h2 class="text-center mt-5">Фермы, на которых чабан работает</h2>
+    <mat-form-field style="width: 80%" class="mt-1">
+      <mat-label>Название фермы</mat-label>
       <input type="text" #input matInput [formControl]="autoCompleteControl" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
                         (optionSelected)="ChangeOption($event.option)">
@@ -34,34 +37,46 @@
           {{option.name}}, г. {{ option.city}}
         </mat-option>
       </mat-autocomplete>
-
     </mat-form-field>
-    <button class="btn btn-primary ml-3" style="width: 15%" (click)="$event.preventDefault(); AddFarm()">Добавить</button>
+    <button class="btn btn-primary ml-3" style="width: 15%" (click)="$event.preventDefault(); AddFarm()">Добавить
+    </button>
 
-    <div class="scroll">
-      <mat-card *ngFor="let info of ChabanInfo.farm; let idx = index" class="mt-4">
-        <mat-card-actions align="start">
-          <h1 class="text-center" >{{info.name}}          <button class="btn btn-danger float-right" (click)="$event.preventDefault(); RemoveControl(info._id)">-</button>
-          </h1>
-        </mat-card-actions>
+    <div style="border: rgba(25,26,25,0.22) solid 1px; padding:4px">
 
 
-      </mat-card>
+      <div class="scroll">
+        <mat-card *ngFor="let info of ChabanInfo.farm; let idx = index" class="mt-4"
+                  style="background-color: rgba(232,199,78,0.44)">
+          <mat-card-actions align="start">
+            <h1 class="text-center">
+              {{info.name}}
+              <button class="btn btn-danger float-right" (click)="$event.preventDefault(); RemoveControl(info._id)">
+                Удалить
+              </button>
+            </h1>
+          </mat-card-actions>
+
+
+        </mat-card>
+      </div>
     </div>
 
-
     <div class="text-center">
-      <button type="submit" class="btn btn-primary justify-content-center mt-2" [disabled]="pending || form.invalid"
-              mat-dialog-close="true">
+      <button type="submit" class="btn btn-primary justify-content-center mt-2"
+              [disabled]="pending || form.invalid"
+              mat-dialog-close="true"
+      >
         Сохранить
       </button>
+
     </div>
   </form>
 
-
-  <ng-template #loading>
+  <ng-template #loading >
+  <div style="margin-top: 100px; width: 100%">
     <div class="text-center">Загружаем</div>
     <mat-progress-bar class="mt-3" mode="indeterminate"></mat-progress-bar>
+  </div>
   </ng-template>
 
 </div>

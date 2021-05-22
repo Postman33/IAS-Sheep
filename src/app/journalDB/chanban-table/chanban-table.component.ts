@@ -34,12 +34,13 @@ export class ChanbanTableComponent implements OnInit, AfterViewInit {
 
   openDialog(id: string, create: string = 'false'): void {
     const dialogRef = this.dialog.open(ChanbanEditComponent, {
-      height: '100%',
-      width: '100%',
+      height: '95%',
+      width: '80%',
       data: {
         id: id,
         create: create
-      }
+      },
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

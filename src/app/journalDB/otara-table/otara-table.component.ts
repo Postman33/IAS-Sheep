@@ -6,7 +6,7 @@ import {CrudService} from '../crud.service';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog} from "@angular/material/dialog";
-import {SheepEditComponent} from "../../animalDB/sheep-edit/sheep-edit.component";
+import {OtaraEditComponent} from "../otara-edit/otara-edit.component";
 
 @Component({
   selector: 'app-otara-table',
@@ -32,13 +32,14 @@ export class OtaraTableComponent implements OnInit, AfterViewInit {
   }
 
   openDialog(id: string, create: string = 'false'): void {
-    const dialogRef = this.dialog.open(SheepEditComponent, {
-      height: '100%',
-      width: '100%',
+    const dialogRef = this.dialog.open(OtaraEditComponent, {
+      height: '50%',
+      width: '40%',
       data: {
         id: id,
         create: create
-      }
+      },
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

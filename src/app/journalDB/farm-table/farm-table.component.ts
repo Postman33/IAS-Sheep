@@ -41,12 +41,13 @@ export class FarmTableComponent implements OnInit, AfterViewInit {
 
   openDialog(id: string, create: string = 'false'): void {
     const dialogRef = this.dialog.open(FarmEditComponent, {
-      height: '100%',
-      width: '100%',
+      height: '70%',
+      width: '50%',
       data: {
         id: id,
         create: create
-      }
+      },
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {

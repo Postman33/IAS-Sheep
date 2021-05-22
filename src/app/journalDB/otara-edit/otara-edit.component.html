@@ -1,13 +1,12 @@
-<div class="container">
-<!--  <button class="btn btn-info" routerLink="/journal/otars/">Назад</button>-->
-  <mat-dialog-actions >
-    <button mat-dialog-close class="btn btn-info">Отмена</button>
-  </mat-dialog-actions>
+<mat-dialog-actions >
+  <button mat-dialog-close class="btn btn-info">Отмена</button>
+</mat-dialog-actions>
 
+<div class="container center">
   <form class="example-form" [formGroup]="form" (ngSubmit)="Submit($event)" *ngIf="pending == false; else loading">
-    <h2 class="text-center" *ngIf="route.snapshot.queryParams.create == 'false'; else creating ">Редактор отары id:{{OtaraInfo.id}}</h2>
-    <ng-template #creating><h2 class="text-center">Добавление новой отары</h2></ng-template>
-    <mat-form-field class="example-full-width mt-3" appearance="fill">
+    <h2 class="text-center mt-3" *ngIf="data.create == 'false'; else creating ">Редактор отары id:{{OtaraInfo.id}}</h2>
+    <ng-template #creating><h2 class="text-center mt-3">Добавление новой отары</h2></ng-template>
+    <mat-form-field class="example-full-width mt-1" appearance="fill">
       <mat-label>Название отары</mat-label>
       <input matInput placeholder="Отара" formControlName="name">
       <mat-error *ngIf="form.get('name').errors?.required">
@@ -23,9 +22,11 @@
   </form>
 
 
-  <ng-template #loading>
-    <div class="text-center">Загружаем </div>
-    <mat-progress-bar class="mt-3" mode="indeterminate"></mat-progress-bar>
+  <ng-template #loading >
+    <div style="margin-top: 100px; width: 100%">
+      <div class="text-center">Загружаем</div>
+      <mat-progress-bar class="mt-3" mode="indeterminate"></mat-progress-bar>
+    </div>
   </ng-template>
 
 </div>
