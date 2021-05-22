@@ -1,13 +1,13 @@
 <mat-dialog-actions>
   <button mat-dialog-close class="btn btn-info">Отмена</button>
 </mat-dialog-actions>
-
+<h2 class="text-center" *ngIf="data.create == 'false'; else creating ">Редактор чабана
+  id:{{ChabanInfo.id}}
+</h2>
+<ng-template #creating><h2 class="text-center">Добавление нового чабана</h2></ng-template>
 <div class="container center">
   <form class="example-form" [formGroup]="form" (ngSubmit)="Submit($event)" *ngIf="pending == false; else loading">
-    <h2 class="text-center" *ngIf="data.create == 'false'; else creating ">Редактор чабана
-      id:{{ChabanInfo.id}}
-    </h2>
-    <ng-template #creating><h2 class="text-center">Добавление нового чабана</h2></ng-template>
+
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>ФИО чабана</mat-label>
       <input matInput placeholder="ФИО" formControlName="FIO">
@@ -62,7 +62,7 @@
     </div>
 
     <div class="text-center">
-      <button type="submit" class="btn btn-primary justify-content-center mt-2"
+      <button type="submit" class="btn btn-primary justify-content-center mt-4"
               [disabled]="pending || form.invalid"
               mat-dialog-close="true"
       >

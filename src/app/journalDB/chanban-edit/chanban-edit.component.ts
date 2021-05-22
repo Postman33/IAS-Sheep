@@ -89,7 +89,10 @@ export class ChanbanEditComponent implements OnInit {
   }
 
   AddFarm() {
-
+  if (this.SelectedFarm == undefined){
+    this.utilsService.openSnackBar('Сначала выберете ферму!', 'Ошибка');
+    return;
+    }
     for (let i = 0; i < (<FormArray> this.form.get("farm")).controls.length; i++) {
       if (this.SelectedFarm.id == (<FormArray> this.form.get('farm')).controls[i].value) {
         this.utilsService.openSnackBar('Нельзя повторно добавить элемент!', 'Ошибка');
@@ -102,6 +105,7 @@ export class ChanbanEditComponent implements OnInit {
     console.log(this.form.value);
     this.ChabanInfo.farm.push(this.SelectedFarm);
     this.autoCompleteControl.setValue('');
+    this.SelectedFarm = undefined;
   }
 
   RemoveControl(id: string) {
