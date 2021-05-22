@@ -13,21 +13,12 @@ import { ViewEditComponent } from './view-edit/view-edit.component';
 
 const routes : Routes = [
   {path: "", children: [
-
-
       {path: "edit",children: [
           {path: "",component: ViewEditComponent, pathMatch: "full"},
-
         ]
       },
-
-
-
     ]}
-
 ]
-
-
 
 @NgModule({
   declarations: [ViewEditComponent],

@@ -1,5 +1,8 @@
 <div class="container">
-  <button class="btn btn-info" routerLink="/journal/farms/">Назад</button>
+<!--  <button class="btn btn-info" routerLink="/journal/farms/">Назад</button>-->
+  <mat-dialog-actions >
+    <button mat-dialog-close class="btn btn-info">Отмена</button>
+  </mat-dialog-actions>
 
   <form class="example-form" [formGroup]="form" (ngSubmit)="Submit($event)" *ngIf="pending == false; else loading">
     <h2 class="text-center" *ngIf="route.snapshot.queryParams.create == 'false'; else creating ">Редактор фермы id:{{FarmInfo.id}}</h2>

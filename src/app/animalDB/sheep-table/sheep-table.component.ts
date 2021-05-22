@@ -6,11 +6,8 @@ import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../journalDB/crud.service';
 import {UtilsService} from '../../utils.service';
-import {Observable} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {SheepEditComponent} from "../sheep-edit/sheep-edit.component";
-
-
 
 
 @Component({
@@ -22,27 +19,32 @@ export class SheepTableComponent implements OnInit {
   public pages = -1;
 
   constructor(public dialog: MatDialog,
-              private http: HttpClient, public route: ActivatedRoute, private router: Router, private crud: CrudService, public utilsService : UtilsService) {
+              private http: HttpClient, public route: ActivatedRoute, private router: Router, private crud: CrudService,
+              public utilsService: UtilsService) {
   }
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public sheeps: Animal[] = [];
-  public errorMsg : string;
-  displayedColumns: string[] = ['registerno', 'chaban','otara', 'birthday', 'actions'];
-  dataSource : MatTableDataSource<Animal>;
+  public errorMsg: string;
+  displayedColumns: string[] = ['registerno', 'chaban', 'otara', 'birthday', 'actions'];
+  dataSource: MatTableDataSource<Animal>;
 
-  ngOnInit(): void {
-    this.crud.getCollection<Animal>("/api/sheep").subscribe( (animals: Animal[])=>{
+  private fetchData(cb = null) {
+    this.crud.getCollection<Animal>("/api/sheep").subscribe((animals: Animal[]) => {
       this.sheeps = animals; // Сохраняем информацию о всех овцах
       this.refreshData();
-    }, (err)=>{
-      this.errorMsg  = err || "Ошибка"
+      cb();
+    }, (err) => {
+      this.errorMsg = err || "Ошибка"
     })
+  }
+
+  ngOnInit(): void {
+    this.fetchData()
 
   }
-  // public getAnimals() : Observable<Animal[]>{
-  //   return this.crud.getCollection<Animal>("/api/sheep");
-  // }
-  openDialog(id : string, create : string = 'false'): void {
+
+  openDialog(id: string, create: string = 'false'): void {
     const dialogRef = this.dialog.open(SheepEditComponent, {
       height: '100%',
       width: '100%',
@@ -53,23 +55,15 @@ export class SheepTableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result){return}
-      this.crud.getCollection<Animal>("/api/sheep").subscribe( (animals: Animal[])=>{
-        this.sheeps = animals; // Сохраняем информацию о всех овцах
-        this.refreshData();
-      }, (err)=>{
-        this.errorMsg  = err || "Ошибка"
-      })
+      if (!result) {
+        return
+      }
+      this.fetchData()
     });
   }
 
   updateSheep(id) { // Вызывается кнопкой "Редактировать"
-    // this.router.navigate(['edit',id],{
-    //   queryParams:{"create":false},
-    //   relativeTo: this.route
-    // })
     this.openDialog(id);
-
   }
 
   removeSheep(id) { // Вызывается кнопкой "Удалить"
@@ -85,21 +79,16 @@ export class SheepTableComponent implements OnInit {
   }
 
   createSheep() { // Вызывается кнопкой "Добавить овцу"
-    // this.router.navigate(['edit',"new"],{
-    //   queryParams:{"create":true},
-    //   relativeTo: this.route
-    // })
-    this.openDialog(null,"true");
+    this.openDialog(null, "true");
   }
+
   refreshData() {
     this.dataSource = new MatTableDataSource(this.sheeps);
     this.dataSource.paginator = this.paginator;
   }
+
   applyFilter(value: any) {
     this.dataSource.filter = value.toLowerCase().trim();
   }
-
-
-
 
 }

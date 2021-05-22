@@ -8,24 +8,20 @@
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <!-- Position Column -->
-  <!--  <ng-container matColumnDef="registerno">-->
-  <!--    <th mat-header-cell *matHeaderCellDef> Рег. номер </th>-->
-  <!--    <td mat-cell *matCellDef="let element"> {{1}} </td>-->
-  <!--  </ng-container>-->
 
-  <!-- Name Column -->
+  <!-- Рег. номер -->
   <ng-container matColumnDef="regNo">
     <th mat-header-cell *matHeaderCellDef> Рег. номер </th>
     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
 
+  <!-- Название -->
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Название </th>
     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
   </ng-container>
 
-  <!-- Symbol Column -->
+  <!-- Действия -->
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Действия </th>
     <td mat-cell *matCellDef="let element">
@@ -37,7 +33,7 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-  <!-- Row shown when there is no matching data. -->
+  <!-- Нет данных. -->
   <tr class="mat-row" *matNoDataRow>
     <td class="mat-cell" colspan="4">Нет подходящих записей по фильтру "{{input.value}}"</td>
   </tr>

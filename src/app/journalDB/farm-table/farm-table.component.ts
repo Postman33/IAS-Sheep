@@ -2,25 +2,12 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {HttpClient} from '@angular/common/http';
-import {filter, map} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../crud.service';
 import {Farm} from '../../interfaces/farm';
 import {MatDialog} from "@angular/material/dialog";
-import {SheepEditComponent} from "../../animalDB/sheep-edit/sheep-edit.component";
 import {FarmEditComponent} from "../farm-edit/farm-edit.component";
-import {Chaban} from "../../interfaces/chaban";
 
-const farmsData: Farm[] = [
-  {
-    id: '1',
-    address: 'Зеленоград, ул. Юности, 2',
-    name: 'Ферма 1',
-    city: "Владимир",
-  }
-
-
-];
 
 @Component({
   selector: 'app-farm-table',
@@ -31,7 +18,7 @@ export class FarmTableComponent implements OnInit, AfterViewInit {
   public pages: Number = -1;
   public farms: Farm[] = [];
 
-  constructor(public dialog: MatDialog,private http: HttpClient, private router : Router, private route : ActivatedRoute, private crud : CrudService) {
+  constructor(public dialog: MatDialog, private http: HttpClient, private route: ActivatedRoute, private crud: CrudService) {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -40,14 +27,19 @@ export class FarmTableComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  ngOnInit(): void {
+  private fetchData() {
     this.crud.getCollection<Farm>("/api/farm").subscribe((farms) => {
         this.farms = farms;
         this.refreshData();
       }
     );
   }
-  openDialog(id : string, create : string = 'false'): void {
+
+  ngOnInit(): void {
+    this.fetchData();
+  }
+
+  openDialog(id: string, create: string = 'false'): void {
     const dialogRef = this.dialog.open(FarmEditComponent, {
       height: '100%',
       width: '100%',
@@ -58,14 +50,13 @@ export class FarmTableComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result){return}
-      this.crud.getCollection<Farm>("/api/farm").subscribe((farms) => {
-          this.farms = farms;
-          this.refreshData();
-        }
-      );
+      if (!result) {
+        return
+      }
+      this.fetchData();
     });
   }
+
   displayedColumns: string[] = ['regNo', 'farmName', 'address', 'actions'];
   dataSource = new MatTableDataSource(this.farms);
 
@@ -82,21 +73,14 @@ export class FarmTableComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  createFarm(){
-    // this.router.navigate(['edit',"new"],{
-    //   queryParams:{"create":true},
-    //   relativeTo: this.route
-    // })
-this.openDialog(null,"true");
+  createFarm() {
+    this.openDialog(null, "true");
   }
-  updateFarm(id : string){
-    this.openDialog(id,"false");
 
-    // this.router.navigate(['edit',id],{
-    //   queryParams:{"create":false},
-    //   relativeTo: this.route
-    // })
+  updateFarm(id: string) {
+    this.openDialog(id, "false");
   }
+
   removeFarm(id: string) {
     if (confirm('Удалить?')) {
       this.http.delete('/api/farm/' + id).subscribe(response => {

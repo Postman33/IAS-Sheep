@@ -42,6 +42,11 @@ export class ChanbanEditComponent implements OnInit {
     farm: new FormArray([], [])
   });
 
+  private fetchData(){
+    this.crud.getCollection<Farm>('/api/farm').subscribe((response: Farm[]) => {
+      this.options = response;
+    });
+  }
   ngOnInit(): void {
 
     this.filteredOptions = this.autoCompleteControl.valueChanges
@@ -51,9 +56,7 @@ export class ChanbanEditComponent implements OnInit {
         map(name => name ? this._filter(name) : this.options.slice())
       );
 
-    this.crud.getCollection<Farm>('/api/farm').subscribe((response: Farm[]) => {
-      this.options = response;
-    });
+    this.fetchData();
 
 
 
@@ -73,8 +76,6 @@ export class ChanbanEditComponent implements OnInit {
             farm: new FormArray(formcontrols, [])
           });
 
-          console.log(this.form.value);
-
           this.pending = false;
         });
       }
@@ -84,7 +85,6 @@ export class ChanbanEditComponent implements OnInit {
   }
 
   ChangeOption(option: MatOption) {
-    console.log(option.value);
     this.SelectedFarm = option.value;
   }
 
@@ -97,13 +97,11 @@ export class ChanbanEditComponent implements OnInit {
       }
     }
 
-
     const control: FormControl = new FormControl(this.SelectedFarm.id, []);
     (this.form.get('farm') as FormArray).push(control);
     console.log(this.form.value);
     this.ChabanInfo.farm.push(this.SelectedFarm);
     this.autoCompleteControl.setValue('');
-    console.log(this.autoCompleteControl);
   }
 
   RemoveControl(id: string) {
@@ -137,9 +135,9 @@ export class ChanbanEditComponent implements OnInit {
       sub = this.CreateChaban(chaban);
     }
     sub.subscribe(response => {
-      console.log(response);
+
       this.pending = false;
-      //this.router.navigate(['/journal/chabans']);
+
     });
   }
 

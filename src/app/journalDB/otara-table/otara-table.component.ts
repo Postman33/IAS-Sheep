@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Farm} from '../../interfaces/farm';
 import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {CrudService} from '../crud.service';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
@@ -13,12 +13,12 @@ import {SheepEditComponent} from "../../animalDB/sheep-edit/sheep-edit.component
   templateUrl: './otara-table.component.html',
   styleUrls: ['./otara-table.component.css']
 })
-export class OtaraTableComponent implements OnInit,AfterViewInit {
+export class OtaraTableComponent implements OnInit, AfterViewInit {
 
   public pages: Number = -1;
   public farms: Farm[] = [];
 
-  constructor(public dialog: MatDialog,private http: HttpClient, private router : Router, private route : ActivatedRoute, private crud : CrudService) {
+  constructor(public dialog: MatDialog, private http: HttpClient, private route: ActivatedRoute, private crud: CrudService) {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -28,13 +28,10 @@ export class OtaraTableComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.crud.getCollection<Farm>("/api/otara").subscribe((farms) => {
-        this.farms = farms;
-        this.refreshData();
-      }
-    );
+    this.fetchData();
   }
-  openDialog(id : string, create : string = 'false'): void {
+
+  openDialog(id: string, create: string = 'false'): void {
     const dialogRef = this.dialog.open(SheepEditComponent, {
       height: '100%',
       width: '100%',
@@ -45,9 +42,13 @@ export class OtaraTableComponent implements OnInit,AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+      if (!result) {
+        return
+      }
+      this.fetchData();
     });
   }
+
   displayedColumns: string[] = ['regNo', 'name', 'actions'];
   dataSource = new MatTableDataSource(this.farms);
 
@@ -64,20 +65,14 @@ export class OtaraTableComponent implements OnInit,AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  createFarm(){
-    // this.router.navigate(['edit',"new"],{
-    //   queryParams:{"create":true},
-    //   relativeTo: this.route
-    // })
-    this.openDialog(null,"true")
+  createFarm() {
+    this.openDialog(null, "true")
   }
-  updateFarm(id : string){
-    // this.router.navigate(['edit',id],{
-    //   queryParams:{"create":false},
-    //   relativeTo: this.route
-    // })
-    this.openDialog(id,"false")
+
+  updateFarm(id: string) {
+    this.openDialog(id, "false")
   }
+
   removeFarm(id: string) {
     if (confirm('Удалить?')) {
       this.http.delete('/api/otara/' + id).subscribe(response => {
@@ -88,5 +83,13 @@ export class OtaraTableComponent implements OnInit,AfterViewInit {
       });
 
     }
+  }
+
+  private fetchData() {
+    this.crud.getCollection<Farm>("/api/otara").subscribe((farms) => {
+        this.farms = farms;
+        this.refreshData();
+      }
+    );
   }
 }

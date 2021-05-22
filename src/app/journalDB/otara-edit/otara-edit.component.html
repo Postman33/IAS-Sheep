@@ -1,5 +1,8 @@
 <div class="container">
-  <button class="btn btn-info" routerLink="/journal/otars/">Назад</button>
+<!--  <button class="btn btn-info" routerLink="/journal/otars/">Назад</button>-->
+  <mat-dialog-actions >
+    <button mat-dialog-close class="btn btn-info">Отмена</button>
+  </mat-dialog-actions>
 
   <form class="example-form" [formGroup]="form" (ngSubmit)="Submit($event)" *ngIf="pending == false; else loading">
     <h2 class="text-center" *ngIf="route.snapshot.queryParams.create == 'false'; else creating ">Редактор отары id:{{OtaraInfo.id}}</h2>
@@ -15,7 +18,7 @@
 
 
     <div class="text-center">
-      <button type="submit" class="btn btn-primary justify-content-center mt-2" [disabled]="pending || form.invalid" >Сохранить</button>
+      <button type="submit" mat-dialog-close="true" class="btn btn-primary justify-content-center mt-2" [disabled]="pending || form.invalid" >Сохранить</button>
     </div>
   </form>
 

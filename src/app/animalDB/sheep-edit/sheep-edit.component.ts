@@ -1,11 +1,12 @@
 import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Farm} from '../../interfaces/farm';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Animal} from '../../interfaces/animal';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {UtilsService} from "../../utils.service";
+
 @Component({
   selector: 'app-sheep-edit',
   templateUrl: './sheep-edit.component.html',
@@ -14,7 +15,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 export class SheepEditComponent implements OnInit {
 
   constructor(private http: HttpClient, public route: ActivatedRoute, private router: Router,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: any, private utils: UtilsService) {
   }
 
   public errorMsg: string;
@@ -51,45 +52,45 @@ export class SheepEditComponent implements OnInit {
   ngOnInit(): void {
 
     //this.route.queryParams.subscribe(params => {
-      if (this.data.create === 'false') {
-        this.pending = true;
-        this.http.get('/api/sheep/' + this.data.id).subscribe((response: Animal) => {
+    if (this.data.create === 'false') {
+      this.pending = true;
+      this.http.get('/api/sheep/' + this.data.id).subscribe((response: Animal) => {
 
-            const {_id, ...rest} = response;
-            const obj: Animal = {...rest, id: response._id};
-            this.AnimalInfo = obj;
+          const {_id, ...rest} = response;
+          const obj: Animal = {...rest, id: response._id};
+          this.AnimalInfo = obj;
 
 
-            this.form = new FormGroup({
-              birthday: new FormControl(obj.passport.birthday, [Validators.required]),
-              chipNo: new FormControl(obj.chipNo, [Validators.required]),
-              typeAnimal: new FormControl(obj.passport.typeAnimal || "", [Validators.required]),
-              generation: new FormControl(obj.passport.generation || "", [Validators.required]),
-              colorPrimary: new FormControl(obj.passport.colorPrimary || "", []),
-              colorSecondary: new FormControl(obj.passport.colorSecondary || "", []),
-              colorSecondaryOpt: new FormControl(obj.passport.colorSecondaryOpt || "", []),
-              dateOfEntry: new FormControl(obj.passport.dateOfEntry || "", [Validators.required]),
-              farm: new FormControl(obj.passport.farm?._id || "", []),
-              otara: new FormControl(obj.passport.otara?._id || "", []),
-              chaban: new FormControl(obj.passport.chaban?._id || "", []),
-              dateOfDisposal: new FormControl(obj.passport.dateOfDisposal || "", []),
-              reasonOfDisposal: new FormControl(obj.passport.reasonOfDisposal || "", []),
-              isSelling: new FormControl(obj.passport.isSelling || "", []),
-              bloodBreeds: new FormControl(obj.passport.bloodBreeds || "", []),
-              typeOfCreating: new FormControl(obj.passport.typeOfCreating || "", []),
-              bloodGroup: new FormControl(obj.passport.bloodGroup || "", []),
-              bloodPercent: new FormControl(obj.passport.bloodPercent || "", []),
-              father: new FormControl("", []),
-              mother: new FormControl('', [])
-            });
-            this.pending = false
-          },
-          (err) => {
-            this.errorMsg = err
-          }, () => {
-            this.pending = false
+          this.form = new FormGroup({
+            birthday: new FormControl(obj.passport.birthday, [Validators.required]),
+            chipNo: new FormControl(obj.chipNo, [Validators.required]),
+            typeAnimal: new FormControl(obj.passport.typeAnimal || "", [Validators.required]),
+            generation: new FormControl(obj.passport.generation || "", [Validators.required]),
+            colorPrimary: new FormControl(obj.passport.colorPrimary || "", []),
+            colorSecondary: new FormControl(obj.passport.colorSecondary || "", []),
+            colorSecondaryOpt: new FormControl(obj.passport.colorSecondaryOpt || "", []),
+            dateOfEntry: new FormControl(obj.passport.dateOfEntry || "", [Validators.required]),
+            farm: new FormControl(obj.passport.farm?._id || "", []),
+            otara: new FormControl(obj.passport.otara?._id || "", []),
+            chaban: new FormControl(obj.passport.chaban?._id || "", []),
+            dateOfDisposal: new FormControl(obj.passport.dateOfDisposal || "", []),
+            reasonOfDisposal: new FormControl(obj.passport.reasonOfDisposal || "", []),
+            isSelling: new FormControl(obj.passport.isSelling || "", []),
+            bloodBreeds: new FormControl(obj.passport.bloodBreeds || "", []),
+            typeOfCreating: new FormControl(obj.passport.typeOfCreating || "", []),
+            bloodGroup: new FormControl(obj.passport.bloodGroup || "", []),
+            bloodPercent: new FormControl(obj.passport.bloodPercent || "", []),
+            father: new FormControl("", []),
+            mother: new FormControl('', [])
           });
-      }
+          this.pending = false
+        },
+        (err) => {
+          this.errorMsg = err
+        }, () => {
+          this.pending = false
+        });
+    }
 
     //});
   }
@@ -156,7 +157,10 @@ export class SheepEditComponent implements OnInit {
 
     sub.subscribe(response => {
       this.pending = false;
-      this.router.navigate(['/animals/sheep']);
+
+      this.utils.openSnackBar("Сохранено!", "Сообщение");
+
+      // this.router.navigate(['/animals/sheep']);
     });
   }
 

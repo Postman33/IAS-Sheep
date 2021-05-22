@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
-
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Otara} from '../../interfaces/otara';
@@ -14,11 +13,9 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 })
 export class OtaraEditComponent implements OnInit {
 
-  constructor(private http: HttpClient,public route : ActivatedRoute, private router : Router, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private http: HttpClient,public route : ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any) { }
   public pending = false;
-  public OtaraInfo : Otara = {
-    name:" Test"
-  }
+  public OtaraInfo : Otara = {name:""}
   public form : FormGroup = new FormGroup({
     name: new FormControl(this.OtaraInfo.name, [Validators.required]),
   })
@@ -34,12 +31,10 @@ export class OtaraEditComponent implements OnInit {
           this.form.patchValue({
             name: this.OtaraInfo.name,
           })
-
           this.pending = false;
 
         })
       }
-
 
   }
   UpdateOtara(otara :Otara ){
@@ -49,7 +44,6 @@ export class OtaraEditComponent implements OnInit {
     return  this.http.post(`/api/otara/`,otara)
   }
   Submit($event: Event) {
-    //$event.preventDefault();
     this.pending=true;
     const otara : Otara = { ... this.form.value }
     let sub : Observable<any>;
@@ -61,7 +55,6 @@ export class OtaraEditComponent implements OnInit {
     }
     sub.subscribe(response => {
       this.pending=false;
-      // this.router.navigate(['/journal/otars'])
     })
   }
 

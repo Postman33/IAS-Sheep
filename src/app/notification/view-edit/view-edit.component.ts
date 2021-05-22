@@ -19,28 +19,31 @@ function _getTimeZoneOffsetInMs() {
 })
 export class ViewEditComponent implements OnInit {
 
-  constructor(private http : HttpClient, private utils : UtilsService) { }
+  constructor(private http: HttpClient, private utils: UtilsService) {
+  }
+
   public pending = false;
-  public form : FormGroup = new FormGroup({
+  public form: FormGroup = new FormGroup({
     records: new FormArray([]),
   })
-  get formControls(){
+
+  get formControls() {
     return this.form.get('records')["controls"];
   }
 
   ngOnInit(): void {
     this.pending = true;
-    this.http.get("api/notify/").subscribe(data=>{
+    this.http.get("api/notify/").subscribe(data => {
       this.pending = false;
-      for( let key in data){
-        if (data.hasOwnProperty(key)){
-          (<FormArray>this.form.get("records")).push( new FormGroup({
+      for (let key in data) {
+        if (data.hasOwnProperty(key)) {
+          (<FormArray>this.form.get("records")).push(new FormGroup({
             id: new FormControl(data[key]["_id"]),
             name: new FormControl(data[key]["name"]),
-            time: new FormControl(data[key]["time"].slice(0,-5)),
+            time: new FormControl(data[key]["time"].slice(0, -5)),
             header: new FormControl(data[key]["header"]),
-            text:new FormControl(data[key]["text"]),
-            completed: new FormControl(data[key]["completed"] || false) ,
+            text: new FormControl(data[key]["text"]),
+            completed: new FormControl(data[key]["completed"] || false),
           }))
         }
       }
@@ -49,12 +52,12 @@ export class ViewEditComponent implements OnInit {
   }
 
   addNotify() {
-    (<FormArray>this.form.get("records")).push( new FormGroup({
+    (<FormArray>this.form.get("records")).push(new FormGroup({
       id: new FormControl(null),
-      name: new FormControl("",[Validators.required]),
-      time: new FormControl(timestampToDatetimeInputString(Date.now()),[Validators.required]),
-      header: new FormControl("",[Validators.required]),
-      text:new FormControl("",[Validators.required])
+      name: new FormControl("", [Validators.required]),
+      time: new FormControl(timestampToDatetimeInputString(Date.now()), [Validators.required]),
+      header: new FormControl("", [Validators.required]),
+      text: new FormControl("", [Validators.required])
     }))
 
   }
@@ -64,15 +67,14 @@ export class ViewEditComponent implements OnInit {
       (<FormArray>this.form.get("records")).removeAt(number);
       return;
     }
-   this.form.get("records")["controls"][number].patchValue({
-     name:"--REMOVE"
-   });
+    this.form.get("records")["controls"][number].patchValue({
+      name: "--REMOVE"
+    });
   }
 
   SubmitForm() {
-    this.http.post("api/notify/", this.form.value).subscribe( result => {
-      console.log( result );
-      this.utils.openSnackBar("Сохранено!","Сообщение")
+    this.http.post("api/notify/", this.form.value).subscribe(result => {
+      this.utils.openSnackBar("Сохранено!", "Сообщение")
     })
   }
 }
