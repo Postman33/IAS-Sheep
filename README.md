@@ -16,6 +16,7 @@
 
 <h2 style="margin-bottom: 10px;"> Пример работы информационной системы </h2>
 **Список овец**:
+
 ![image](https://user-images.githubusercontent.com/20001037/132133553-edb14303-9363-4c83-9498-35bfacb671f0.png)
 
 
