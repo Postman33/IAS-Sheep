@@ -20,9 +20,9 @@
 
 
 <h2 style="margin-bottom: 10px;"> Пример работы информационной системы </h2> 
-Список овец: 
- ![image](https://user-images.githubusercontent.com/20001037/132133553-edb14303-9363-4c83-9498-35bfacb671f0.png)
+Список овец:
 
- 
+![image](https://user-images.githubusercontent.com/20001037/132133553-edb14303-9363-4c83-9498-35bfacb671f0.png)
 Создание дат уведомлений:
+
 ![image](https://user-images.githubusercontent.com/20001037/132133593-909546bf-65bc-44e7-9a7b-2485a66d3864.png)
