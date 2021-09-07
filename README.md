@@ -20,14 +20,22 @@
 
 
 <h2 style="margin-bottom: 10px;"> Пример работы информационной системы </h2> 
-Список овец:
+
+<ul>
+<li style="margin-bottom:10px">Список овец:
+</li>
+  
 ![image](https://user-images.githubusercontent.com/20001037/132133553-edb14303-9363-4c83-9498-35bfacb671f0.png)
-<br>
-
-Создание дат уведомлений:
+  
+<li >Создание дат уведомлений:
+</li>
+ 
 ![image](https://user-images.githubusercontent.com/20001037/132133593-909546bf-65bc-44e7-9a7b-2485a66d3864.png)
-<br>
 
+<li>
 Также, все уведомления отправляются на почту(Сделано с помощью nodemailer): 
+</li>
+  
 ![image](https://user-images.githubusercontent.com/20001037/132376121-22f80d7c-7cd8-4613-8e72-d3d317cc4839.png)
-
+  
+</ul>
