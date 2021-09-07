@@ -1,8 +1,8 @@
 <h1 style="margin-bottom: 10px;"> Часть ВКР бакалавра(только клиенсткая сторона), содержащая программную реализацию ИС "Овцы"</h1>
 
 **Список технологий, использовавшихся в реализации**:
-1. Angular 11, Angular Material (Client-side)
-2. NodeJS, ExpressJS (Server-side), Mongoose(для работы с СУБД MongoDB)
+1. (Client-side) Angular 11, Angular Material
+2. (Server-side) NodeJS, ExpressJS , Mongoose(для работы с СУБД MongoDB)
 3. MongoDB (database)
 
 **Ключевые особенности проекта:**
