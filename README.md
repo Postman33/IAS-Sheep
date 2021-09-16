@@ -1,4 +1,4 @@
-<h1 style="margin-bottom: 10px;"> Краткое описание ВКР бакалавра, содержащая программную реализацию(только клиенсткая сторона) ИС "Овцы"</h1>
+<h1 style="margin-bottom: 10px;"> Реализация ИС "Овцы" (упрощенная)</h1>
 
 **Список технологий, использовавшихся в реализации**:
 1. (Client-side) Angular 11, Angular Material
@@ -22,6 +22,11 @@
 
 ![image](https://user-images.githubusercontent.com/20001037/132379012-82ca9d25-3230-483a-81ff-15625afd0d17.png)
 <br>
+**Модель базы данных** 
+![image](https://user-images.githubusercontent.com/20001037/133613565-819b64fd-4105-474c-9794-20c9a471fbb1.png)
+![image](https://user-images.githubusercontent.com/20001037/133613614-4b170eb6-11c6-44ee-be46-b5e599bf4872.png)
+![image](https://user-images.githubusercontent.com/20001037/133613708-1586524f-9f8f-4e0f-b87d-08ebd6e9948c.png)
+
 
 **Архитектура ИС**
 
@@ -37,7 +42,8 @@
 <li>Список овец:</li>
   
 ![image](https://user-images.githubusercontent.com/20001037/132133553-edb14303-9363-4c83-9498-35bfacb671f0.png)
-  
+  ![image](https://user-images.githubusercontent.com/20001037/133613825-00b7eb37-449b-42d3-b76b-adfc086d1e67.png)
+
 <li >Создание дат уведомлений:</li>
  
 ![image](https://user-images.githubusercontent.com/20001037/132133593-909546bf-65bc-44e7-9a7b-2485a66d3864.png)
